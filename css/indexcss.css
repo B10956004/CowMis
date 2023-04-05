@@ -1,0 +1,60 @@
+    html,
+    body {
+        height: 100%;
+    }
+    
+    #container {
+        padding: 15px;
+    }
+    
+    .form-group {
+        margin-bottom: 0.5rem;
+    }
+    
+    label {
+        margin-top: 0.5rem;
+        text-align: right;
+    }
+    
+    a.card-link {
+        background: none;
+        color: black;
+        font-weight: 600;
+        font-size: 18px;
+        letter-spacing: 1px;
+    }
+    
+    a.card-link:hover {
+        color: dodgerblue;
+    }
+    
+    .card {
+        /*    padding: 20px;*/
+        margin-bottom: 10px;
+        border-radius: 5px;
+    }
+    
+    .card-body {
+        background-color: whitesmoke;
+        border-bottom-left-radius: 15px;
+        border-bottom-right-radius: 15px;
+    }
+    
+    .card-header {
+        padding: .75rem 1.25rem;
+        margin-bottom: 0;
+        background: none;
+        border-bottom: none;
+    }
+    
+    .inside {
+        min-height: 10vh;
+    }
+    
+    .h3 {
+        max-height: 30px;
+    }
+    
+    .btn-outline-success {
+        max-height: 50px;
+    }

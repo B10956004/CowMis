@@ -1,0 +1,15 @@
+.container-all {
+    display: flex;
+    align-items: stretch;
+}
+
+.navbar-center {
+    display: inline-block;
+    float: none;
+    vertical-align: top;
+  }
+  
+  
+  .navbar-collapse-center {
+    text-align: center;
+  }
