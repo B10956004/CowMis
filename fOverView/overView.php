@@ -27,7 +27,7 @@ require_once("../SQLServer.php"); //注入SQL檔
 
 <body>
     <div id="content" style="width:100%; height:100% ;   padding:1.5rem  ;   ">
-        <span class="col-6" style="font-weight:bold;font-size:25px;"><i class="fas fa-home"></i>&nbsp;基本資訊總覽</span>
+        <span class="col-6" style="font-weight:bold;font-size:25px;"><i class="fas fa-home"></i>&nbsp;牛舍資訊總覽</span>
         <div class="container">
             <div class="row bg-light shadow p-3 mt-2">
                 <div class="col-4">
@@ -146,7 +146,7 @@ require_once("../SQLServer.php"); //注入SQL檔
                                         $sn = $row['sn'];
                                         $id = $row['id'];
                                         echo "<td>$id</td>";
-                                        echo "<td><img src=\"./發情.PNG\" width=\"75%\"></td>";
+                                        echo "<td><center><img src=\"./發情.PNG\" width=\"60%\"></center></td>";
                                         echo "<td><input type=\"button\" class=\"addEstrusDate btn-primary btn\" value=\"發情日期\" GetSn=\"$sn\" GetID=\"$id\"> <br><br> <input type=\"button\" class=\"addMatingDate btn-primary btn\" value=\"受精日期\" GetSn=\"$sn\" GetID=\"$id\"></td>";
                                         echo "</tr>";
                                         $i += 1;
@@ -177,8 +177,8 @@ require_once("../SQLServer.php"); //注入SQL檔
                             }
                             echo "<li class='page-item'><a class='page-link' aria-label='Next' href=?page=" . $pages . " ><span aria-hidden='true'>&raquo;</span></a></li></ul>
                                     </nav></div>";
-                            echo "<div class=\"col-12\">第" . $page . "/" . $pages . "頁-共" . $num . "筆</div></center>";
-
+                            //echo "<div class=\"col-12\">第" . $page . "/" . $pages . "頁-共" . $num . "筆</div></center>";
+                            echo "</center>";
                             ?>
                         </div>
                     </div>
@@ -315,20 +315,20 @@ require_once("../SQLServer.php"); //注入SQL檔
                                     <?php
                                     $query = "SELECT * FROM `pregnancy_check` WHERE (DATEDIFF(now(),`pregnancydate`)/30)>7 AND `pregnancyresult`='有' ";
                                     $result = mysqli_query($db_link, $query);
-                                    $num = mysqli_num_rows($result);
-                                    $per = 2; //每頁顯示項目數量
-                                    $pages = ceil($num / $per);
-                                    if ($pages == 0) {
-                                        $pages = 1;
-                                    }
-                                    if (!isset($_GET["page"])) {
-                                        $page = 1;
-                                    } else {
-                                        $page = intval($_GET["page"]);
-                                    }
-                                    $start = ($page - 1) * $per;
-
-                                    $query .= "ORDER BY `parturitiondate` ASC LIMIT $start,$per";
+                                    // $num = mysqli_num_rows($result);
+                                    // $per = 2; //每頁顯示項目數量
+                                    // $pages = ceil($num / $per);
+                                    // if ($pages == 0) {
+                                    //     $pages = 1;
+                                    // }
+                                    // if (!isset($_GET["page"])) {
+                                    //     $page = 1;
+                                    // } else {
+                                    //     $page = intval($_GET["page"]);
+                                    // }
+                                    // $start = ($page - 1) * $per;
+                                    // $query .= "ORDER BY `parturitiondate` ASC LIMIT $start,$per";
+                                    $query .= "ORDER BY `parturitiondate` ASC";
 
                                     $result = mysqli_query($db_link, $query);
                                     while ($row = mysqli_fetch_assoc($result)) {
@@ -354,30 +354,31 @@ require_once("../SQLServer.php"); //注入SQL檔
                                 </tbody>
                             </table>
                             <?php
-                            echo "
-                                    <center><div class='row text-center'>
-                                        <div class='col-12 justify-content-center' style='display:flex;'>
-                                                <nav aria-label='Page navigation example'>
-                                                    <ul class='pagination'>
-                                                        <li class='page-item'>
-                                                            <a class='page-link' href='?page=1' aria-label='Previous'>
-                                                                <span aria-hidden='true'>&laquo;</span>
-                                                            </a>
-                                                        </li> ";
+                            // 暫時遺棄
+                            // echo "
+                            //         <center><div class='row text-center'>
+                            //             <div class='col-12 justify-content-center' style='display:flex;'>
+                            //                     <nav aria-label='Page navigation example'>
+                            //                         <ul class='pagination'>
+                            //                             <li class='page-item'>
+                            //                                 <a class='page-link' href='?page=1' aria-label='Previous'>
+                            //                                     <span aria-hidden='true'>&laquo;</span>
+                            //                                 </a>
+                            //                             </li> ";
 
-                            for ($i = 1; $i <= $pages; $i++) {
-                                if ($page - 2 < $i && $i < $page + 4) {
-                                    if ($page == $i) {
-                                        echo "<li class='page-item active'><a class='page-link' href=?page=" . $i . " >" . $i . "</a></li> ";
-                                    }
-                                } else {
-                                    echo "<li class='page-item'><a class='page-link' href=?page=" . $i . " >" . $i . "</a></li> ";
-                                }
-                            }
-                            echo "<li class='page-item'><a class='page-link' aria-label='Next' href=?page=" . $pages . " ><span aria-hidden='true'>&raquo;</span></a></li></ul>
-                                    </nav></div>";
-                            echo "<div class=\"col-12\">第" . $page . "/" . $pages . "頁-共" . $num . "筆</div></center>";
-
+                            // for ($i = 1; $i <= $pages; $i++) {
+                            //     if ($page - 2 < $i && $i < $page + 4) {
+                            //         if ($page == $i) {
+                            //             echo "<li class='page-item active'><a class='page-link' href=?page=" . $i . " >" . $i . "</a></li> ";
+                            //         }
+                            //     } else {
+                            //         echo "<li class='page-item'><a class='page-link' href=?page=" . $i . " >" . $i . "</a></li> ";
+                            //     }
+                            // }
+                            // echo "<li class='page-item'><a class='page-link' aria-label='Next' href=?page=" . $pages . " ><span aria-hidden='true'>&raquo;</span></a></li></ul>
+                            //         </nav></div>";
+                            // //echo "<div class=\"col-12\">第" . $page . "/" . $pages . "頁-共" . $num . "筆</div></center>";
+                            // echo "</center>";
                             ?>
                         </div>
 
@@ -407,21 +408,21 @@ require_once("../SQLServer.php"); //注入SQL檔
                                         <?php
                                         $query = "SELECT * FROM pregnancy_check WHERE `details` IS NULL OR `details`= '' AND `pregnancyresult`='有' ";
                                         $result = mysqli_query($db_link, $query);
-                                        $num = mysqli_num_rows($result);
-                                        $per = 5; //每頁顯示項目數量
-                                        $pages = ceil($num / $per);
-                                        if ($pages == 0) {
-                                            $pages = 1;
-                                        }
-                                        if (!isset($_GET["page"])) {
-                                            $page = 1;
-                                        } else {
-                                            $page = intval($_GET["page"]);
-                                        }
-                                        $start = ($page - 1) * $per;
+                                        // $num = mysqli_num_rows($result);
+                                        // $per = 5; //每頁顯示項目數量
+                                        // $pages = ceil($num / $per);
+                                        // if ($pages == 0) {
+                                        //     $pages = 1;
+                                        // }
+                                        // if (!isset($_GET["page"])) {
+                                        //     $page = 1;
+                                        // } else {
+                                        //     $page = intval($_GET["page"]);
+                                        // }
+                                        // $start = ($page - 1) * $per;
 
-                                        $query .= "ORDER BY `intervaldays` DESC LIMIT $start,$per";
-
+                                        // $query .= "ORDER BY `intervaldays` DESC LIMIT $start,$per";
+                                        $query .= "ORDER BY `intervaldays` DESC";
                                         $result = mysqli_query($db_link, $query);
                                         $i = 1;
                                         while ($row = mysqli_fetch_assoc($result)) {
@@ -464,30 +465,31 @@ require_once("../SQLServer.php"); //注入SQL檔
                                     </tbody>
                                 </table>
                                 <?php
-                                echo "
-                                    <center><div class='row text-center'>
-                                        <div class='col-12 justify-content-center' style='display:flex;'>
-                                                <nav aria-label='Page navigation example'>
-                                                    <ul class='pagination'>
-                                                        <li class='page-item'>
-                                                            <a class='page-link' href='?page=1' aria-label='Previous'>
-                                                                <span aria-hidden='true'>&laquo;</span>
-                                                            </a>
-                                                        </li> ";
+                                // 暫時遺棄
+                                // echo "
+                                //     <center><div class='row text-center'>
+                                //         <div class='col-12 justify-content-center' style='display:flex;'>
+                                //                 <nav aria-label='Page navigation example'>
+                                //                     <ul class='pagination'>
+                                //                         <li class='page-item'>
+                                //                             <a class='page-link' href='?page=1' aria-label='Previous'>
+                                //                                 <span aria-hidden='true'>&laquo;</span>
+                                //                             </a>
+                                //                         </li> ";
 
-                                for ($i = 1; $i <= $pages; $i++) {
-                                    if ($page - 5 < $i && $i < $page + 4) {
-                                        if ($page == $i) {
-                                            echo "<li class='page-item active'><a class='page-link' href=?page=" . $i . " >" . $i . "</a></li> ";
-                                        } else {
-                                            echo "<li class='page-item'><a class='page-link' href=?page=" . $i . " >" . $i . "</a></li> ";
-                                        }
-                                    }
-                                }
-                                echo "<li class='page-item'><a class='page-link' aria-label='Next' href=?page=" . $pages . " ><span aria-hidden='true'>&raquo;</span></a></li></ul>
-                                    </nav></div>";
-                                echo "<div class=\"col-12\">第" . $page . "/" . $pages . "頁-共" . $num . "筆</div></center>";
-
+                                // for ($i = 1; $i <= $pages; $i++) {
+                                //     if ($page - 5 < $i && $i < $page + 4) {
+                                //         if ($page == $i) {
+                                //             echo "<li class='page-item active'><a class='page-link' href=?page=" . $i . " >" . $i . "</a></li> ";
+                                //         } else {
+                                //             echo "<li class='page-item'><a class='page-link' href=?page=" . $i . " >" . $i . "</a></li> ";
+                                //         }
+                                //     }
+                                // }
+                                // echo "<li class='page-item'><a class='page-link' aria-label='Next' href=?page=" . $pages . " ><span aria-hidden='true'>&raquo;</span></a></li></ul>
+                                //     </nav></div>";
+                                // //echo "<div class=\"col-12\">第" . $page . "/" . $pages . "頁-共" . $num . "筆</div>";
+                                // echo "</center>";
                                 ?>
                         </div>
                     </div>
