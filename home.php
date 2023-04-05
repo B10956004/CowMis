@@ -108,7 +108,7 @@ if (isset($_POST['Logout']) && $_POST['Logout'] == "true") {
                             <ul class="navbar-nav">
                                 <li class="nav-item dropdown">
                                     <button class="btn btn-dark" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <a class="dropdown-item" onclick="change_OverView() ;">牛隻總覽</a>
+                                        <a class="dropdown-item" onclick="change_OverView() ;">牛舍總覽</a>
                                     </button>
                                 </li>
                             </ul>
@@ -166,15 +166,15 @@ if (isset($_POST['Logout']) && $_POST['Logout'] == "true") {
         </header>
         <!-------網頁內文---------->
         <div class="container-all " style="background-color:#F5F5F5">
-            <div class="col-12 col-sm-3 ">
+            <div class="col-12 col-sm-2 ">
                 <div class="container-list" style="background-color:white;border:2px gray solid;height:110vh;margin: 30px;box-shadow: 0px 0px 5px  gray;">
                     要丟牛隻資訊!
                 </div>
             </div>
-            <div class="col-12 col-sm-9 " style="background-color:#F5F5F5; ">
+            <div class="col-12 col-sm-10 " style="background-color:#F5F5F5; ">
                 <div class="container-list" style="background-color:white;border:2px gray solid;height:110vh;margin: 30px;box-shadow: 0px 0px 5px  gray;">
                     <center>
-                        <iframe id="frame" src="fOverView/overView.php" style="display: block;border:none; width:100%; height:auto;"></iframe>
+                        <iframe id="frame" scrolling="no" src="fOverView/overView.php" style="display: block;border:none; width:100%; height:auto;"></iframe>
                     </center>
                 </div>
                 <script>
