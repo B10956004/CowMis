@@ -30,7 +30,7 @@
         $sn = $row['sn'];
         $id = $row['id'];
         echo "<td>狀態</td>";
-        echo "<td>$id</td>";
+        echo "<td><a href=\"../fCowId/cowInformation/cowInformation.php?GetSn=$sn\" target=\"frame\">$id</a></td>";
         echo "</tr>";
     }
     echo "</table>";
