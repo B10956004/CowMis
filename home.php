@@ -168,14 +168,14 @@ require_once("SQLServer.php"); //注入SQL檔
         <!-------網頁內文---------->
         <div class="container-all " style="background-color:#F5F5F5">
             <div class="col-12 col-sm-2 ">
-                <div class="container-list" style="background-color:white;border:2px gray solid;height:110vh;margin: 30px;box-shadow: 0px 0px 5px  gray;">
+                <div class="container-list" style="background-color:white;border:2px gray solid;height:120vh;margin: 30px;box-shadow: 0px 0px 5px  gray;">
                     <center>
                         <iframe name="CowFrame" id="CowFrame" scrolling="no" src="fOverView/cowStates.php" style="display: block;border:none; width:100%; height:auto;"></iframe>
                     </center>
                 </div>
             </div>
             <div class="col-12 col-sm-10 " style="background-color:#F5F5F5; ">
-                <div class="container-list" style="background-color:white;border:2px gray solid;height:110vh;margin: 30px;box-shadow: 0px 0px 5px  gray;">
+                <div class="container-list" style="background-color:white;border:2px gray solid;height:120vh;margin: 30px;box-shadow: 0px 0px 5px  gray;">
                     <center>
                         <iframe name="frame" id="frame" scrolling="no" src="fOverView/overView.php" style="display: block;border:none; width:100%; height:auto;"></iframe>
                     </center>
