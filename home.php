@@ -168,27 +168,19 @@ require_once("SQLServer.php"); //注入SQL檔
         <!-------網頁內文---------->
         <div class="container-all " style="background-color:#F5F5F5">
             <div class="col-12 col-sm-2 ">
-                <div class="container-list" style="background-color:white;border:2px gray solid;height:120vh;margin: 30px;box-shadow: 0px 0px 5px  gray;">
+                <div class="container-list" style="background-color:white;border:2px gray solid;height:100vh;margin: 30px;box-shadow: 0px 0px 5px  gray;">
                     <center>
-                        <iframe name="CowFrame" id="CowFrame" src="fOverView/cowStates.php" style="display: block;border:none; width:100%; height:120vh;"></iframe>
+                        <iframe name="CowFrame" id="CowFrame" src="fOverView/cowStates.php" style="overflow-y: scroll; overflow-x: hidden;display: block;border:none; width:100%; height:100vh;"></iframe>
                     </center>
                 </div>
             </div>
             <div class="col-12 col-sm-10 " style="background-color:#F5F5F5; ">
-                <div class="container-list" style="background-color:white;border:2px gray solid;height:120vh;margin: 30px;box-shadow: 0px 0px 5px  gray;">
+                <div class="container-list" style="background-color:white;border:2px gray solid;height:100vh;margin: 30px;box-shadow: 0px 0px 5px  gray;">
                     <center>
-                        <iframe name="frame" id="frame" scrolling="no" src="fOverView/overView.php" style="display: block;border:none; width:100%; height:auto;"></iframe>
+                        <iframe name="frame" id="frame" src="fOverView/Overview.php" style="overflow-y: scroll; overflow-x: hidden;display: block;border:none; width:100%; height:100vh;"></iframe>
                     </center>
                 </div>
-                <script>
-                    //自適應大小
-                    var frame = document.getElementById("frame");
-                    frame.onload = function() {
-                        var frameDoc = frame.contentDocument || frame.contentWindow.document;
-                        var frameHeight = frameDoc.documentElement.scrollHeight || frameDoc.body.scrollHeight;
-                        frame.style.height = frameHeight + "px";
-                    };
-                </script>
+                
             </div>
         </div>
         <!-- 底標 -->
