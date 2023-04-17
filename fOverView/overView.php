@@ -311,7 +311,7 @@ require_once("../SQLServer.php"); //注入SQL檔
                                         mysqli_query($db_link, $updateQuery);
                                     }
                                     ?>
-                                    <!-- 控制每頁的欄數 -->
+                                    <!-- 控制每頁的欄數 分娩前45~60天 -->
                                     <?php
                                     $query = "SELECT * FROM `pregnancy_check` WHERE (DATEDIFF(now(),`pregnancydate`)/30)>7 AND `pregnancyresult`='有' ";
                                     $result = mysqli_query($db_link, $query);
