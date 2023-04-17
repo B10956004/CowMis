@@ -97,7 +97,7 @@ require_once("../../SQLServer.php"); //注入SQL檔
                     <a href="#addCows" class="nav-link" data-toggle="tab">新增牛隻</a>
                 </li>
             </ul>
-            <div id='test'></div>
+
             <div class="tab-pane active bg-white shadow-sm p-4" id="cowsList">
                 <div class="container">
                     <div class="row">
