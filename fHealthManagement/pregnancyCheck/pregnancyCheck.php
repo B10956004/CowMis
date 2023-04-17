@@ -48,7 +48,7 @@ require_once("../../SQLServer.php");
                 $query = "SELECT * FROM cows_information ";
                 $result = mysqli_query($db_link, $query);
                 $num = mysqli_num_rows($result);
-                $per = 2; //每頁顯示項目數量
+                $per = 3; //每頁顯示項目數量
                 $pages = ceil($num / $per);
                 if ($pages == 0) {
                   $pages = 1;
@@ -90,7 +90,7 @@ require_once("../../SQLServer.php");
                                                         </li> ";
 
             for ($i = 1; $i <= $pages; $i++) {
-              if ($page - 2 < $i && $i < $page + 1) {
+              if ($page - 5 < $i && $i < $page + 4) {
                 if ($page == $i) {
                   echo "<li class='page-item active'><a class='page-link' href=?page=" . $i . " >" . $i . "</a></li> ";
                 } else {
