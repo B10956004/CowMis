@@ -170,7 +170,7 @@ require_once("SQLServer.php"); //注入SQL檔
             <div class="col-12 col-sm-2 ">
                 <div class="container-list" style="background-color:white;border:2px gray solid;height:120vh;margin: 30px;box-shadow: 0px 0px 5px  gray;">
                     <center>
-                        <iframe name="CowFrame" id="CowFrame" scrolling="no" src="fOverView/cowStates.php" style="display: block;border:none; width:100%; height:auto;"></iframe>
+                        <iframe name="CowFrame" id="CowFrame" src="fOverView/cowStates.php" style="display: block;border:none; width:100%; height:120vh;"></iframe>
                     </center>
                 </div>
             </div>
