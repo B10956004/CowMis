@@ -78,6 +78,9 @@ while ($row = mysqli_fetch_assoc($result)) {
               echo "<option style='display:none'>請選擇</option>";
             }
             ?>
+            <option value="正常" <?php if ($events == '正常') {
+                                    echo "hidden";
+                                  } ?>>正常</option>
             <option value="胎衣滯留" <?php if ($events == '胎衣滯留') {
                                     echo "hidden";
                                   } ?>>胎衣滯留</option>
