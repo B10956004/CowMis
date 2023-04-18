@@ -110,6 +110,11 @@ require_once("../SQLServer.php"); //注入SQL檔
                 </div>
                 <div class="col-12">
                     <h5 style="text-align: center;">發情判斷</h5>
+                    <div class="row">
+                        <div class="col-md-3 p-2">
+                            <input type="search" class="search form-control" data-table="table table-hover" placeholder="搜尋關鍵字" style="width:100%;">
+                        </div>
+                    </div>
                     <div class="collapse show" data-parent="#estrusRecord" id="cow_basic">
                         <div class="card-body" id="estrusRecord">
                             <table id="rule" class="table table-hover" width="50%" align="center" style="display: table-cell;vertical-align: middle;">
@@ -123,24 +128,24 @@ require_once("../SQLServer.php"); //注入SQL檔
                                 <tbody>
                                     <?php
                                     $query = "SELECT * FROM cows_information ";
-                                    $result = mysqli_query($db_link, $query);
-                                    $num = mysqli_num_rows($result);
-                                    $per = 1; //每頁顯示項目數量
-                                    $pages = ceil($num / $per);
-                                    if ($pages == 0) {
-                                        $pages = 1;
-                                    }
-                                    if (!isset($_GET["page"])) {
-                                        $page = 1;
-                                    } else {
-                                        $page = intval($_GET["page"]);
-                                    }
-                                    $start = ($page - 1) * $per;
+                                    // $result = mysqli_query($db_link, $query);
+                                    // $num = mysqli_num_rows($result);
+                                    // $per = 1; //每頁顯示項目數量
+                                    // $pages = ceil($num / $per);
+                                    // if ($pages == 0) {
+                                    //     $pages = 1;
+                                    // }
+                                    // if (!isset($_GET["page"])) {
+                                    //     $page = 1;
+                                    // } else {
+                                    //     $page = intval($_GET["page"]);
+                                    // }
+                                    // $start = ($page - 1) * $per;
 
-                                    $query .= "ORDER BY `id` DESC LIMIT $start,$per";
+                                    // $query .= "ORDER BY `id` DESC LIMIT $start,$per";
 
                                     $result = mysqli_query($db_link, $query);
-                                    $i = 1;
+                                    // $i = 1;
                                     while ($row = mysqli_fetch_array($result)) {
                                         echo "<tr>";
                                         $sn = $row['sn'];
@@ -149,36 +154,36 @@ require_once("../SQLServer.php"); //注入SQL檔
                                         echo "<td><center><img src=\"./發情.PNG\" width=\"60%\"></center></td>";
                                         echo "<td><input type=\"button\" class=\"addEstrusDate btn-primary btn\" value=\"發情日期\" GetSn=\"$sn\" GetID=\"$id\"> <br><br> <input type=\"button\" class=\"addMatingDate btn-primary btn\" value=\"受精日期\" GetSn=\"$sn\" GetID=\"$id\"></td>";
                                         echo "</tr>";
-                                        $i += 1;
+                                        // $i += 1;
                                     }
                                     ?>
                                 </tbody>
                             </table>
                             <?php
-                            echo "
-                                    <center><div class='row text-center'>
-                                        <div class='col-12 justify-content-center' style='display:flex;'>
-                                                <nav aria-label='Page navigation example'>
-                                                    <ul class='pagination'>
-                                                        <li class='page-item'>
-                                                            <a class='page-link' href='?page=1' aria-label='Previous'>
-                                                                <span aria-hidden='true'>&laquo;</span>
-                                                            </a>
-                                                        </li> ";
+                            // echo "
+                            //         <center><div class='row text-center'>
+                            //             <div class='col-12 justify-content-center' style='display:flex;'>
+                            //                     <nav aria-label='Page navigation example'>
+                            //                         <ul class='pagination'>
+                            //                             <li class='page-item'>
+                            //                                 <a class='page-link' href='?page=1' aria-label='Previous'>
+                            //                                     <span aria-hidden='true'>&laquo;</span>
+                            //                                 </a>
+                            //                             </li> ";
 
-                            for ($i = 1; $i <= $pages; $i++) {
-                                if ($page - 1 < $i && $i < $page + 1) {
-                                    if ($page == $i) {
-                                        echo "<li class='page-item active'><a class='page-link' href=?page=" . $i . " >" . $i . "</a></li> ";
-                                    }
-                                } else {
-                                    echo "<li class='page-item'><a class='page-link' href=?page=" . $i . " >" . $i . "</a></li> ";
-                                }
-                            }
-                            echo "<li class='page-item'><a class='page-link' aria-label='Next' href=?page=" . $pages . " ><span aria-hidden='true'>&raquo;</span></a></li></ul>
-                                    </nav></div>";
-                            //echo "<div class=\"col-12\">第" . $page . "/" . $pages . "頁-共" . $num . "筆</div></center>";
-                            echo "</center>";
+                            // for ($i = 1; $i <= $pages; $i++) {
+                            //     if ($page - 1 < $i && $i < $page + 1) {
+                            //         if ($page == $i) {
+                            //             echo "<li class='page-item active'><a class='page-link' href=?page=" . $i . " >" . $i . "</a></li> ";
+                            //         }
+                            //     } else {
+                            //         echo "<li class='page-item'><a class='page-link' href=?page=" . $i . " >" . $i . "</a></li> ";
+                            //     }
+                            // }
+                            // echo "<li class='page-item'><a class='page-link' aria-label='Next' href=?page=" . $pages . " ><span aria-hidden='true'>&raquo;</span></a></li></ul>
+                            //         </nav></div>";
+                            //// echo "<div class=\"col-12\">第" . $page . "/" . $pages . "頁-共" . $num . "筆</div></center>";
+                            // echo "</center>";
                             ?>
                         </div>
                     </div>
@@ -557,5 +562,53 @@ require_once("../SQLServer.php"); //注入SQL檔
     </div>
     </div>
 </body>
+<!-- 查詢功能 -->
+<script type="text/javascript">
+    (function(document) {
+        'use strict';
+
+
+        var LightTableFilter = (function(Arr) {
+
+            var _input;
+
+
+            function _onInputEvent(e) {
+                _input = e.target;
+                var tables = document.getElementsByClassName(_input.getAttribute('data-table'));
+                Arr.forEach.call(tables, function(table) {
+                    Arr.forEach.call(table.tBodies, function(tbody) {
+                        Arr.forEach.call(tbody.rows, _filter);
+                    });
+                });
+            }
+
+
+            function _filter(row) {
+                var text = row.textContent.toLowerCase(),
+                    val = _input.value.toLowerCase();
+                row.style.display = text.indexOf(val) === -1 ? 'none' : 'table-row';
+            }
+
+            return {
+
+                init: function() {
+                    var inputs = document.getElementsByClassName('search');
+                    Arr.forEach.call(inputs, function(input) {
+                        input.oninput = _onInputEvent;
+                    });
+                }
+            };
+        })(Array.prototype);
+
+
+        document.addEventListener('readystatechange', function() {
+            if (document.readyState === 'complete') {
+                LightTableFilter.init();
+            }
+        });
+
+    })(document);
+</script>
 
 </html>
