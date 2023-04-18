@@ -127,7 +127,7 @@ while ($row = mysqli_fetch_assoc($result)) {
         </script>
         <div class="col-12" hidden id="other">其他事件<input type="text" class="form-control mb-2" placeholder="填寫其他事件" name="textOther" id="textOther" /></div>
         <div class="col-12">
-          詳情<input type="text" class="form-control mb-2" placeholder="請輸入詳情" name="details" value="<?php echo $details ?>" required>
+          詳情<input type="text" class="form-control mb-2" placeholder="請輸入詳情" name="details" value="<?php echo $details ?>">
         </div>
 
       </div>

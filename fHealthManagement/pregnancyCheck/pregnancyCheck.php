@@ -218,7 +218,7 @@ require_once("../../SQLServer.php");
               <tbody>
                 <!-- 更新間隔天數 -->
                 <?php
-                $query = "SELECT * FROM pregnancy_check WHERE `events` IS NULL ORDER BY `id` , `matingdate` ";
+                $query = "SELECT * FROM pregnancy_check WHERE `events` IS NULL OR `events`='' ORDER BY `id` , `matingdate` ";
                 $result = mysqli_query($db_link, $query);
                 $i = 0;
                 while ($row = mysqli_fetch_assoc($result)) {
@@ -254,7 +254,7 @@ require_once("../../SQLServer.php");
                 ?>
                 <!-- 控制每頁的欄數 -->
                 <?php
-                $query = "SELECT * FROM pregnancy_check WHERE `events` IS NULL ORDER BY `intervaldays` DESC";
+                $query = "SELECT * FROM pregnancy_check WHERE `events` IS NULL OR `events`='' ORDER BY `intervaldays` DESC";
                 // $result = mysqli_query($db_link, $query);
                 // $num = mysqli_num_rows($result);
                 // $per = 5; //每頁顯示項目數量
