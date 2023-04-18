@@ -1,10 +1,10 @@
 <?php
 require_once("../../../SQLServer.php");
-$GetSn = $_GET['GetSn']; //選擇的牛隻
+$GetID = $_GET['GetID']; //選擇的牛隻
 ?>
 <div class="card-body">
     <?php
-    $query = "SELECT * FROM cows_information WHERE sn=$GetSn";
+    $query = "SELECT * FROM cows_information WHERE id='$GetID'";
     $result = mysqli_query($db_link, $query);
     while ($row = mysqli_fetch_assoc($result)) {
         $dob = $row['dob']; //生日
@@ -21,7 +21,7 @@ $GetSn = $_GET['GetSn']; //選擇的牛隻
         $stayDate=$stayDate.'天';
         // $leaveGroup = $row['leaveGroup']; //離開牛群
     }
-    echo "<h5 class=\"card-title\"><i class=\"fas fa-tint\"></i>&nbsp;牛隻資訊&nbsp;&nbsp;&nbsp;&nbsp;編號:$id &nbsp;&nbsp;<a href=\"#revise\" GetSn='$GetSn' class=\"btn btn-primary view_data\">編輯</a></h5>";
+    echo "<h5 class=\"card-title\"><i class=\"fas fa-tint\"></i>&nbsp;牛隻資訊&nbsp;&nbsp;&nbsp;&nbsp;編號:$id &nbsp;&nbsp;<a href=\"#revise\" GetID='$GetID' class=\"btn btn-primary view_data\">編輯</a></h5>";
     echo "
     <div class=\"row\">
     <div class=\"col-12\">
@@ -92,13 +92,13 @@ $GetSn = $_GET['GetSn']; //選擇的牛隻
 <!-- ajax Revise DataModal -->
 <script>
     $(document).on('click', '.view_data', function() {
-        var GetSn = $(this).attr("GetSn");
+        var GetID = $(this).attr("GetID");
 
         $.ajax({
             url: "cowInformation_Revise.php",
             method: "GET",
             data: {
-                GetSn: GetSn
+                GetID: GetID
             },
             success: function(data) {
                 // 將Revise頁面傳入浮動視窗

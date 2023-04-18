@@ -17,7 +17,7 @@ $query = "UPDATE pregnancy_check SET pregnancydate='$date',birthparity='$birthPa
 $result = mysqli_query($db_link,$query);
 if($result)
 {
-    header("location:../../cowInformation.php?GetSn={$GetSn}");
+    header("location:../../cowInformation.php?GetID={$id}");
 
 }
 else
@@ -27,5 +27,5 @@ echo 'Please Check Your Query';
 }
 else
 {
-    header("location:../../cowInformation.php?GetSn={$GetSn}");
+    header("location:../../cowInformation.php?GetID={$id}");
 }

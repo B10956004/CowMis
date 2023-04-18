@@ -1,13 +1,13 @@
 <!-- 連接資料庫 -->
 <?php
 include("../../SQLServer.php");
-$GetSn = $_GET['GetSn']; //序列號
+$GetID = $_GET['GetID']; //序列號
 
-$query = "SELECT * FROM cows_information WHERE sn='" . $GetSn . "'";
+$query = "SELECT * FROM cows_information WHERE id='" . $GetID . "'";
 $result = mysqli_query($db_link, $query);
 
 while ($row = mysqli_fetch_assoc($result)) {
-  $id = $row['id']; //編號
+  $sn = $row['sn']; //編號
   $dob = $row['dob']; //生日
   // $age = $row['age']; //年齡
   $birthParity = $row['birthParity']; //出生胎次
@@ -21,8 +21,8 @@ while ($row = mysqli_fetch_assoc($result)) {
 ?>
 <!DOCTYPE html>
 <!-- 搜尋特定欄位的資訊並以彈出視窗顯示 -->
-<form action="cowInformation_Revise_action.php?GetSn=<?php echo $GetSn ?>" method="post">
-  編號:<input type="text" class="form-control mb-2" placeholder="編號" name="id" value="<?php echo $id ?> " readonly>
+<form action="cowInformation_Revise_action.php?GetID=<?php echo $GetID ?>" method="post">
+  編號:<input type="text" class="form-control mb-2" placeholder="編號" name="id" value="<?php echo $GetID ?> " readonly>
   生日:<input type="date" class="form-control mb-2" placeholder="生日" name="dob" value="<?php echo $dob ?>" required>
   <div class="row">
     <div class="col-4">區域:<select class="form-select" name="selectArea" required>
@@ -48,9 +48,9 @@ while ($row = mysqli_fetch_assoc($result)) {
   echo "
                     <script>
                       $(\"#linkDelInformation\").click(function(){
-                        var yesDel = confirm(\"你確定要刪除這筆{$id}資料嗎？，刪除後不可復原。\");
+                        var yesDel = confirm(\"你確定要刪除這筆{$GetID}資料嗎？，刪除後不可復原。\");
                           if (yesDel) {
-                            $.post(\"./cowInformation_Delete.php\",{ Del: 1,postSn:$GetSn },function(result){
+                            $.post(\"./cowInformation_Delete.php\",{ Del: 1,postSn:$sn },function(result){
                                 location.href=\"cowInformation.php\";
                               });
                           }

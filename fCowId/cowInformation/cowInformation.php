@@ -23,7 +23,7 @@ require_once("../../SQLServer.php"); //注入SQL檔
     <script>
         //資料讀取
         function informationLoad(cow) {
-            var sn = cow.id;
+            var id = cow.id;
             //遺棄
             // $.ajax({
             //     url: "./card/selectCowInformation.php",
@@ -40,14 +40,14 @@ require_once("../../SQLServer.php"); //注入SQL檔
                 url: "./card/cowInformationDetail.php",
                 method: "GET",
                 data: {
-                    GetSn: sn
+                    GetID: id
                 },
                 success: function(data) {
                     $('#cowInformation').html(data);
                 }
             });
             $.get("./card/parturitionHistory.php", {
-                GetSn: sn
+                GetID: id
             }, function(data) {
                 $('#parturitionHistory').html(data);
             });
@@ -55,29 +55,29 @@ require_once("../../SQLServer.php"); //注入SQL檔
         }
         // ev.target.id,document.getElementById(data)
         function updataInformation(area, cow) {
-            var sn = cow.id;
+            var id = cow.id;
             $.post("./card/updataInformation.php", {
                 PostArea: area,
-                PostSn: sn,
+                PostID: id,
             }, informationLoad(cow))
         }
     </script>
     <?php
-    if (isset($_GET['GetSn'])) {
-        $GetSn = $_GET['GetSn'];
+    if (isset($_GET['GetID'])) {
+        $GetID = $_GET['GetID'];
         echo "<script>
         $.ajax({
             url: \"./card/cowInformationDetail.php\",
             method: \"GET\",
             data: {
-                GetSn: {$GetSn}
+                GetID: '$GetID'
             },
             success: function(data) {
                 $('#cowInformation').html(data);
             }
         });
         $.get(\"./card/parturitionHistory.php\", {
-            GetSn: {$GetSn}
+            GetID: '$GetID'
         }, function(data) {
             $('#parturitionHistory').html(data);
         });
@@ -120,7 +120,7 @@ require_once("../../SQLServer.php"); //注入SQL檔
                                                             $j = ceil($i / 2);
                                                             $k = 0;
                                                             while ($row = mysqli_fetch_array($result)) {
-                                                                echo "<button type=\"button\" class=\"col-6 btn btn-outline-success\" draggable=\"true\" ondragstart=\"drag(event)\" onclick=\"informationLoad(this)\" id=\"{$row['sn']}\">{$row['id']}</button>";
+                                                                echo "<button type=\"button\" class=\"col-6 btn btn-outline-success\" draggable=\"true\" ondragstart=\"drag(event)\" onclick=\"informationLoad(this)\" id=\"{$row['id']}\">{$row['id']}</button>";
                                                                 $k += 1;
                                                                 if ($k == $j) {
                                                                     $k += 1;
@@ -139,7 +139,7 @@ require_once("../../SQLServer.php"); //注入SQL檔
                                                         $result = mysqli_query($db_link, $sql);
                                                         if (mysqli_num_rows($result) != 0) {
                                                             while ($row = mysqli_fetch_array($result)) {
-                                                                echo "<button type=\"button\" class=\"col-6 btn btn-outline-success\" draggable=\"true\" ondragstart=\"drag(event)\" onclick=\"informationLoad(this)\" id=\"{$row['sn']}\">{$row['id']}</button>";
+                                                                echo "<button type=\"button\" class=\"col-6 btn btn-outline-success\" draggable=\"true\" ondragstart=\"drag(event)\" onclick=\"informationLoad(this)\" id=\"{$row['id']}\">{$row['id']}</button>";
                                                             }
                                                         }
                                                         ?>
@@ -157,7 +157,7 @@ require_once("../../SQLServer.php"); //注入SQL檔
                                                             while ($row = mysqli_fetch_array($result)) {
                                                                 $k += 1;
                                                                 if ($k > $j) {
-                                                                    echo "<button type=\"button\" class=\"col-6 btn btn-outline-success\" draggable=\"true\" ondragstart=\"drag(event)\" onclick=\"informationLoad(this)\" id=\"{$row['sn']}\">{$row['id']}</button>";
+                                                                    echo "<button type=\"button\" class=\"col-6 btn btn-outline-success\" draggable=\"true\" ondragstart=\"drag(event)\" onclick=\"informationLoad(this)\" id=\"{$row['id']}\">{$row['id']}</button>";
                                                                 }
                                                             }
                                                         }
@@ -172,7 +172,7 @@ require_once("../../SQLServer.php"); //注入SQL檔
                                                         $result = mysqli_query($db_link, $sql);
                                                         if (mysqli_num_rows($result) != 0) {
                                                             while ($row = mysqli_fetch_array($result)) {
-                                                                echo "<button type=\"button\" class=\"col-6 btn btn-outline-success\" draggable=\"true\" ondragstart=\"drag(event)\" onclick=\"informationLoad(this)\" id=\"{$row['sn']}\">{$row['id']}</button>";
+                                                                echo "<button type=\"button\" class=\"col-6 btn btn-outline-success\" draggable=\"true\" ondragstart=\"drag(event)\" onclick=\"informationLoad(this)\" id=\"{$row['id']}\">{$row['id']}</button>";
                                                             }
                                                         }
                                                         ?>
@@ -189,7 +189,7 @@ require_once("../../SQLServer.php"); //注入SQL檔
                                                             $j = ceil($i / 2);
                                                             $k = 0;
                                                             while ($row = mysqli_fetch_array($result)) {
-                                                                echo "<button type=\"button\" class=\"col-6 btn btn-outline-success\" draggable=\"true\" ondragstart=\"drag(event)\" onclick=\"informationLoad(this)\" id=\"{$row['sn']}\">{$row['id']}</button>";
+                                                                echo "<button type=\"button\" class=\"col-6 btn btn-outline-success\" draggable=\"true\" ondragstart=\"drag(event)\" onclick=\"informationLoad(this)\" id=\"{$row['id']}\">{$row['id']}</button>";
                                                                 $k += 1;
                                                                 if ($k == $j) {
                                                                     $k += 1;
@@ -208,7 +208,7 @@ require_once("../../SQLServer.php"); //注入SQL檔
                                                         $result = mysqli_query($db_link, $sql);
                                                         if (mysqli_num_rows($result) != 0) {
                                                             while ($row = mysqli_fetch_array($result)) {
-                                                                echo "<button type=\"button\" class=\"col-6 btn btn-outline-success\" draggable=\"true\" ondragstart=\"drag(event)\" onclick=\"informationLoad(this)\" id=\"{$row['sn']}\">{$row['id']}</button>";
+                                                                echo "<button type=\"button\" class=\"col-6 btn btn-outline-success\" draggable=\"true\" ondragstart=\"drag(event)\" onclick=\"informationLoad(this)\" id=\"{$row['id']}\">{$row['id']}</button>";
                                                             }
                                                         }
                                                         ?>
@@ -226,7 +226,7 @@ require_once("../../SQLServer.php"); //注入SQL檔
                                                             while ($row = mysqli_fetch_array($result)) {
                                                                 $k += 1;
                                                                 if ($k > $j) {
-                                                                    echo "<button type=\"button\" class=\"col-6 btn btn-outline-success\" draggable=\"true\" ondragstart=\"drag(event)\" onclick=\"informationLoad(this)\" id=\"{$row['sn']}\">{$row['id']}</button>";
+                                                                    echo "<button type=\"button\" class=\"col-6 btn btn-outline-success\" draggable=\"true\" ondragstart=\"drag(event)\" onclick=\"informationLoad(this)\" id=\"{$row['id']}\">{$row['id']}</button>";
                                                                 }
                                                             }
                                                         }
@@ -241,7 +241,7 @@ require_once("../../SQLServer.php"); //注入SQL檔
                                                         $result = mysqli_query($db_link, $sql);
                                                         if (mysqli_num_rows($result) != 0) {
                                                             while ($row = mysqli_fetch_array($result)) {
-                                                                echo "<button type=\"button\" class=\"col-6 btn btn-outline-success\" draggable=\"true\" ondragstart=\"drag(event)\" onclick=\"informationLoad(this)\" id=\"{$row['sn']}\">{$row['id']}</button>";
+                                                                echo "<button type=\"button\" class=\"col-6 btn btn-outline-success\" draggable=\"true\" ondragstart=\"drag(event)\" onclick=\"informationLoad(this)\" id=\"{$row['id']}\">{$row['id']}</button>";
                                                             }
                                                         }
                                                         ?>
@@ -368,6 +368,7 @@ require_once("../../SQLServer.php"); //注入SQL檔
                                                                 <th>胎次</th>
                                                                 <th>事件</th>
                                                                 <th>詳情</th>
+                                                                <th>編輯</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>

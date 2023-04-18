@@ -4,8 +4,7 @@ date_default_timezone_set('Asia/Taipei');
 if(isset($_POST['Del']))
 {
     $postSn=$_POST['postSn'];
-    $today=date("Y-m-d H:i:s");
-$query = "UPDATE `cows_information` SET `isDel` ='$today'  WHERE `sn` = '$postSn';"; //更新isDel取代資料刪除
+$query = "DELETE FROM `cows_information` WHERE `sn` = '$postSn';";
 $result = mysqli_query($db_link,$query);
 
 if($result)

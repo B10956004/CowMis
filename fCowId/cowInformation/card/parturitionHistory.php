@@ -1,24 +1,15 @@
 <?php
 require("../../../SQLServer.php");
-$GetSn = $_GET['GetSn'];
-$query = "SELECT * FROM pregnancy_check WHERE sn='$GetSn'";
+$GetID = $_GET['GetID'];
+$query = "SELECT * FROM pregnancy_check WHERE id='$GetID'";
 $result = mysqli_query($db_link, $query);
-if (mysqli_num_rows($result) != 0) {
-    while ($row = mysqli_fetch_assoc($result)) {
-        $id = $row['id'];
-        $date = $row['pregnancydate'];
-        $birthParity = $row['birthparity'];
-        $events = $row['events'];
-        $details = $row['details'];
-    }
-}
 ?>
 
 <div class="card-body">
     <h5 class="card-title"><i class="fas fa-heart"></i>&nbsp;歷史懷孕紀錄
         <?php
         if (mysqli_num_rows($result) != 0) {
-            echo "&nbsp;&nbsp;&nbsp;&nbsp;編號:$id &nbsp;&nbsp;<a href=\"#reviseHistory\" GetSn=\"$GetSn\" class=\"btn btn-primary view_historyData\">編輯</a>";
+            echo "&nbsp;&nbsp;&nbsp;&nbsp;編號:$GetID &nbsp;&nbsp;";
         }
         ?>
     </h5>
@@ -32,23 +23,32 @@ if (mysqli_num_rows($result) != 0) {
                         <th>胎次</th>
                         <th>事件</th>
                         <th>詳情</th>
+                        <th>編輯</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php
                     if (mysqli_num_rows($result) != 0) {
-                        echo "
+                        while ($row = mysqli_fetch_assoc($result)) {
+                            $sn=$row['sn'];
+                            $date = $row['pregnancydate'];
+                            $birthParity = $row['birthparity'];
+                            $events = $row['events'];
+                            $details = $row['details'];
+                            echo "
                             <tr>
                                 <td>$date</td>
                                 <td>$birthParity</td>
                                 <td>$events</td>
                                 <td>$details</td>
+                                <td><a href=\"#reviseHistory\" GetSn=\"$sn\" class=\"btn btn-primary view_historyData\">編輯</a></td>
                             </tr>
                         ";
+                        }
                     } else {
                         echo "
                             <tr>
-                                <td colspan='4'><center>無資料!</center></td>
+                                <td colspan='5'><center>無資料!</center></td>
                             </tr>
                         ";
                     }

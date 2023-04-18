@@ -58,7 +58,7 @@ while ($row = mysqli_fetch_assoc($result)) {
           }
     </script>
     <div class="col-4">
-      詳情<input type="text" class="form-control mb-2" placeholder="詳情" name="details" value="<?php echo $details ?>" required>
+      詳情<input type="text" class="form-control mb-2" placeholder="詳情" name="details" value="<?php echo $details ?>">
     </div>
     <div class="col-12" hidden id="other">其他事件<input type="text" class="form-control mb-2" placeholder="填寫其他事件" name="textOther" id="textOther"/></div>
   </div>
@@ -72,7 +72,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                         var yesDel = confirm(\"你確定要刪除這筆{$id}資料嗎？，刪除後不可復原。\");
                           if (yesDel) {
                             $.post(\"card/parturitionHistory/parturitionHistory_Delete.php\",{ Del: 1,postSn:$GetSn },function(result){
-                                location.href=\"cowInformation.php?GetSn={$GetSn}\";
+                                location.href=\"cowInformation.php?GetID={$id}\";
                               });
                           }
                         });
