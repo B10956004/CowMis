@@ -71,11 +71,10 @@ require_once("../../SQLServer.php");
                 // $i = 1;
                 while ($row = mysqli_fetch_array($result)) {
                   echo "<tr>";
-                  $sn = $row['sn'];
                   $id = $row['id'];
                   echo "<td>$id</td>";
                   echo "<td><img src=\"./發情.PNG\" width=\"75%\"></td>";
-                  echo "<td><input type=\"button\" class=\"addEstrusDate btn-primary btn\" value=\"發情日期\" GetSn=\"$sn\" GetID=\"$id\"> <br><br> <input type=\"button\" class=\"addMatingDate btn-primary btn\" value=\"受精日期\" GetSn=\"$sn\" GetID=\"$id\"></td>";
+                  echo "<td><input type=\"button\" class=\"addEstrusDate btn-primary btn\" value=\"發情日期\" GetID=\"$id\"> <br><br> <input type=\"button\" class=\"addMatingDate btn-primary btn\" value=\"受精日期\" GetID=\"$id\"></td>";
                   echo "</tr>";
                   // $i += 1;
                 }
@@ -129,13 +128,11 @@ require_once("../../SQLServer.php");
       </div>
       <script>
         $(document).on('click', '.addEstrusDate', function() {
-          var GetSn = $(this).attr("GetSn");
           var GetID = $(this).attr("GetID");
           $.ajax({
             url: "addEstrusDate.php",
             method: "GET",
             data: {
-              GetSn: GetSn,
               GetID: GetID
             },
 
@@ -167,13 +164,11 @@ require_once("../../SQLServer.php");
       </div>
       <script>
         $(document).on('click', '.addMatingDate', function() {
-          var GetSn = $(this).attr("GetSn");
           var GetID = $(this).attr("GetID");
           $.ajax({
             url: "addMatingDate.php",
             method: "GET",
             data: {
-              GetSn: GetSn,
               GetID: GetID
             },
 

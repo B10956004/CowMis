@@ -98,7 +98,7 @@ require_once("../../SQLServer.php");
                 <!-- 控制每頁的欄數 -->
                 <?php
                 //從details變events，不見得每次牛隻需記錄詳細。
-                $query = "SELECT * FROM pregnancy_check WHERE `events` IS NOT NULL ";
+                $query = "SELECT * FROM pregnancy_check WHERE `events` IS NOT NULL AND `events` !='' ";
                 $result = mysqli_query($db_link, $query);
                 $num = mysqli_num_rows($result);
                 $per = 5; //每頁顯示項目數量

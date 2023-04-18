@@ -17,13 +17,12 @@
 <?php
 if (isset($_POST['estrusDate'])) {
     require("../../SQLServer.php");
-    $sn = $_POST['GetSn'];
     $id = $_POST['GetID'];
     $estrusDate = $_POST['estrusDate'];
-    $query = "SELECT * FROM `pregnancy_check` WHERE sn='$sn' AND id='$id'";
+    $query = "SELECT * FROM `pregnancy_check` WHERE id='$id' AND pregnancyresult IS NULL OR pregnancyresult= '' ";
     $result = mysqli_query($db_link, $query);
     if (mysqli_num_rows($result) == 0) {
-        $query = "INSERT INTO `pregnancy_check`(`sn`, `id`, `estrusdate`) VALUES('$sn','$id','$estrusDate')";
+        $query = "INSERT INTO `pregnancy_check`(`id`, `estrusdate`) VALUES('$id','$estrusDate')";
         $result = mysqli_query($db_link, $query);
         if ($result) {
             header("location:pregnancyCheck.php");
@@ -31,6 +30,8 @@ if (isset($_POST['estrusDate'])) {
             echo 'Please Check Your Query';
         }
     } else {
+        $row=mysqli_fetch_array($result);
+        $sn=$row['sn'];
         $query = "UPDATE `pregnancy_check` SET `estrusdate`='$estrusDate' WHERE `sn`='$sn' AND `id`='$id'";
         $result = mysqli_query($db_link, $query);
         if ($result) {
