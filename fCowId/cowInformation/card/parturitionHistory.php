@@ -1,7 +1,7 @@
 <?php
 require("../../../SQLServer.php");
 $GetID = $_GET['GetID'];
-$query = "SELECT * FROM pregnancy_check WHERE id='$GetID'";
+$query = "SELECT * FROM pregnancy_check WHERE id='$GetID' ORDER BY `birthparity` DESC";
 $result = mysqli_query($db_link, $query);
 ?>
 
