@@ -126,6 +126,42 @@ require_once("../SQLServer.php"); //注入SQL檔
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <!-- 更新間隔天數 -->
+                                    <?php
+                                    $query = "SELECT * FROM pregnancy_check WHERE `events` IS NULL OR `events`='' ORDER BY `id` , `matingdate` ";
+                                    $result = mysqli_query($db_link, $query);
+                                    $i = 0;
+                                    while ($row = mysqli_fetch_assoc($result)) {
+                                        $sn = $row['sn']; //序列號
+                                        $id = $row['id']; //編號
+                                        if ($i == 0) {
+                                            $temp = $id;
+                                            $i += 1;
+                                        } else {
+                                            if ($id == $temp) {
+                                                $i += 1;
+                                            } else {
+                                                $temp = $id;
+                                                $i = 1;
+                                            }
+                                        }
+                                        $estrusdate = $row['estrusdate']; //發情日期
+                                        $matingdate = $row['matingdate']; //配種日期
+                                        if ($matingdate != "0000-00-00" && $estrusdate != "0000-00-00") {
+                                            $intervaldays = (strtotime($estrusdate) - strtotime($matingdate)) / (60 * 60 * 24); //間隔天數
+                                            if ($intervaldays < 0) {
+                                                $intervaldays = "";
+                                            } else {
+                                                $intervaldays = $intervaldays . '天';
+                                            }
+                                        } else {
+                                            $intervaldays = "";
+                                        }
+                                        $birthparity = $i;
+                                        $updateQuery = "UPDATE `pregnancy_check` SET `intervaldays`='$intervaldays',`birthparity`='$birthparity' WHERE `sn`='$sn' AND `id`='$id' ";
+                                        mysqli_query($db_link, $updateQuery);
+                                    }
+                                    ?>
                                     <?php
                                     $query = "SELECT * FROM cows_information ";
                                     // $result = mysqli_query($db_link, $query);
