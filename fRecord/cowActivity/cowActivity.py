@@ -15,7 +15,7 @@ plt.rcParams['font.sans-serif'] = ['SimHei']
 plt.rcParams['axes.unicode_minus'] = False
 
 # 讀取 CSV 檔案，並轉換為 DataFrame
-df = pd.read_csv('cowActivity0309.csv', skiprows=1, header=None)
+df = pd.read_csv('cowActivity.csv', skiprows=1, header=None)
 df = df.iloc[:, :-1]
 # 命名 DataFrame 的欄位名稱
 df.columns = ['時間', '設備名稱', '加速度X(g)', '加速度Y(g)', '加速度Z(g)',
