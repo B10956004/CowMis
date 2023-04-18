@@ -11,6 +11,10 @@ if (isset($_POST['Logout']) && $_POST['Logout'] == "true") {
     exit;
 }
 require_once("SQLServer.php"); //注入SQL檔
+for($i=31;$i<=60;$i++){
+$sql="UPDATE `cows_information` SET `areatime` = '2023-04-12' WHERE `cows_information`.`sn` = $i;";
+$result = mysqli_query($db_link, $sql);
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -143,7 +147,7 @@ require_once("SQLServer.php"); //注入SQL檔
                                         感測網服務管理
                                     </button>
                                     <ul class="dropdown-menu dropdown-menu-dark">
-                                        <li><a class="dropdown-item" onclick="change_Sensor() ;">物場觀測服務</a></li>
+                                        <li><a class="dropdown-item" onclick="change_Sensor() ;">牧場觀測服務</a></li>
                                         <li><a class="dropdown-item" onclick="change_SensorCow() ;">牛乳測量</a></li>
                                     </ul>
                                 </li>
