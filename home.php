@@ -11,10 +11,6 @@ if (isset($_POST['Logout']) && $_POST['Logout'] == "true") {
     exit;
 }
 require_once("SQLServer.php"); //注入SQL檔
-for($i=31;$i<=60;$i++){
-$sql="UPDATE `cows_information` SET `areatime` = '2023-04-12' WHERE `cows_information`.`sn` = $i;";
-$result = mysqli_query($db_link, $sql);
-}
 ?>
 <!DOCTYPE html>
 <html lang="en">
