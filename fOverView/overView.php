@@ -313,7 +313,24 @@ require_once("../SQLServer.php"); //注入SQL檔
                                     ?>
                                     <!-- 控制每頁的欄數 分娩前45~60天 -->
                                     <?php
-                                    $query = "SELECT * FROM `pregnancy_check` WHERE (DATEDIFF(now(),`pregnancydate`)/30)>7 AND `pregnancyresult`='有' ";
+                                    /*
+                                    解釋query
+                                    利用INNER JOIN指令找最新的懷孕日期及區域在已受孕的牛隻
+                                    顯示懷孕時間超過7個月且有懷孕的牛隻，由最近的排到最遠的。
+                                    */
+                                    $query = "SELECT t1.*
+                                    FROM `pregnancy_check` t1
+                                    INNER JOIN (
+                                      SELECT id, MAX(pregnancydate) AS max_date
+                                      FROM `pregnancy_check`
+                                      GROUP BY id
+                                    ) t2 ON t1.id = t2.id AND t1.pregnancydate = t2.max_date
+                                    INNER JOIN (
+                                      SELECT id, area
+                                      FROM `cows_information`
+                                      WHERE area = '已受孕'
+                                    ) t3 ON t1.id = t3.id
+                                    WHERE (DATEDIFF(now(), t1.pregnancydate)/30) > 7 AND t1.pregnancyresult = '有' ";
                                     $result = mysqli_query($db_link, $query);
                                     // $num = mysqli_num_rows($result);
                                     // $per = 2; //每頁顯示項目數量
@@ -328,8 +345,7 @@ require_once("../SQLServer.php"); //注入SQL檔
                                     // }
                                     // $start = ($page - 1) * $per;
                                     // $query .= "ORDER BY `parturitiondate` ASC LIMIT $start,$per";
-                                    $query .= "ORDER BY `parturitiondate` ASC";
-
+                                    $query .= "ORDER BY `parturitiondate` ASC; ";
                                     $result = mysqli_query($db_link, $query);
                                     while ($row = mysqli_fetch_assoc($result)) {
                                         $sn = $row['sn']; //序列號
