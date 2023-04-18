@@ -63,7 +63,7 @@ require_once("../../SQLServer.php");
               <tbody>
                 <!-- 控制每頁的欄數 -->
                 <?php
-                $query = "SELECT * FROM `cows_information` WHERE DATEDIFF(now(),`dob`)>365 AND `area`='未受孕' OR DATEDIFF(now(),`areatime`)>30 AND `area`='低乳' OR DATEDIFF(now(),`areatime`)>30 AND `area`='高乳' ";
+                $query = "SELECT * FROM `cows_information` WHERE (DATEDIFF(now(),`dob`)/30)>14 AND `area`='未受孕' OR DATEDIFF(now(),`areatime`)>30 AND `area`='低乳' OR DATEDIFF(now(),`areatime`)>30 AND `area`='高乳' ";
                 $result = mysqli_query($db_link, $query);
 
                 $num = mysqli_num_rows($result);
