@@ -10,7 +10,7 @@ $GetID = $_GET['GetID']; //選擇的牛隻
         $dob = $row['dob']; //生日
         $id=$row['id'];//名稱
         // $age = $row['age']; //年齡
-        $birthParity = $row['birthParity']; //出生胎次
+        $birthParity = $row['birthParity']; //胎次
         $calvingInterval = $row['calvingInterval']; //胎距
         $mid = $row['mid']; //母親牛編號
         $fid = $row['fid']; //父親牛編號
@@ -43,7 +43,7 @@ $GetID = $_GET['GetID']; //選擇的牛隻
                                             <input type=\"text\" class=\"col-12\" disabled> </p>
                                         </div>-->
                                         <div class=\"col-6\">
-                                            <p class=\"card-text\">出生胎次 <br>
+                                            <p class=\"card-text\">胎次 <br>
                                             <input type=\"text\" class=\"col-12\" value=$birthParity disabled> </p>
                                         </div>
                                         <div class=\"col-6\">

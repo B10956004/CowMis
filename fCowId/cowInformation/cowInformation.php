@@ -327,7 +327,7 @@ require_once("../../SQLServer.php"); //注入SQL檔
                                             <input type=\"text\" class=\"col-12\" disabled> </p>
                                         </div>-->
                                         <div class=\"col-6\">
-                                            <p class=\"card-text\">出生胎次 <br>
+                                            <p class=\"card-text\">胎次 <br>
                                             <input type=\"text\" class=\"col-12\" disabled> </p>
                                         </div>
                                         <div class=\"col-6\">
