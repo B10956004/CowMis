@@ -8,7 +8,7 @@
         if (isset($_GET['GetSn'])) { //判斷有無選擇
             $GetSn = $_GET['GetSn'];
         }
-        $query = "SELECT * FROM cows_information WHERE isDel=0 ";
+        $query = "SELECT * FROM cows_information ";
         $result = mysqli_query($db_link, $query);
         while ($row = mysqli_fetch_assoc($result)) {
             $sn = $row['sn']; //序列號
@@ -21,7 +21,7 @@
         }
         echo "</select>";
         if (isset($_GET['GetSn'])) { //選擇的牛隻
-            $query = "SELECT * FROM cows_information WHERE isDel=0 AND sn=$GetSn";
+            $query = "SELECT * FROM cows_information WHERE sn=$GetSn";
             $result = mysqli_query($db_link, $query);
             while ($row = mysqli_fetch_assoc($result)) {
                 $dob = $row['dob']; //生日
@@ -33,7 +33,7 @@
                 $leaveGroup = $row['leaveGroup']; //離開牛群
             }
         } else { //預設第一筆
-            $query = "SELECT * FROM cows_information WHERE isDel=0 AND sn=1";
+            $query = "SELECT * FROM cows_information WHERE sn=1";
             $result = mysqli_query($db_link, $query);
             while ($row = mysqli_fetch_assoc($result)) {
                 $dob = $row['dob']; //生日
