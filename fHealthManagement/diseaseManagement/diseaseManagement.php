@@ -201,6 +201,8 @@ require_once("../../SQLServer.php");
                     <option value="無">無</option>
                     <option value="乳房炎">乳房炎</option>
                     <option value="蹄病">蹄病</option>
+                    <option value="感冒">感冒</option>
+                    <option value="食滯">食滯</option>
                     <option value="其他疾病">其他</option>
                   </select>
                 </div>
