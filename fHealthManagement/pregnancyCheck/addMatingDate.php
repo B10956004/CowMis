@@ -19,7 +19,7 @@ if (isset($_POST['matingDate'])) {
     require("../../SQLServer.php");
     $id = $_POST['GetID'];
     $matingDate = $_POST['matingDate'];
-    $query = "SELECT * FROM `pregnancy_check` WHERE id='$id' AND pregnancyresult IS NULL OR pregnancyresult= '' ";
+    $query = "SELECT * FROM `pregnancy_check` WHERE id='$id' AND pregnancyresult IS NULL OR pregnancyresult= '' OR pregnancyresult='無' ";
     $result = mysqli_query($db_link, $query);
     if (mysqli_num_rows($result) == 0) {
 
