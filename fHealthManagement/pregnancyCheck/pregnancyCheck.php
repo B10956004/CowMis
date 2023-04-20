@@ -215,21 +215,9 @@ require_once("../../SQLServer.php");
                 <?php
                 $query = "SELECT * FROM pregnancy_check WHERE `events` IS NULL OR `events`='' ORDER BY `id` , `matingdate` ";
                 $result = mysqli_query($db_link, $query);
-                $i = 0;
                 while ($row = mysqli_fetch_assoc($result)) {
                   $sn = $row['sn']; //序列號
                   $id = $row['id']; //編號
-                  if ($i == 0) {
-                    $temp = $id;
-                    $i += 1;
-                  } else {
-                    if ($id == $temp) {
-                      $i += 1;
-                    } else {
-                      $temp = $id;
-                      $i = 1;
-                    }
-                  }
                   $estrusdate = $row['estrusdate']; //發情日期
                   $matingdate = $row['matingdate']; //配種日期
                   if ($matingdate != "0000-00-00" && $estrusdate != "0000-00-00") {
@@ -242,8 +230,7 @@ require_once("../../SQLServer.php");
                   } else {
                     $intervaldays = "";
                   }
-                  $birthparity = $i;
-                  $updateQuery = "UPDATE `pregnancy_check` SET `intervaldays`='$intervaldays',`birthparity`='$birthparity' WHERE `sn`='$sn' AND `id`='$id' ";
+                  $updateQuery = "UPDATE `pregnancy_check` SET `intervaldays`='$intervaldays' WHERE `sn`='$sn' AND `id`='$id' ";
                   mysqli_query($db_link, $updateQuery);
                 }
                 ?>
@@ -267,7 +254,7 @@ require_once("../../SQLServer.php");
                 // $query .= "ORDER BY `intervaldays` DESC LIMIT $start,$per";
 
                 $result = mysqli_query($db_link, $query);
-                // $i = 1;
+                $i = 1;
                 while ($row = mysqli_fetch_assoc($result)) {
                   $sn = $row['sn']; //序列號
                   $id = $row['id']; //編號
