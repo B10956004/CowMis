@@ -68,7 +68,7 @@ require_once("../../SQLServer.php");
 
                 $num = mysqli_num_rows($result);
                 if ($num != 0) {
-                  $per = 5; //每頁顯示項目數量
+                  $per = 6; //每頁顯示項目數量
                   $pages = ceil($num / $per);
                   if ($pages == 0) {
                     $pages = 1;
