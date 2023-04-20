@@ -1,6 +1,16 @@
 <?php
 require_once("../../../SQLServer.php");
 $GetID = $_GET['GetID']; //選擇的牛隻
+$selectQuery = "SELECT * FROM `pregnancy_check` WHERE id='$GetID' AND events!='空胎' ORDER BY parturitiondate DESC LIMIT 2"; //比對最新兩筆
+$resultSelect = mysqli_query($db_link, $selectQuery);
+$array = mysqli_fetch_all($resultSelect);
+if (mysqli_num_rows($resultSelect) >= 2) { //確認有無兩筆以上紀錄
+    $calvingInterval = (strtotime($array[0][8]) - strtotime($array[1][8])) / 86400 . '天'; //分娩日期
+} else {
+    $calvingInterval = 0 . '天';
+}
+$updateQuery = "UPDATE `cows_information` SET `calvingInterval`='$calvingInterval' WHERE `id`='$GetID'";
+mysqli_query($db_link, $updateQuery);
 ?>
 <div class="card-body">
     <?php
@@ -8,17 +18,17 @@ $GetID = $_GET['GetID']; //選擇的牛隻
     $result = mysqli_query($db_link, $query);
     while ($row = mysqli_fetch_assoc($result)) {
         $dob = $row['dob']; //生日
-        $id=$row['id'];//名稱
+        $id = $row['id']; //名稱
         // $age = $row['age']; //年齡
         $birthParity = $row['birthParity']; //胎次
         $calvingInterval = $row['calvingInterval']; //胎距
         $mid = $row['mid']; //母親牛編號
         $fid = $row['fid']; //父親牛編號
-        $area=$row['area'];//所在區域
-        $areatime=$row['areatime'];//駐留天數
-        $today=date("Y-m-d");
-        $stayDate=(strtotime($today)-strtotime($areatime))/86400;//60*60*24
-        $stayDate=$stayDate.'天';
+        $area = $row['area']; //所在區域
+        $areatime = $row['areatime']; //駐留天數
+        $today = date("Y-m-d");
+        $stayDate = (strtotime($today) - strtotime($areatime)) / 86400; //60*60*24
+        $stayDate = $stayDate . '天';
         // $leaveGroup = $row['leaveGroup']; //離開牛群
     }
     echo "<h5 class=\"card-title\"><i class=\"fas fa-tint\"></i>&nbsp;牛隻資訊&nbsp;&nbsp;&nbsp;&nbsp;編號:$id &nbsp;&nbsp;<a href=\"#revise\" GetID='$GetID' class=\"btn btn-primary view_data\">編輯</a></h5>";
