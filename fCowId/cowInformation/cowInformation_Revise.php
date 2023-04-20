@@ -33,7 +33,7 @@ while ($row = mysqli_fetch_assoc($result)) {
         <option value="未受孕"<?php if($area=='未受孕'){echo"selected";}?>>未受孕</option>
         <option value="小牛"<?php if($area=='小牛'){echo"selected";}?>>小牛</option>
       </select></div>
-    <div class="col-4">出生胎次:<input type="number" min="1" class="form-control mb-2" placeholder="出生胎次" name="birthParity" value="<?php echo $birthParity ?>" required></div>
+    <div class="col-4">胎次:<input type="number" min="1" class="form-control mb-2" placeholder="胎次" name="birthParity" value="<?php echo $birthParity ?>" required></div>
     <div class="col-4">胎距:<input type="text" class="form-control mb-2" placeholder="胎距" name="calvingInterval" value="<?php echo $calvingInterval ?>" required readonly></div>
   </div>
   <div class="row">
