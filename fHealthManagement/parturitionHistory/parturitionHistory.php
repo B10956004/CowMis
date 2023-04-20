@@ -113,7 +113,7 @@ require_once("../../SQLServer.php");
                 }
                 $start = ($page - 1) * $per;
 
-                $query .= "ORDER BY `intervaldays` DESC LIMIT $start,$per";
+                $query .= "ORDER BY `parturitiondate` DESC ,`intervaldays` DESC LIMIT $start,$per";
 
                 $result = mysqli_query($db_link, $query);
                 $i = 1;
