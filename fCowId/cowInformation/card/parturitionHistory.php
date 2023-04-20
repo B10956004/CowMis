@@ -1,7 +1,7 @@
 <?php
 require("../../../SQLServer.php");
 $GetID = $_GET['GetID'];
-$query = "SELECT * FROM pregnancy_check WHERE id='$GetID' ORDER BY `birthparity` DESC";
+$query = "SELECT * FROM pregnancy_check WHERE id='$GetID'  ORDER BY `birthparity` DESC ";
 $result = mysqli_query($db_link, $query);
 ?>
 
@@ -32,6 +32,9 @@ $result = mysqli_query($db_link, $query);
                         while ($row = mysqli_fetch_assoc($result)) {
                             $sn=$row['sn'];
                             $date = $row['parturitiondate'];
+                            if($date=='0000-00-00'){
+                                $date="正在進行...";
+                            }
                             $birthParity = $row['birthparity'];
                             $events = $row['events'];
                             $details = $row['details'];
