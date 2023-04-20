@@ -10,8 +10,15 @@ if (isset($_POST['update']))
     $mid = $_POST['mid']; //母親牛編號
     $fid = $_POST['fid']; //精液編號
     $area=$_POST['selectArea'];//區域
-    $now=date("Y-m-d");
-    $query="UPDATE cows_information SET dob='$dob',birthParity='$birthParity',calvingInterval='$calvingInterval',mid='$mid',fid='$fid',area='$area',areatime='$now' WHERE `id`= '$GetID'";
+    $selectQuery="SELECT * FROM `cows_information` WHERE id='$GetID'";//確認區域一樣
+    $array=mysqli_fetch_array(mysqli_query($db_link,$selectQuery));
+    $databaseArea=$array['area'];
+    if($area!=$databaseArea){
+        $now=date("Y-m-d");//不一樣 重新記錄駐留天數
+        $query="UPDATE cows_information SET dob='$dob',birthParity='$birthParity',calvingInterval='$calvingInterval',mid='$mid',fid='$fid',area='$area',areatime='$now' WHERE `id`= '$GetID'";
+    }else{
+        $query="UPDATE cows_information SET dob='$dob',birthParity='$birthParity',calvingInterval='$calvingInterval',mid='$mid',fid='$fid' WHERE `id`= '$GetID'";
+    }
     $result = mysqli_query($db_link,$query);
 
 if($result)
