@@ -30,7 +30,7 @@ while ($row = mysqli_fetch_assoc($result)) {
         </div>
         <div class="col-2">
           <p>胎次</p>
-          <input type="text" class="form-control card-text" placeholder="請輸入胎次" name="birthparity" value='<?php echo $birthparity; ?>' readonly>
+          <input type="text" class="form-control card-text" name="birthparity" value='<?php echo $birthparity; ?>' readonly>
         </div>
         <div class="col-6">
           <p>發情日期</p>
@@ -87,12 +87,6 @@ while ($row = mysqli_fetch_assoc($result)) {
             <option value="空胎" <?php if ($events == '空胎') {
                                   echo "hidden";
                                 } ?>>空胎</option>
-            <option value="感冒" <?php if ($events == '感冒') {
-                                  echo "hidden";
-                                } ?>>感冒</option>
-            <option value="食滯" <?php if ($events == '食滯') {
-                                  echo "hidden";
-                                } ?>>食滯</option>
             <option value="子宮外翻" <?php if ($events == '子宮外翻') {
                                     echo "hidden";
                                   } ?>>子宮外翻</option>
