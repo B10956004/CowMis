@@ -28,11 +28,12 @@ if (isset($_POST['estrusDate'])) {
         if(mysqli_num_rows($searchResult)!=0){
             $rows=mysqli_fetch_array($searchResult);
             $birthparity=$rows['birthparity']+1;
+            $updateMotherQuery = "UPDATE `cows_information` SET `birthParity`='{$rows['birthparity']}' WHERE `id`='$id'";
         }else{
             $birthparity=1;
+            $updateMotherQuery = "UPDATE `cows_information` SET `birthParity`='$birthparity' WHERE `id`='$id'";
         }
 
-        $updateMotherQuery = "UPDATE `cows_information` SET `birthParity`='{$rows['birthparity']}' WHERE `id`='$id'";
         mysqli_query($db_link, $updateMotherQuery);
 
         $query = "INSERT INTO `pregnancy_check`(`id`, `estrusdate`,`birthParity`) VALUES('$id','$estrusDate','$birthparity')";
