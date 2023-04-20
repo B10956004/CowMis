@@ -7,7 +7,7 @@ $result = mysqli_query($db_link, $query);
 
 while ($row = mysqli_fetch_assoc($result)) {
   $id = $row['id'];
-  $date = $row['pregnancydate'];
+  $date = $row['parturitiondate'];
   $birthParity = $row['birthparity'];
   $events = $row['events'];
   $details = $row['details'];
@@ -25,18 +25,15 @@ while ($row = mysqli_fetch_assoc($result)) {
     <div class="col-4">
       事件<select class="form-select" name="selectEvent" id="selectEvent" onchange="eventsChange(this)" required>
         <?php echo"<option value='$events' selected>$events</option>";?>
+        <option value="正常" <?php if ($events == '正常') {
+                                echo "hidden";
+                              } ?>>正常</option>
         <option value="胎衣滯留" <?php if ($events == '胎衣滯留') {
                                 echo "hidden";
                               } ?>>胎衣滯留</option>
         <option value="空胎" <?php if ($events == '空胎') {
                               echo "hidden";
                             } ?>>空胎</option>
-        <option value="感冒" <?php if ($events == '感冒') {
-                              echo "hidden";
-                            } ?>>感冒</option>
-        <option value="食滯" <?php if ($events == '食滯') {
-                              echo "hidden";
-                            } ?>>食滯</option>
         <option value="子宮外翻" <?php if ($events == '子宮外翻') {
                                 echo "hidden";
                               } ?>>子宮外翻</option>

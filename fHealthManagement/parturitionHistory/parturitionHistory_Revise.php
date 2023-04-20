@@ -51,7 +51,7 @@ while ($row = mysqli_fetch_assoc($result)) {
         <div class="col-3">
           <p>測孕結果</p>
           <select class="form-select" name="pregnancyresult" id="pregnancyresult" required>
-          <?php if ($events != '') {
+            <?php if ($events != '') {
               echo "<option value='$pregnancyresult' selected>$pregnancyresult</option>";
             } else {
               echo "<option style='display:none'>請選擇</option>";
@@ -70,7 +70,7 @@ while ($row = mysqli_fetch_assoc($result)) {
           <input type="date" class="form-control card-text" placeholder="請輸入檢查日期" name="parturitiondate" value='<?php echo $parturitiondate; ?>' required>
         </div>
         <div class="col-6">
-          <p>事件</p>
+          <p>事件</p> 
           <select class="form-select" name="selectEvent" id="selectEvent" onchange="eventsChange(this)" required>
             <?php if ($events != '') {
               echo "<option value='$events' selected>$events</option>";
@@ -78,18 +78,15 @@ while ($row = mysqli_fetch_assoc($result)) {
               echo "<option style='display:none'>請選擇</option>";
             }
             ?>
+            <option value="正常" <?php if ($events == '正常') {
+                                  echo "hidden";
+                                } ?>>正常</option>
             <option value="胎衣滯留" <?php if ($events == '胎衣滯留') {
                                     echo "hidden";
                                   } ?>>胎衣滯留</option>
             <option value="空胎" <?php if ($events == '空胎') {
                                   echo "hidden";
                                 } ?>>空胎</option>
-            <option value="感冒" <?php if ($events == '感冒') {
-                                  echo "hidden";
-                                } ?>>感冒</option>
-            <option value="食滯" <?php if ($events == '食滯') {
-                                  echo "hidden";
-                                } ?>>食滯</option>
             <option value="子宮外翻" <?php if ($events == '子宮外翻') {
                                     echo "hidden";
                                   } ?>>子宮外翻</option>
