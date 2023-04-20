@@ -19,7 +19,8 @@ if (isset($_POST['estrusDate'])) {
     require("../../SQLServer.php");
     $id = $_POST['GetID'];
     $estrusDate = $_POST['estrusDate'];
-    $query = "SELECT * FROM `pregnancy_check` WHERE id='$id' AND pregnancyresult IS NULL OR pregnancyresult= '' OR pregnancyresult='無' ";
+    echo $id.$estrusDate;
+    $query = "SELECT * FROM `pregnancy_check` WHERE id='$id' AND pregnancyresult IS NULL OR pregnancyresult= '' OR id='$id' AND pregnancyresult='無' ";
     $result = mysqli_query($db_link, $query);
     if (mysqli_num_rows($result) == 0) {//有無正在進行的懷孕期
 
