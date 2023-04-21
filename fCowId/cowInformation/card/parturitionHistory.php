@@ -32,7 +32,7 @@ $result = mysqli_query($db_link, $query);
                         while ($row = mysqli_fetch_assoc($result)) {
                             $sn=$row['sn'];
                             $date = $row['parturitiondate'];
-                            if($date=='0000-00-00'){
+                            if($date=='0000-00-00'||$date==''){
                                 $date="正在進行...";
                             }
                             $birthParity = $row['birthparity'];
