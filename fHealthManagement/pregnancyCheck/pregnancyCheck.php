@@ -25,7 +25,7 @@ require_once("../../SQLServer.php");
     <div class="tab-content">
       <ul class="nav nav-tabs" role="tablist">
         <li class="nav-item">
-          <a href="#predEstrus" class="nav-link active" data-toggle="tab">預測發情</a>
+          <a href="#predEstrus" class="nav-link active" data-toggle="tab">發情判斷</a>
         </li>
         <li class="nav-item">
           <a href="#pregnancyCheck" class="nav-link" data-toggle="tab">妊娠檢查</a>
@@ -44,7 +44,7 @@ require_once("../../SQLServer.php");
               <thead>
                 <tr>
                   <th>編號</th>
-                  <th>預測發情</th>
+                  <th>發情判斷</th>
                   <th>狀態填寫</th>
                 </tr>
               </thead>
