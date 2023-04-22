@@ -4,6 +4,7 @@ require_once("../../SQLServer.php");
 if (isset($_POST['update'])) {
     $GetSn = $_GET['GetSn'];
     $id = $_POST['id'];
+    $birthparity=$_POST['birthparity'];
     $estrusdate = $_POST['estrusdate'];
     $matingdate = $_POST['matingdate'];
     $intervaldays = $_POST['intervaldays'];
@@ -22,8 +23,6 @@ if (isset($_POST['update'])) {
     if ($_POST['selectEvent'] != '其他') {
         if ($_POST['selectEvent'] != '請選擇') {
             $events = $_POST['selectEvent'];
-        } else {
-            $events = '';
         }
     } else {
         $events = $_POST['textOther'];
@@ -34,6 +33,11 @@ if (isset($_POST['update'])) {
         $details = '';
     }
 
+    if($events!='空胎'){
+        $updateMotherQuery = "UPDATE `cows_information` SET `birthparity`='$birthparity' WHERE `id`='$id'";
+        mysqli_query($db_link, $updateMotherQuery);
+    }
+    
     $query = "UPDATE pregnancy_check SET estrusdate='$estrusdate',matingdate='$matingdate',
     intervaldays='$intervaldays',pregnancydate='$pregnancydate',pregnancyresult='$pregnancyresult',parturitiondate='$parturitiondate'
     ,events='$events',details='$details' WHERE `sn`='$GetSn' AND `id`='$id'";

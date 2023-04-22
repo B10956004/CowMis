@@ -21,7 +21,8 @@ while ($row = mysqli_fetch_assoc($result)) {
   分娩日期<input type="date" class="form-control mb-2" placeholder="日期" name="date" value="<?php echo $date ?>" required>
   <div class="row">
     <div class="col-4">
-      胎次(配種數)<input type="text" class="form-control mb-2" placeholder="胎次" name="birthParity" value="<?php echo $birthParity."({$matingcount})"; ?>" readonly>
+      胎次(配種數)<input type="text" class="form-control card-text" name="birthparity(matingcount)" value='<?php echo $birthParity."({$matingcount})"; ?>' readonly>
+        <input type="hidden" name="birthparity" value="<?php echo $birthParity?>">
     </div>
     <div class="col-4">
       事件<select class="form-select" name="selectEvent" id="selectEvent" onchange="eventsChange(this)" required>
