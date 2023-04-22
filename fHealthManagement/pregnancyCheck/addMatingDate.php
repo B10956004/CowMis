@@ -47,7 +47,9 @@ if (isset($_POST['matingDate'])) {
         //更新資料
         $row = mysqli_fetch_array($result);
         $sn = $row['sn'];
-        $query = "UPDATE `pregnancy_check` SET `matingDate`='$matingDate' WHERE `sn`='$sn' AND `id`='$id'";
+        $matingcount=$row['matingcount'];
+        $matingcount+=1;
+        $query = "UPDATE `pregnancy_check` SET `matingDate`='$matingDate',`matingcount`='$matingcount' WHERE `sn`='$sn' AND `id`='$id'";
         $result = mysqli_query($db_link, $query);
         if ($result) {
             header("location:pregnancyCheck.php");
