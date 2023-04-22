@@ -4,7 +4,6 @@ require_once("../../SQLServer.php");
 if (isset($_POST['update'])) {
     $GetSn = $_GET['GetSn'];
     $id = $_POST['id'];
-    $birthparity = $_POST['birthparity'];
     $estrusdate = $_POST['estrusdate'];
     $matingdate = $_POST['matingdate'];
     $intervaldays = $_POST['intervaldays'];
@@ -39,7 +38,7 @@ if (isset($_POST['update'])) {
         $details = '';
     }
 
-    $query = "UPDATE pregnancy_check SET birthparity='$birthparity',estrusdate='$estrusdate',matingdate='$matingdate',
+    $query = "UPDATE pregnancy_check SET estrusdate='$estrusdate',matingdate='$matingdate',
     intervaldays='$intervaldays',pregnancydate='$pregnancydate',pregnancyresult='$pregnancyresult',parturitiondate='$parturitiondate'
     ,events='$events',details='$details' WHERE `sn`='$GetSn' AND `id`='$id'";
     $result = mysqli_query($db_link, $query);
