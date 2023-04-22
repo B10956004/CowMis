@@ -4,6 +4,7 @@ require_once("../../SQLServer.php");
 if (isset($_POST['update'])) {
     $GetSn = $_GET['GetSn'];
     $id = $_POST['id'];
+    $birthparity=$_POST['birthparity'];
     $estrusdate = $_POST['estrusdate'];
     $matingdate = $_POST['matingdate'];
     $intervaldays = $_POST['intervaldays'];
