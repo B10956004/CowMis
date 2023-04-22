@@ -463,7 +463,7 @@ require_once("../SQLServer.php"); //注入SQL檔
                                     <tbody>
                                         <!-- 控制每頁的欄數 -->
                                         <?php
-                                        $query = "SELECT * FROM pregnancy_check WHERE `events` IS NULL OR `events`= '' AND `pregnancyresult`='有' ";
+                                        $query = "SELECT * FROM pregnancy_check WHERE (`events` IS NULL OR `events`= '') AND `pregnancyresult`='有' AND DATEDIFF(DATE_ADD(matingdate, INTERVAL 9 MONTH),CURDATE()) < 30 ";//配種後+9個月
                                         $result = mysqli_query($db_link, $query);
                                         // $num = mysqli_num_rows($result);
                                         // $per = 5; //每頁顯示項目數量
@@ -479,7 +479,7 @@ require_once("../SQLServer.php"); //注入SQL檔
                                         // $start = ($page - 1) * $per;
 
                                         // $query .= "ORDER BY `intervaldays` DESC LIMIT $start,$per";
-                                        $query .= "ORDER BY `intervaldays` DESC ";
+                                        $query .= "ORDER BY `matingdate`";
                                         $result = mysqli_query($db_link, $query);
                                         $i = 1;
                                         while ($row = mysqli_fetch_assoc($result)) {
