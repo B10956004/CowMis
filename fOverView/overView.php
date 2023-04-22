@@ -300,7 +300,7 @@ require_once("../SQLServer.php"); //注入SQL檔
                         });
                     </script>
                 </div>
-                <div class="col-6">
+                <div class="col-5">
                     <h5 style="text-align: center;">準備轉至乾乳牛隻</h5>
                     <div class="table-responsive" style="overflow: hidden;">
                         <div id="cow_table" style="text-align:center;">
@@ -443,7 +443,7 @@ require_once("../SQLServer.php"); //注入SQL檔
                         </center>
                     </div>
                 </div>
-                <div class="col-6">
+                <div class="col-7">
                     <h5 style="text-align: center;">即將分娩牛隻</h5>
                     <div class="collapse show" data-parent="#birth_data" id="cow_basic">
                         <div class="card-body" id="birth_data">
@@ -452,9 +452,9 @@ require_once("../SQLServer.php"); //注入SQL檔
                                     <thead>
                                         <tr class="table-active">
                                             <th>編號</th>
-                                            <th>胎次</th>
+                                            <th>胎次(配種數)</th>
                                             <th>懷孕日期</th>
-                                            <th>分娩日期</th>
+                                            <th>預期分娩日</th>
                                             <th>編輯</th>
                                             <th>刪除</th>
 
@@ -479,25 +479,23 @@ require_once("../SQLServer.php"); //注入SQL檔
                                         // $start = ($page - 1) * $per;
 
                                         // $query .= "ORDER BY `intervaldays` DESC LIMIT $start,$per";
-                                        $query .= "ORDER BY `intervaldays` DESC";
+                                        $query .= "ORDER BY `intervaldays` DESC LIMIT 1";
                                         $result = mysqli_query($db_link, $query);
                                         $i = 1;
                                         while ($row = mysqli_fetch_assoc($result)) {
                                             $sn = $row['sn']; //序列號
                                             $id = $row['id']; //編號
-                                            $pregnancydate = $row['pregnancydate']; //直腸檢查日期
-                                            $parturitiondate = $row['parturitiondate']; //分娩日期
-                                            if ($parturitiondate == '0000-00-00') {
-                                                $parturitiondate = '';
-                                            }
+                                            $matingdate = $row['matingdate']; //配種日期
+                                            $matingcount = $row['matingcount']; //配種次數
+                                            $parturitiondate = date("Y-m-d",strtotime("+10 month",strtotime($matingdate)));
                                             $birthparity = $row['birthparity']; //胎次
                                             $events = $row['events']; //事件
                                             $details = $row['details']; //詳情
                                         ?>
                                             <tr>
                                                 <td><?php echo $id ?></td>
-                                                <td><?php echo $birthparity ?></td>
-                                                <td><?php echo $pregnancydate ?></td>
+                                                <td><?php echo $birthparity."({$matingcount})" ?></td>
+                                                <td><?php echo $matingdate ?></td>
                                                 <td><?php echo $parturitiondate ?></td>
                                                 <td><button class="view_data btn btn-primary" GetSn="<?php echo $sn; ?>">編輯</button></td>
                                                 <?php
