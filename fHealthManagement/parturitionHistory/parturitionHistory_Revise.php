@@ -16,6 +16,7 @@ while ($row = mysqli_fetch_assoc($result)) {
   $parturitiondate = $row['parturitiondate']; //分娩日期
   $events = $row['events']; //事件
   $details = $row['details']; //詳情
+  $matingcount = $row['matingcount']; //配種次數
 }
 ?>
 <!DOCTYPE html>
@@ -29,8 +30,8 @@ while ($row = mysqli_fetch_assoc($result)) {
           <input type="text" class="form-control card-text" name="id" id="id" value='<?php echo $id; ?>' readonly>
         </div>
         <div class="col-2">
-          <p>胎次</p>
-          <input type="text" class="form-control card-text" placeholder="請輸入胎次" name="birthparity" value='<?php echo $birthparity; ?>' readonly>
+          <p>胎次(配種數)</p>
+          <input type="text" class="form-control card-text" placeholder="請輸入胎次" name="birthparity" value='<?php echo $birthparity."({$matingcount})"; ?>' readonly>
         </div>
         <div class="col-6">
           <p>發情日期</p>

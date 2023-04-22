@@ -45,7 +45,7 @@ require_once("../../SQLServer.php");
                   <th>編號</th>
                   <th>發情日期</th>
                   <th>配種日期</th>
-                  <th>胎次</th>
+                  <th>胎次(配種數)</th>
                   <th>間隔天數</th>
                   <th>檢查日期</th>
                   <th>測孕結果</th>
@@ -132,12 +132,13 @@ require_once("../../SQLServer.php");
                   $birthparity = $row['birthparity']; //胎次
                   $events = $row['events']; //事件
                   $details = $row['details']; //詳情
+                  $matingcount = $row['matingcount']; //配種次數
                 ?>
                   <tr>
                     <td><?php echo $id ?></td>
                     <td><?php echo $estrusdate ?></td>
                     <td><?php echo $matingdate ?></td>
-                    <td><?php echo $birthparity ?></td>
+                    <td><?php echo $birthparity."({$matingcount})" ?></td>
                     <td><?php echo $intervaldays ?></td>
                     <td><?php echo $pregnancydate ?></td>
                     <td><?php echo $pregnancyresult ?></td>

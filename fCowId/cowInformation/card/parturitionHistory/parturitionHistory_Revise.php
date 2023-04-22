@@ -11,6 +11,7 @@ while ($row = mysqli_fetch_assoc($result)) {
   $birthParity = $row['birthparity'];
   $events = $row['events'];
   $details = $row['details'];
+  $matingcount = $row['matingcount']; //配種次數
 }
 ?>
 <!DOCTYPE html>
@@ -20,7 +21,7 @@ while ($row = mysqli_fetch_assoc($result)) {
   分娩日期<input type="date" class="form-control mb-2" placeholder="日期" name="date" value="<?php echo $date ?>" required>
   <div class="row">
     <div class="col-4">
-      胎次<input type="number" min="1" class="form-control mb-2" placeholder="胎次" name="birthParity" value="<?php echo $birthParity ?>" required>
+      胎次(配種數)<input type="text" class="form-control mb-2" placeholder="胎次" name="birthParity" value="<?php echo $birthParity."({$matingcount})"; ?>" readonly>
     </div>
     <div class="col-4">
       事件<select class="form-select" name="selectEvent" id="selectEvent" onchange="eventsChange(this)" required>

@@ -20,7 +20,7 @@ $result = mysqli_query($db_link, $query);
                 <thead>
                     <tr class="table-active">
                         <th>分娩日期</th>
-                        <th>胎次</th>
+                        <th>胎次(配種數)</th>
                         <th>事件</th>
                         <th>詳情</th>
                         <th>編輯</th>
@@ -38,10 +38,11 @@ $result = mysqli_query($db_link, $query);
                             $birthParity = $row['birthparity'];
                             $events = $row['events'];
                             $details = $row['details'];
+                            $matingcount = $row['matingcount']; //配種次數
                             echo "
                             <tr>
                                 <td>$date</td>
-                                <td>$birthParity</td>
+                                <td>$birthParity($matingcount)</td>
                                 <td>$events</td>
                                 <td>$details</td>
                                 <td><a href=\"#reviseHistory\" GetSn=\"$sn\" class=\"btn btn-primary view_historyData\">編輯</a></td>

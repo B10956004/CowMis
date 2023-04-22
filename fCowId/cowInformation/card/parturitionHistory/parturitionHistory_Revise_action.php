@@ -4,7 +4,6 @@ if (isset($_POST['update'])) {
     $GetSn = $_GET['GetSn'];
     $id = $_POST['id'];
     $date = $_POST['date'];
-    $birthParity = $_POST['birthParity'];
     if($_POST['selectEvent']!='其他'){
         $events=$_POST['selectEvent'];
     }else{
@@ -12,7 +11,7 @@ if (isset($_POST['update'])) {
     }
     $details = $_POST['details'];
 
-    $query = "UPDATE pregnancy_check SET parturitiondate='$date',birthparity='$birthParity',events='$events',details='$details' WHERE sn='$GetSn' ";
+    $query = "UPDATE pregnancy_check SET parturitiondate='$date',events='$events',details='$details' WHERE sn='$GetSn' ";
     $result = mysqli_query($db_link, $query);
     if ($result) {
         header("location:../../cowInformation.php?GetID={$id}");
