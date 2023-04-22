@@ -2,6 +2,7 @@
 require_once("../SQLServer.php");
 $acc=$_POST['username'];
 $pw=$_POST['password'];
+$pw=md5($pw);
 $sql = "select * from user where username = '$acc' and password='$pw'";
 $data=$pdo->query($sql)->fetch();
 if(!empty($data)){

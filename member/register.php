@@ -85,8 +85,10 @@ if (isset($_SESSION['username'])) {
           require_once("../SQLServer.php");
           $cusnm = $_POST['username'];
           $cpswd = $_POST['password'];
+          $cpswd=md5($cpswd);
           $hi = $_POST['hint'];
           $hian = $_POST['hintAns'];
+          $hintAns=md5($hintAns);
           $sql_query = "INSERT INTO user (username,password,hint,hintAns) VALUES ('$cusnm','$cpswd','$hi','$hian')";
           mysqli_query($db_link, $sql_query);
           header("Location: ../index.php");
