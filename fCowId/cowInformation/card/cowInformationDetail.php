@@ -72,7 +72,8 @@ mysqli_query($db_link, $updateQuery);
 </div>
 <div class=\"col-4\">
     <p class=\"card-text \">感測器狀態<br>
-    <input type=\"text\" class=\"col-12\" value='' disabled> </p>
+    <i class=\"fas fa-circle col-2\" style=\"color: green;\"></i>
+    <input type=\"text\" class=\"col-10\" value='正常' disabled> </p>
 </div>
 <div class=\"col-6\">
     <p class=\"card-text\">目前區域<br>
