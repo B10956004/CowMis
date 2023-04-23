@@ -163,7 +163,7 @@ require_once("../SQLServer.php"); //注入SQL檔
                                     }
                                     ?>
                                     <?php
-                                    $query = "SELECT * FROM cows_information ";
+                                    $query = "SELECT * FROM cows_information LIMIT 1";
                                     // $result = mysqli_query($db_link, $query);
                                     // $num = mysqli_num_rows($result);
                                     // $per = 1; //每頁顯示項目數量
@@ -487,7 +487,7 @@ require_once("../SQLServer.php"); //注入SQL檔
                                             $id = $row['id']; //編號
                                             $matingdate = $row['matingdate']; //配種日期
                                             $matingcount = $row['matingcount']; //配種次數
-                                            $parturitiondate = date("Y-m-d",strtotime("+10 month",strtotime($matingdate)));
+                                            $parturitiondate = date("Y-m-d",strtotime("+9 month",strtotime($matingdate)));//估計9個月
                                             $birthparity = $row['birthparity']; //胎次
                                             $events = $row['events']; //事件
                                             $details = $row['details']; //詳情
