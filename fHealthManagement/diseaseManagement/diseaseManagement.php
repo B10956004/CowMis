@@ -187,9 +187,23 @@ require_once("../../SQLServer.php");
           <div class="card-body">
             <form action="diseaseManagement_Insert.php" method="post">
               <div class="row">
-                <div class="col-6">
+                <div class="col-3">
+                  <p>區域</p>
+                  <select class="form-select" name="area" id="area" onchange="selectArea(this)" required>
+                    <option value="">請選擇</option>
+                    <option value="高乳">高乳</option>
+                    <option value="低乳">低乳</option>
+                    <option value="乾乳">乾乳</option>
+                    <option value="已受孕">已受孕</option>
+                    <option value="未受孕">未受孕</option>
+                    <option value="小牛">小牛</option>
+                  </select>
+                </div>
+                <div class="col-3">
                   <p>編號</p>
-                  <input type="text" class="form-control card-text" placeholder="請輸入編號" name="id" required>
+                  <select class="form-select" name="id" id="id" required>
+                    <option value="">請選擇</option>
+                  </select>
                 </div>
                 <div class="col-6">
                   <p>檢查日期</p>
@@ -284,6 +298,30 @@ require_once("../../SQLServer.php");
     }
   }
 </script>
+
+<script>
+  function selectArea(area) {
+    if (area.value) {
+      $.ajax({
+        url: 'get_cows.php',
+        type: 'POST',
+        data: {
+          area: area.value
+        },
+        dataType: 'json',
+        success: function(data) {
+          $('#id').empty();
+          $.each(data, function(key, value) {
+            $('#id').append('<option value="' + value.id + '">' + value.id + '</option>');
+          });
+        }
+      });
+    } else {
+      $('#id').empty();
+    }
+  };
+</script>
+
 
 <!-- 查詢功能 -->
 <script type="text/javascript">
