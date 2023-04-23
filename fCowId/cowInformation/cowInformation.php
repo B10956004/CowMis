@@ -330,7 +330,11 @@ require_once("../../SQLServer.php"); //注入SQL檔
                                             <p class=\"card-text\">年齡 <br>
                                             <input type=\"text\" class=\"col-12\" disabled> </p>
                                         </div>-->
-                                        <div class=\"col-6\">
+                                        <div class=\"col-3\">
+                                            <p class=\"card-text\">泌乳天數 <br>
+                                            <input type=\"text\" class=\"col-12\" disabled> </p>
+                                        </div>
+                                        <div class=\"col-3\">
                                             <p class=\"card-text\">胎次 <br>
                                             <input type=\"text\" class=\"col-12\" disabled> </p>
                                         </div>
@@ -351,15 +355,15 @@ require_once("../../SQLServer.php"); //注入SQL檔
                                     </div>
                                     <div class=\"row\">
                                         <div class=\"col-3\">
-                                            <p class=\"card-text\">泌乳天數 <br>
-                                            <input type=\"text\" class=\"col-12\" disabled> </p>
-                                        </div>
-                                        <div class=\"col-3\">
                                             <p class=\"card-text\">預期胎次 <br>
                                             <input type=\"text\" class=\"col-12\" disabled> </p>
                                         </div>
                                         <div class=\"col-3\">
                                             <p class=\"card-text\">繁殖狀況<br>
+                                            <input type=\"text\" class=\"col-12\" disabled> </p>
+                                        </div>
+                                        <div class=\"col-3\">
+                                            <p class=\"card-text\">測孕結果<br>
                                             <input type=\"text\" class=\"col-12\" disabled> </p>
                                         </div>
                                         <div class=\"col-3\">
