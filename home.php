@@ -144,7 +144,7 @@ require_once("SQLServer.php"); //注入SQL檔
                                     </button>
                                     <ul class="dropdown-menu dropdown-menu-dark">
                                         <li><a class="dropdown-item" onclick="change_Sensor() ;">牧場觀測服務</a></li>
-                                        <li><a class="dropdown-item" onclick="change_SensorCow() ;">牛乳測量</a></li>
+                                        <!-- <li><a class="dropdown-item" onclick="change_SensorCow() ;">牛乳測量</a></li> -->
                                     </ul>
                                 </li>
                             </ul>
