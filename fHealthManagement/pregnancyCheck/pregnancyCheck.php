@@ -74,7 +74,7 @@ require_once("../../SQLServer.php");
                   $id = $row['id'];
                   echo "<td>$id</td>";
                   echo "<td><img src=\"./發情.PNG\" width=\"75%\"></td>";
-                  echo "<td><input type=\"button\" class=\"addEstrusDate btn-primary btn\" value=\"發情日期\" GetID=\"$id\"> <br><br> <input type=\"button\" class=\"addMatingDate btn-primary btn\" value=\"受精日期\" GetID=\"$id\"></td>";
+                  echo "<td><input type=\"button\" class=\"addEstrusDate btn-primary btn\" value=\"發情日期\" GetID=\"$id\"> <br><br> <input type=\"button\" class=\"addMatingDate btn-primary btn\" value=\"配種日期\" GetID=\"$id\"></td>";
                   echo "</tr>";
                   // $i += 1;
                 }
