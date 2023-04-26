@@ -19,6 +19,9 @@ require_once("../../SQLServer.php");
   <link rel="stylesheet" TYPE="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
   <!-- <link rel="stylesheet" href="https://apps.bdimg.com/libs/jquerymobile/1.4.5/jquery.mobile-1.4.5.min.css">
   <script src="https://apps.bdimg.com/libs/jquerymobile/1.4.5/jquery.mobile-1.4.5.min.js"></script> -->
+  <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
+  <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
 
   <title>乳牛飼養系統</title>
 
@@ -32,13 +35,13 @@ require_once("../../SQLServer.php");
     <div class="tab-content">
       <ul class="nav nav-tabs" role="tablist">
         <li class="nav-item">
-          <a href="#milksRecord" class="nav-link active" data-toggle="tab">感測器管理</a>
+          <a href="#sensorManagement" class="nav-link active" data-toggle="tab">感測器管理</a>
         </li>
         <li class="nav-item">
-          <a href="#addMilksRecord" class="nav-link" data-toggle="tab">新增感測器</a>
+          <a href="#addSensorDevices" class="nav-link" data-toggle="tab">新增感測器</a>
         </li>
       </ul>
-      <div class="tab-pane active bg-white shadow-sm p-4" id="milksRecord">
+      <div class="tab-pane active bg-white shadow-sm p-4" id="sensorManagement">
         <div class="row">
           <div class="col-md-3 p-2">
             <input type="search" class="search form-control" data-table="table table-hover" placeholder="搜尋關鍵字" style="width:100%;">
@@ -52,8 +55,8 @@ require_once("../../SQLServer.php");
             <table id="rule" class="table table-hover">
               <thead>
                 <tr class="table-active">
-                  <th>感測器編號</th>
-                  <th>型號</th>
+                  <th>乳牛編號</th>
+                  <th>感測器編號(型號)</th>
                   <th>狀態</th>
                   <th>編輯</th>
                   <th>刪除</th>
@@ -62,7 +65,7 @@ require_once("../../SQLServer.php");
               <tbody>
                 <!-- 控制每頁的欄數 -->
                 <?php
-                // $query = "SELECT * FROM milk_record ";
+                $query = "SELECT * FROM sensor_management ";
                 // $result = mysqli_query($db_link, $query);
 
                 // $num = mysqli_num_rows($result);
@@ -79,47 +82,48 @@ require_once("../../SQLServer.php");
                 //   }
                 //   $start = ($page - 1) * $per;
 
-                //   $query .= "ORDER BY date DESC LIMIT $start,$per";
+                $query .= "ORDER BY cid ";
 
-                //   $result = mysqli_query($db_link, $query);
-                //   $i = 1;
-                //   while ($row = mysqli_fetch_array($result)) {
-                //     $sn=$row['sn'];
-                //     $date = $row['date']; //日期
-                //     $quality = $row['quality']; //乳質
-                //     $volume = $row['volume']; //乳量
-                //     $milkSolidsNotFat = $row['milkSolidsNotFat']; //無脂固形物
-                //     $milkFatPrecentage = $row['milkFatPrecentage']; //乳脂率
-                //     $milkProtein = $row['milkProtein']; //乳蛋白
-                //     $somaticCellCount = $row['somaticCellCount']; //體細胞數
+                $result = mysqli_query($db_link, $query);
+                $i = 1;
+                while ($row = mysqli_fetch_array($result)) {
+                  $cid = $row['cid']; //牛編號
+                  $uuid = $row['uuid']; //感測器編號
+                  $model = $row['model']; //型號
+                  $states = $row['states']; //狀態
                 ?>
-                    <tr>
-                      <!-- <td><?php //echo $date ?></td> -->
-                      <!-- <td><?php //echo $quality ?>級</td> -->
-                      <!-- <td><?php //echo $volume ?>L</td> -->
-                      <!-- <td><?php //echo $milkSolidsNotFat ?></td> -->
-                      <!-- <td><?php //echo $milkFatPrecentage ?></td> -->
-                      <!-- <td><?php //echo $milkProtein ?></td> -->
-                      <!-- <td><?php //echo $somaticCellCount ?></td> -->
-                      <!-- <td><button class="view_data btn btn-primary" GetSn="<?php //echo $sn; ?>">編輯</button></td> -->
-                      <?php
-                      //echo "<td><button id=\"linkDel_$i\" onclick=\"#del\" class='btn btn-danger'>刪除</button></td>";
-                      /*echo "
+                  <tr>
+                    <td><?php echo $cid ?></td>
+                    <td><?php echo $uuid . '(' . $model.")" ?></td>
+                    <td><?php
+                        if ($states == '未連接') {
+                          echo "<i class=\"fas fa-circle\" style=\"color: red;\"></i>";
+                        } elseif ($states == '正常') {
+                          echo "<i class=\"fas fa-circle\" style=\"color: green;\"></i>";
+                        } else {
+                          echo "<i class=\"fas fa-circle\" style=\"color: yellow;\"></i>";
+                        }
+                        echo $states ?></td>
+                    <td><button class="view_data btn btn-primary" GetUuid="<?php echo $uuid; 
+                                                                          ?>">編輯</button></td>
+                    <?php
+                    echo "<td><button id=\"linkDel_$i\" onclick=\"#del\" class=\"btn btn-danger\">刪除</button></td>";
+                    echo "
                     <script>
                       $(\"#linkDel_$i\").click(function(){
-                        var yesDel = confirm(\"你確定要刪除\"+'$date'+\"這筆資料嗎？，刪除後不可復原。\");
+                        var yesDel = confirm(\"你確定要刪除\"+'$cid'+\"這筆資料嗎？，刪除後不可復原。\");
                           if (yesDel) {
-                            $.post(\"./milkRecord_Delete.php\",{ Del: 1,postSn:$sn },function(result){
+                            $.post(\"./sensorManagement_Delete.php\",{ Del: 1,postUuid:'$uuid' },function(result){
                               location.reload();
                               });
                           }
                         });
-                    </script>";*/
-                      ?>
-                    </tr>
+                    </script>";
+                    ?>
+                  </tr>
                 <?php
-                //     $i += 1;
-                //   }
+                  $i += 1;
+                }
                 // }else{
                 //   $page=1;
                 //   $pages=1;
@@ -166,7 +170,7 @@ require_once("../../SQLServer.php");
         <div class="modal-dialog  modal-lg">
           <div class="modal-content">
             <div class="modal-header">
-              <h4 class="modal-title font-weight-bold">修改泌乳資料</h4>
+              <h4 class="modal-title font-weight-bold">修改感測器資料</h4>
               <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body" id="cow_detail">
@@ -182,13 +186,13 @@ require_once("../../SQLServer.php");
       </div>
       <script>
         $(document).on('click', '.view_data', function() {
-          var GetSn = $(this).attr("GetSn");
+          var GetUuid = $(this).attr("GetUuid");
 
           $.ajax({
-            url: "milkRecord_Revise.php",
+            url: "sensorManagement_Revise.php",
             method: "GET",
             data: {
-              GetSn: GetSn
+              GetUuid: GetUuid
             },
 
 
@@ -251,47 +255,40 @@ require_once("../../SQLServer.php");
       </script>
 
       <!-- 切換頁 新增 -->
-      <div class="tab-pane fade bg-white shadow-sm p-4" id="addMilksRecord" style="border-radius:5px;">
+      <div class="tab-pane fade bg-white shadow-sm p-4" id="addSensorDevices" style="border-radius:5px;">
         <div class="card">
           <div class="card-body">
-            <form action="milkRecord_Insert.php" method="post">
+            <form action="sensorManagement_Insert.php" method="post">
               <div class="row">
                 <div class="col-12">
-                  <p>擠乳日期</p>
-                  <input type="date" class="form-control card-text" placeholder="請輸入擠乳日期" name="date" required>
-                  <br>
-                </div>
-
-                <div class="col-6">
-                  <p>乳質品質</p>
-                  <select class="form-select" required name="quality">
-                    <option selected value="A">A級</option>
-                    <option value="B">B級</option>
-                    <option value="C">C級</option>
-                    <option value="D">D級</option>
+                  <p>區域</p>
+                  <select class="form-select" name="area" id="area" onchange="selectArea(this)" required>
+                    <option value="">請選擇</option>
+                    <option value="高乳">高乳</option>
+                    <option value="低乳">低乳</option>
+                    <option value="乾乳">乾乳</option>
+                    <option value="已受孕">已受孕</option>
+                    <option value="未受孕">未受孕</option>
+                    <option value="小牛">小牛</option>
                   </select>
                 </div>
-                <div class="col-6">
-                  <p>乳量</p>
-                  <input type="range" name="volume" id="volume_range" value="0" min="0" max="100" class="form-range" oninput="updateMilkVolumn(this.value);">
-                  <input type="text" name="volume" id="volume_text" class="form-control card-text" value="0" placeholder="請輸入乳量" onchange="updateMilkVolumn(this.value);">
-                  <br>
+                <div class="col-4">
+                  <p>乳牛編號</p>
+                  <select class="form-select" name="cid" id="cid" required>
+                    <option value="">請選擇</option>
+                  </select>
                 </div>
-                <div class="col-3">
-                  <p>無脂固形物</p>
-                  <input type="text" class="form-control card-text" placeholder="請輸入無脂固形物" name="milkSolidsNotFat" required>
+                <div class="col-4">
+                  <p>感測器編號</p>
+                  <input type="text" name="uuid" id="uuid" class="form-control card-text" placeholder="請輸入感測器編號(uuid)" required>
                 </div>
-                <div class="col-3">
-                  <p>乳脂率</p>
-                  <input type="text" class="form-control card-text" placeholder="請輸入乳脂率" name="milkFatPrecentage" required>
-                </div>
-                <div class="col-3">
-                  <p>乳蛋白</p>
-                  <input type="text" class="form-control card-text" placeholder="請輸入乳蛋白" name="milkProtein" required>
-                </div>
-                <div class="col-3">
-                  <p>體細胞數</p>
-                  <input type="text" class="form-control card-text" placeholder="請輸入體細胞數" name="somaticCellCount" required>
+                <div class="col-4">
+                  <p>感測器型號</p>
+                  <select class="form-select" required name="model">
+                    <option selected value="nRF52840">nRF52840</option>
+                    <option value="BWT901CL">BWT901CL</option>
+                    <option value="WT901BLECL5.0">WT901BLECL5.0</option>
+                  </select>
                 </div>
               </div>
               <br>
@@ -302,16 +299,29 @@ require_once("../../SQLServer.php");
       </div>
     </div>
   </div>
+  <!-- 場域選擇 -->
   <script>
-    function updateMilkVolumn(val) {
-      if (val == '') {
-        val = 0;
+    function selectArea(area) {
+      if (area.value) {
+        $.ajax({
+          url: 'get_cows.php',
+          type: 'POST',
+          data: {
+            area: area.value
+          },
+          dataType: 'json',
+          success: function(data) {
+            $('#cid').empty();
+            $.each(data, function(key, value) {
+              $('#cid').append('<option value="' + value.id + '">' + value.id + '</option>');
+            });
+          }
+        });
+      } else {
+        $('#cid').empty();
       }
-      document.getElementById('volume_text').value = val;
-      document.getElementById('volume_range').value = val;
-    }
+    };
   </script>
-
 
 </body>
 
