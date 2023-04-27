@@ -32,36 +32,42 @@ mysqli_query($db_link, $updateQuery);
         // $leaveGroup = $row['leaveGroup']; //離開牛群
     }
 
-    $selectQuery="SELECT parturitiondate FROM pregnancy_check WHERE id='$GetID' AND events='正常' ORDER BY birthparity DESC LIMIT 1";
-    if(mysqli_num_rows(mysqli_query($db_link,$selectQuery))!=0){
-        $row=mysqli_fetch_array(mysqli_query($db_link,$selectQuery));
-        $DIM=(strtotime($today)-strtotime($row['parturitiondate']))/86400 .'天';//計算到今天過了幾天 泌乳天數days in milk
-    }else{
-        $DIM='0天';
+    $selectQuery = "SELECT parturitiondate FROM pregnancy_check WHERE id='$GetID' AND events='正常' ORDER BY birthparity DESC LIMIT 1";
+    if (mysqli_num_rows(mysqli_query($db_link, $selectQuery)) != 0) {
+        $row = mysqli_fetch_array(mysqli_query($db_link, $selectQuery));
+        $DIM = (strtotime($today) - strtotime($row['parturitiondate'])) / 86400 . '天'; //計算到今天過了幾天 泌乳天數days in milk
+    } else {
+        $DIM = '0天';
     }
-    $selectQuery="SELECT * FROM pregnancy_check WHERE id='$GetID' AND (events IS NULL OR events='')";
-    if(mysqli_num_rows(mysqli_query($db_link,$selectQuery))!=0){
-        $row=mysqli_fetch_array(mysqli_query($db_link,$selectQuery));
-        $breedingStatus='已配種';
-        $estimateBirthParity=$row['birthparity'];
-        $matingcount=$row['matingcount'];
-        $pregnancyresult=$row['pregnancyresult'];
-        if($pregnancyresult==null){
-            $pregnancyresult='未檢查';
+    $selectQuery = "SELECT * FROM pregnancy_check WHERE id='$GetID' AND (events IS NULL OR events='')";
+    if (mysqli_num_rows(mysqli_query($db_link, $selectQuery)) != 0) {
+        $row = mysqli_fetch_array(mysqli_query($db_link, $selectQuery));
+        $breedingStatus = '已配種';
+        $estimateBirthParity = $row['birthparity'];
+        $matingcount = $row['matingcount'];
+        $pregnancyresult = $row['pregnancyresult'];
+        if ($pregnancyresult == null) {
+            $pregnancyresult = '未檢查';
         }
+    } else {
+        $breedingStatus = '待配種';
+        $estimateBirthParity = '無';
+        $matingcount = 0;
+        $pregnancyresult = '未檢查';
     }
-    else{
-        $breedingStatus='待配種';
-        $estimateBirthParity='無';
-        $matingcount=0;
-        $pregnancyresult='未檢查';
+    if ($breedingStatus == '已配種' && $pregnancyresult != '未檢查') {
+        $EDD = date("Y-m-d", strtotime("+9 month", strtotime($row['matingdate']))); //推估9個月產出estimated due date (EDD)
+    } else {
+        $EDD = '無';
     }
-    if($breedingStatus=='已配種'&&$pregnancyresult!='未檢查'){
-        $EDD = date("Y-m-d",strtotime("+9 month",strtotime($row['matingdate'])));//推估9個月產出estimated due date (EDD)
-    }else{
-        $EDD='無';
+    $selectQuery = "SELECT * FROM sensor_management WHERE cid='{$id}'";
+    $sensorResult = mysqli_query($db_link, $selectQuery);
+    if (mysqli_num_rows($sensorResult) != 0) {
+        $sensorRow = mysqli_fetch_array($sensorResult);
+        $states = $sensorRow['states'];
+    } else {
+        $states = '未連接';
     }
-    
 
     echo "<h5 class=\"card-title\"><i class=\"fas fa-tint\"></i>&nbsp;牛隻資訊&nbsp;&nbsp;&nbsp;&nbsp;編號:$id &nbsp;&nbsp;<a href=\"#revise\" GetID='$GetID' class=\"btn btn-primary view_data\">編輯</a></h5>";
     echo "
@@ -71,9 +77,15 @@ mysqli_query($db_link, $updateQuery);
     <input type=\"text\" class=\"col-12\" value='$dob' disabled> </p>
 </div>
 <div class=\"col-4\">
-    <p class=\"card-text \">感測器狀態<br>
-    <i class=\"fas fa-circle col-2\" style=\"color: green;\"></i>
-    <input type=\"text\" class=\"col-10\" value='正常' disabled> </p>
+    <p class=\"card-text \">感測器狀態<br>";
+    if ($states == '未連接') {
+        echo "<i class=\"fas fa-circle\" style=\"color: red;\"></i>";
+    } elseif ($states == '正常') {
+        echo "<i class=\"fas fa-circle\" style=\"color: green;\"></i>";
+    } else {
+        echo "<i class=\"fas fa-circle\" style=\"color: yellow;\"></i>";
+    }
+    echo "<input type=\"text\" class=\"col-10\" value='{$states}' disabled> </p>
 </div>
 <div class=\"col-6\">
     <p class=\"card-text\">目前區域<br>
@@ -114,12 +126,12 @@ mysqli_query($db_link, $updateQuery);
                                     </div>
                                     <div class=\"row\">
                                         <div class=\"col-3\">";
-                                        if($breedingStatus=='已配種'){
-                                            echo"<a href=\"#revisePregnancy\" GetID='$GetID' GetBirthParity='$estimateBirthParity' class=\"view_pregnancy_data\"><p class=\"card-text\">預期胎次(配種數) <br></a>";
-                                        }else{
-                                            echo"<a href=\"../../fHealthManagement/pregnancyCheck/pregnancyCheck.php\"><p class=\"card-text\">預期胎次(配種數) <br></a>";
-                                        }
-                                            echo"<input type=\"text\" class=\"col-12\" value=$estimateBirthParity($matingcount) disabled> </p>
+    if ($breedingStatus == '已配種') {
+        echo "<a href=\"#revisePregnancy\" GetID='$GetID' GetBirthParity='$estimateBirthParity' class=\"view_pregnancy_data\"><p class=\"card-text\">預期胎次(配種數) <br></a>";
+    } else {
+        echo "<a href=\"../../fHealthManagement/pregnancyCheck/pregnancyCheck.php\"><p class=\"card-text\">預期胎次(配種數) <br></a>";
+    }
+    echo "<input type=\"text\" class=\"col-12\" value=$estimateBirthParity($matingcount) disabled> </p>
                                         </div>
                                         <div class=\"col-3\">
                                             <p class=\"card-text\">繁殖狀況<br>
@@ -183,28 +195,28 @@ mysqli_query($db_link, $updateQuery);
     });
 </script>
 <div id="dataModalPregnancyCheck" class="modal fade bd-example-modal-lg">
-        <div class="modal-dialog  modal-lg">
-          <div class="modal-content">
+    <div class="modal-dialog  modal-lg">
+        <div class="modal-content">
             <div class="modal-header">
-              <h4 class="modal-title font-weight-bold">修改妊娠資料</h4>
-              <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title font-weight-bold">修改妊娠資料</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body" id="cow_pregnancy_detail">
-              <br />
-              <!-- ajax注入 -->
+                <br />
+                <!-- ajax注入 -->
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">關閉</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">關閉</button>
             </div>
-          </div>
         </div>
-      </div>
-      <script>
-        $(document).on('click', '.view_pregnancy_data', function() {
-          var GetID = $(this).attr("GetID");
-          var GetBirthParity= $(this).attr("GetBirthParity");
+    </div>
+</div>
+<script>
+    $(document).on('click', '.view_pregnancy_data', function() {
+        var GetID = $(this).attr("GetID");
+        var GetBirthParity = $(this).attr("GetBirthParity");
 
-          $.ajax({
+        $.ajax({
             url: "card/pregnancyCheck/pregnancyCheck_Revise.php",
             method: "GET",
             data: {
@@ -214,10 +226,10 @@ mysqli_query($db_link, $updateQuery);
 
 
             success: function(data) {
-              $('#cow_pregnancy_detail').html(data);
-              $('#dataModalPregnancyCheck').modal('show');
+                $('#cow_pregnancy_detail').html(data);
+                $('#dataModalPregnancyCheck').modal('show');
             }
-          });
-
         });
-      </script>
+
+    });
+</script>

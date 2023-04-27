@@ -32,7 +32,26 @@
         echo "<tr>";
         $sn = $row['sn'];
         $id = $row['id'];
-        echo "<td><i class=\"fas fa-circle\" style=\"color: green;\"></i></td>";
+        $selectQuery = "SELECT * FROM sensor_management WHERE cid='{$id}'";
+        $sensorResult = mysqli_query($db_link, $selectQuery);
+        if (mysqli_num_rows($sensorResult) != 0) {
+            $sensorRow = mysqli_fetch_array($sensorResult);
+            $states = $sensorRow['states'];
+        } else {
+            $states = '未連接';
+        }
+        
+        echo "<td>";
+        if ($states == '未連接') {
+            echo "<i class=\"fas fa-circle\" style=\"color: red;\"></i>";
+        } elseif ($states == '正常') {
+            echo "<i class=\"fas fa-circle\" style=\"color: green;\"></i>";
+        } else {
+            echo "<i class=\"fas fa-circle\" style=\"color: yellow;\"></i>";
+        }
+        echo $states;
+        echo "</td>";
+
         echo "<td><a href=\"../fCowId/cowInformation/cowInformation.php?GetID=$id\" target=\"frame\">$id</a></td>";
         echo "</tr>";
     }
