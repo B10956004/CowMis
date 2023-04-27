@@ -90,7 +90,8 @@ while ($row = mysqli_fetch_assoc($result)) {
 
   <div class="fix_bg bg_2">
     <h2 class="vcenter">
-      <a href="../index.php"><img src="../image/wu.png" width="500px" height="200px"><br></a>
+      <img src="../image/LOGO 小.png">
+      <b><a href="../home.php" target="_self" style="color:#07A862;text-decoration: none;font-size: 35px;display: flex;align-items: center;padding-left:50px;padding-right:50px">酪農智慧網—基於開放式感測網技術之乳牛飼養與健康管理資訊系統</a></b>
       <br>
       <form action="showPassword.php" method="post">
         <div style="border-radius:10px;background:rgba(255,255,255,0.7);padding:20px;margin-bottom:5px;width:380px;height:auto;margin:0 auto;text-align:center;">
