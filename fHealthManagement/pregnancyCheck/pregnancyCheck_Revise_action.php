@@ -4,7 +4,7 @@ require_once("../../SQLServer.php");
 if (isset($_POST['update'])) {
     $GetSn = $_GET['GetSn'];
     $id = $_POST['id'];
-    $birthparity=$_POST['birthparity'];
+    $birthparity = $_POST['birthparity'];
     $estrusdate = $_POST['estrusdate'];
     $matingdate = $_POST['matingdate'];
     $intervaldays = $_POST['intervaldays'];
@@ -17,7 +17,7 @@ if (isset($_POST['update'])) {
     if ($_POST['parturitiondate'] != '0000-00-00') {
         $parturitiondate = $_POST['parturitiondate'];
     } else {
-        $parturitiondate = null;
+        $parturitiondate = '';
     }
 
     if ($_POST['selectEvent'] != '其他') {
@@ -35,14 +35,20 @@ if (isset($_POST['update'])) {
         $details = '';
     }
 
-    if($events!='空胎'&&$events!=''){
+    if ($events != '空胎' && $events != '') {
         $updateMotherQuery = "UPDATE `cows_information` SET `birthparity`='$birthparity' WHERE `id`='$id'";
         mysqli_query($db_link, $updateMotherQuery);
     }
-
-    $query = "UPDATE pregnancy_check SET estrusdate='$estrusdate',matingdate='$matingdate',
-    intervaldays='$intervaldays',pregnancydate='$pregnancydate',pregnancyresult='$pregnancyresult',parturitiondate='$parturitiondate'
+    if ($parturitiondate != '') {
+        $query = "UPDATE pregnancy_check SET estrusdate='$estrusdate',matingdate='$matingdate',
+        intervaldays='$intervaldays',pregnancydate='$pregnancydate',pregnancyresult='$pregnancyresult',parturitiondate='$parturitiondate'
+        ,events='$events',details='$details' WHERE `sn`='$GetSn' AND `id`='$id'";
+    } else {
+        $query = "UPDATE pregnancy_check SET estrusdate='$estrusdate',matingdate='$matingdate',
+    intervaldays='$intervaldays',pregnancydate='$pregnancydate',pregnancyresult='$pregnancyresult',parturitiondate=null
     ,events='$events',details='$details' WHERE `sn`='$GetSn' AND `id`='$id'";
+    }
+
     $result = mysqli_query($db_link, $query);
     echo $query;
     if ($result) {
