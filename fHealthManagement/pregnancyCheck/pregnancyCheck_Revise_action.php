@@ -17,7 +17,7 @@ if (isset($_POST['update'])) {
     if ($_POST['parturitiondate'] != '0000-00-00') {
         $parturitiondate = $_POST['parturitiondate'];
     } else {
-        $parturitiondate = '';
+        $parturitiondate = null;
     }
 
     if ($_POST['selectEvent'] != '其他') {
