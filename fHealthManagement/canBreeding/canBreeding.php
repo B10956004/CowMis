@@ -109,7 +109,7 @@ require_once("../../SQLServer.php");
                   $latest_parturitiondate = $row['latest_parturitiondate']; //上次分娩日期
                 ?>
                   <tr>
-                    <td><?php echo $id ?></td>
+                    <td><?php echo "<a href=\"../../fCowId/cowInformation/cowInformation.php?GetID=$id\">$id</a> "; ?></td>
                     <td><?php echo $area ?></td>
                     <td><?php echo $dob ?></td>
                     <td><?php echo $latest_parturitiondate ?></td>
