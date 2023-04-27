@@ -70,7 +70,9 @@ if (isset($_SESSION['username'])) {
 
   <div class="fix_bg bg_2">
     <h2 class="vcenter">
-      <a href="../index.php"><img src="../image/wu.png" width="500px" height="200px"><br></a>
+      <img src="../image/LOGO 小.png">
+      <b><a href="../home.php" target="_self" style="color:#07A862;text-decoration: none;font-size: 35px;display: flex;align-items: center;padding-left:50px;padding-right:50px">酪農智慧網—基於開放式感測網技術之乳牛飼養與健康管理資訊系統</a></b>
+      <br>
       <div style="border-radius:10px;background:rgba(255,255,255,0.7);padding:20px;margin-bottom:5px;width:380px;height:auto;margin:0 auto;text-align:center;">
         <form action="" method="post" name="formAdd" id="formAdd">
           <input type="text" name="username" id="username" placeholder="帳號" required class="form-control">
@@ -85,10 +87,11 @@ if (isset($_SESSION['username'])) {
           require_once("../SQLServer.php");
           $cusnm = $_POST['username'];
           $cpswd = $_POST['password'];
-          $cpswd=md5($cpswd);
+          $password=$cpswd;
+          $cpswd = md5($cpswd);
           $hi = $_POST['hint'];
           $hian = $_POST['hintAns'];
-          $sql_query = "INSERT INTO user (username,password,hint,hintAns,showPassword) VALUES ('$cusnm','$cpswd','$hi','$hian','$cpswd')";
+          $sql_query = "INSERT INTO user (username,password,hint,hintAns,showPassword) VALUES ('$cusnm','$cpswd','$hi','$hian','$password')";
           mysqli_query($db_link, $sql_query);
           header("Location: ../index.php");
         }
