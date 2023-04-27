@@ -78,9 +78,10 @@ if (isset($_SESSION['username'])) {
 
 
 
-  <div class="fix_bg bg_2">
-    <h2 class="vcenter">
-      <img src="../image/LOGO 小.png">
+<div class="fix_bg bg_final">
+
+<h2 class="vcenter" style="background-color: rgba(245,245,245,0.8);border-radius: 25px;">
+  <a href="../home.php"><img src="../image/LOGO 小.png"></a>
       <b><a href="../home.php" target="_self" style="color:#07A862;text-decoration: none;font-size: 35px;display: flex;align-items: center;padding-left:50px;padding-right:50px">酪農智慧網—基於開放式感測網技術之乳牛飼養與健康管理資訊系統</a></b>
       <br>
       <form action="forgetPasswordHint.php" method="post">
@@ -91,6 +92,7 @@ if (isset($_SESSION['username'])) {
           <a href="../index.php" class="reg">回登入首頁</a> <a href="register.php" class="reg">註冊管理員</a> <a href="forgotPassword.php" class="reg">忘記密碼</a>
         </div>
       </form>
+      <br>
     </h2>
   </div>
 
