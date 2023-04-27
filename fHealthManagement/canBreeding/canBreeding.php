@@ -54,8 +54,8 @@ require_once("../../SQLServer.php");
                 <tr class="table-active">
                   <th>編號</th>
                   <th>目前區域</th>
-                  <th>駐留天數</th>
                   <th>出生日期</th>
+                  <th>分娩日期</th>
                   <th>母親牛編號</th>
                   <th>精液編號</th>
                 </tr>
@@ -63,81 +63,93 @@ require_once("../../SQLServer.php");
               <tbody>
                 <!-- 控制每頁的欄數 -->
                 <?php
-                $query = "SELECT * FROM `cows_information` WHERE (DATEDIFF(now(),`dob`)/30)>14 AND `area`='未受孕' OR DATEDIFF(now(),`areatime`)>30 AND `area`='低乳' OR DATEDIFF(now(),`areatime`)>30 AND `area`='高乳' ";
+                $query = "SELECT cows_information.id, cows_information.area, MAX(pregnancy_check.parturitiondate) AS latest_parturitiondate, cows_information.dob, cows_information.mid, cows_information.fid
+                FROM cows_information
+                LEFT JOIN pregnancy_check ON cows_information.id = pregnancy_check.id
+                WHERE (cows_information.area = '低乳' OR cows_information.area = '高乳')
+                AND pregnancy_check.parturitiondate < DATE_SUB(CURDATE(), INTERVAL 2 MONTH)
+                GROUP BY cows_information.sn, cows_information.area
+                HAVING latest_parturitiondate IS NOT NULL
+                
+                UNION ALL
+                
+                SELECT cows_information.id, cows_information.area, NULL AS latest_parturitiondate, cows_information.dob, cows_information.mid, cows_information.fid
+                FROM cows_information
+                LEFT JOIN pregnancy_check ON cows_information.id = pregnancy_check.id
+                WHERE (cows_information.area = '小牛' OR cows_information.area = '未受孕')
+                AND cows_information.dob < DATE_SUB(CURDATE(), INTERVAL 14 MONTH)
+                AND pregnancy_check.sn IS NULL                           
+                ";
                 $result = mysqli_query($db_link, $query);
 
-                $num = mysqli_num_rows($result);
-                if ($num != 0) {
-                  $per = 6; //每頁顯示項目數量
-                  $pages = ceil($num / $per);
-                  if ($pages == 0) {
-                    $pages = 1;
-                  }
-                  if (!isset($_GET["page"])) {
-                    $page = 1;
-                  } else {
-                    $page = intval($_GET["page"]);
-                  }
-                  $start = ($page - 1) * $per;
+                // $num = mysqli_num_rows($result);
+                // if ($num != 0) {
+                //   $per = 6; //每頁顯示項目數量
+                //   $pages = ceil($num / $per);
+                //   if ($pages == 0) {
+                //     $pages = 1;
+                //   }
+                //   if (!isset($_GET["page"])) {
+                //     $page = 1;
+                //   } else {
+                //     $page = intval($_GET["page"]);
+                //   }
+                //   $start = ($page - 1) * $per;
 
-                  $query .= " ORDER BY dob DESC LIMIT $start,$per";
+                //   $query .= " LIMIT $start,$per";
 
-                  $result = mysqli_query($db_link, $query);
-                  $i = 1;
-                  while ($row = mysqli_fetch_array($result)) {
-                    $sn = $row['sn'];
-                    $id = $row['id']; //編號
-                    $dob = $row['dob']; //出生日期
-                    $mid = $row['mid']; //母牛編號
-                    $fid = $row['fid']; //精液編號
-                    $area = $row['area']; //目前區域
-                    $areatime = $row['areatime']; //區域時間
-                    $today = date("Y-m-d");
-                    $stayDate = (strtotime($today) - strtotime($areatime)) / 86400; //60*60*24
-                    $stayDate = $stayDate . '天';
+                //   $result = mysqli_query($db_link, $query);
+                //   $i = 1;
+                while ($row = mysqli_fetch_array($result)) {
+                  $id = $row['id']; //編號
+                  $dob = $row['dob']; //出生日期
+                  $mid = $row['mid']; //母牛編號
+                  $fid = $row['fid']; //精液編號
+                  $area = $row['area']; //目前區域
+                  $latest_parturitiondate = $row['latest_parturitiondate']; //上次分娩日期
                 ?>
-                    <tr>
-                      <td><?php echo $id ?></td>
-                      <td><?php echo $area ?></td>
-                      <td><?php echo $stayDate ?></td>
-                      <td><?php echo $dob ?></td>
-                      <td><?php echo $mid ?></td>
-                      <td><?php echo $fid ?></td>
-                    </tr>
+                  <tr>
+                    <td><?php echo $id ?></td>
+                    <td><?php echo $area ?></td>
+                    <td><?php echo $dob ?></td>
+                    <td><?php echo $latest_parturitiondate ?></td>
+                    <td><?php echo $mid ?></td>
+                    <td><?php echo $fid ?></td>
+                  </tr>
                 <?php
-                    $i += 1;
-                  }
-                } else {
-                  $page = 1;
-                  $pages = 1;
+                  // $i += 1;
                 }
+                // } else {
+                //   $page = 1;
+                //   $pages = 1;
+                // }
                 ?>
               </tbody>
             </table>
             <?php
-            echo "
-                                    <center><div class='row text-center'>
-                                        <div class='col-12 justify-content-center' style='display:flex;'>
-                                                <nav aria-label='Page navigation example'>
-                                                    <ul class='pagination'>
-                                                        <li class='page-item'>
-                                                            <a class='page-link' href='?page=1' aria-label='Previous'>
-                                                                <span aria-hidden='true'>&laquo;</span>
-                                                            </a>
-                                                        </li> ";
+            // echo "
+            //                         <center><div class='row text-center'>
+            //                             <div class='col-12 justify-content-center' style='display:flex;'>
+            //                                     <nav aria-label='Page navigation example'>
+            //                                         <ul class='pagination'>
+            //                                             <li class='page-item'>
+            //                                                 <a class='page-link' href='?page=1' aria-label='Previous'>
+            //                                                     <span aria-hidden='true'>&laquo;</span>
+            //                                                 </a>
+            //                                             </li> ";
 
-            for ($i = 1; $i <= $pages; $i++) {
-              if ($page - 5 < $i && $i < $page + 4) {
-                if ($page == $i) {
-                  echo "<li class='page-item active'><a class='page-link' href=?page=" . $i . " >" . $i . "</a></li> ";
-                } else {
-                  echo "<li class='page-item'><a class='page-link' href=?page=" . $i . " >" . $i . "</a></li> ";
-                }
-              }
-            }
-            echo "<li class='page-item'><a class='page-link' aria-label='Next' href=?page=" . $pages . " ><span aria-hidden='true'>&raquo;</span></a></li></ul>
-                                    </nav></div>";
-            echo "<div class=\"col-12\">第" . $page . "/" . $pages . "頁-共" . $num . "筆</div></center>";
+            // for ($i = 1; $i <= $pages; $i++) {
+            //   if ($page - 5 < $i && $i < $page + 4) {
+            //     if ($page == $i) {
+            //       echo "<li class='page-item active'><a class='page-link' href=?page=" . $i . " >" . $i . "</a></li> ";
+            //     } else {
+            //       echo "<li class='page-item'><a class='page-link' href=?page=" . $i . " >" . $i . "</a></li> ";
+            //     }
+            //   }
+            // }
+            // echo "<li class='page-item'><a class='page-link' aria-label='Next' href=?page=" . $pages . " ><span aria-hidden='true'>&raquo;</span></a></li></ul>
+            //                         </nav></div>";
+            // echo "<div class=\"col-12\">第" . $page . "/" . $pages . "頁-共" . $num . "筆</div></center>";
 
             ?>
           </div>
