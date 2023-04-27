@@ -11,7 +11,10 @@ if (isset($_POST['submit'])) {
     if ($result) {
         header("location:sensorManagement.php");
     } else {
-        echo 'Please check ur query';
+        echo "<script>
+        alert('感測器編號不可重複，請再確認一次!');
+        setTimeout(function(){window.location.href='sensorManagement.php'},0);
+        </script>";
     }
 } else {
     header("location:sensorManagement.php");
