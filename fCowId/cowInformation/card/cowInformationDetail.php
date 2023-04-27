@@ -66,7 +66,7 @@ mysqli_query($db_link, $updateQuery);
         $sensorRow = mysqli_fetch_array($sensorResult);
         $states = $sensorRow['states'];
     } else {
-        $states = '未連接';
+        $states = '未配戴';
     }
 
     echo "<h5 class=\"card-title\"><i class=\"fas fa-tint\"></i>&nbsp;牛隻資訊&nbsp;&nbsp;&nbsp;&nbsp;編號:$id &nbsp;&nbsp;<a href=\"#revise\" GetID='$GetID' class=\"btn btn-primary view_data\">編輯</a></h5>";
@@ -78,7 +78,7 @@ mysqli_query($db_link, $updateQuery);
 </div>
 <div class=\"col-4\">
     <p class=\"card-text \">感測器狀態<br>";
-    if ($states == '未連接') {
+    if ($states == '未連接'||$states=='未配戴') {
         echo "<i class=\"fas fa-circle\" style=\"color: red;\"></i>";
     } elseif ($states == '正常') {
         echo "<i class=\"fas fa-circle\" style=\"color: green;\"></i>";

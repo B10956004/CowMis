@@ -38,11 +38,11 @@
             $sensorRow = mysqli_fetch_array($sensorResult);
             $states = $sensorRow['states'];
         } else {
-            $states = '未連接';
+            $states = '未配戴';
         }
-        
+
         echo "<td>";
-        if ($states == '未連接') {
+        if ($states == '未連接'||$states=='未配戴') {
             echo "<i class=\"fas fa-circle\" style=\"color: red;\"></i>";
         } elseif ($states == '正常') {
             echo "<i class=\"fas fa-circle\" style=\"color: green;\"></i>";
