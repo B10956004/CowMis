@@ -82,10 +82,10 @@ mysqli_query($db_link, $updateQuery);
         echo"<a href=\"../../fRecord/sensorManagement/sensorManagement.php\"><p class=\"card-text \">感測器狀態</a><br>";
         echo "<i class=\"fas fa-circle\" style=\"color: red;\"></i>";
     } elseif ($states == '正常') {
-        echo"<a href=\"../../fRecord/cowActivity/cowActivity.php\"><p class=\"card-text \">感測器狀態<br></a>";
+        echo"<a href=\"../../fRecord/cowActivity/cowActivity.php?GetID={$id}\"><p class=\"card-text \">感測器狀態<br></a>";
         echo "<i class=\"fas fa-circle\" style=\"color: green;\"></i>";
     } else {
-        echo"<a href=\"../../fRecord/cowActivity/cowActivity.php\"><p class=\"card-text \">感測器狀態<br></a>";
+        echo"<a href=\"../../fRecord/cowActivity/cowActivity.php?GetID={$id}\"><p class=\"card-text \">感測器狀態<br></a>";
         echo "<i class=\"fas fa-circle\" style=\"color: yellow;\"></i>";
     }
     echo "<input type=\"text\" class=\"col-10\" value='{$states}' disabled> </p>
