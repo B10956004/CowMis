@@ -76,13 +76,16 @@ mysqli_query($db_link, $updateQuery);
     <p class=\"card-text \">出生日期<br>
     <input type=\"text\" class=\"col-12\" value='$dob' disabled> </p>
 </div>
-<div class=\"col-4\">
-    <p class=\"card-text \">感測器狀態<br>";
+<div class=\"col-4\">";
+
     if ($states == '未連接'||$states=='未配戴') {
+        echo"<a href=\"../../fRecord/sensorManagement/sensorManagement.php\"><p class=\"card-text \">感測器狀態</a><br>";
         echo "<i class=\"fas fa-circle\" style=\"color: red;\"></i>";
     } elseif ($states == '正常') {
+        echo"<a href=\"../../fRecord/cowActivity/cowActivity.php\"><p class=\"card-text \">感測器狀態<br></a>";
         echo "<i class=\"fas fa-circle\" style=\"color: green;\"></i>";
     } else {
+        echo"<a href=\"../../fRecord/cowActivity/cowActivity.php\"><p class=\"card-text \">感測器狀態<br></a>";
         echo "<i class=\"fas fa-circle\" style=\"color: yellow;\"></i>";
     }
     echo "<input type=\"text\" class=\"col-10\" value='{$states}' disabled> </p>
