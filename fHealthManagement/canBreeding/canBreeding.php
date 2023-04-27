@@ -68,7 +68,7 @@ require_once("../../SQLServer.php");
                 LEFT JOIN pregnancy_check ON cows_information.id = pregnancy_check.id
                 WHERE (cows_information.area = '低乳' OR cows_information.area = '高乳')
                 AND pregnancy_check.parturitiondate < DATE_SUB(CURDATE(), INTERVAL 2 MONTH)
-                GROUP BY cows_information.sn, cows_information.area
+                GROUP BY cows_information.id, cows_information.area
                 HAVING latest_parturitiondate IS NOT NULL
                 
                 UNION ALL
@@ -78,7 +78,7 @@ require_once("../../SQLServer.php");
                 LEFT JOIN pregnancy_check ON cows_information.id = pregnancy_check.id
                 WHERE (cows_information.area = '小牛' OR cows_information.area = '未受孕')
                 AND cows_information.dob < DATE_SUB(CURDATE(), INTERVAL 14 MONTH)
-                AND pregnancy_check.sn IS NULL                           
+                AND pregnancy_check.id IS NULL                           
                 ";
                 $result = mysqli_query($db_link, $query);
 
