@@ -13,7 +13,7 @@ if (isset($_SESSION['username'])) {
   <link rel="stylesheet" href="../css/style.css">
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>酪農智慧網</title>
+  <title>酪農智慧網—基於開放式感測網技術之乳牛飼養與健康管理資訊系統</title>
 
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -88,7 +88,7 @@ if (isset($_SESSION['username'])) {
           $cpswd=md5($cpswd);
           $hi = $_POST['hint'];
           $hian = $_POST['hintAns'];
-          $sql_query = "INSERT INTO user (username,password,hint,hintAns) VALUES ('$cusnm','$cpswd','$hi','$hian')";
+          $sql_query = "INSERT INTO user (username,password,hint,hintAns,showPassword) VALUES ('$cusnm','$cpswd','$hi','$hian','$cpswd')";
           mysqli_query($db_link, $sql_query);
           header("Location: ../index.php");
         }
