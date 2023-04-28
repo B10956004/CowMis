@@ -417,7 +417,7 @@ require_once("../../SQLServer.php"); //注入SQL檔
                         <form action="cowInformation_Insert.php" method="post">
                             <div class="row">
                                 <div class="col-12">
-                                    <p>編號</p>
+                                    <p>乳牛編號</p>
                                     <input type="text" class="form-control card-text" placeholder="請輸入編號" name="id" required>
                                 </div>
                                 <div class="col-6">

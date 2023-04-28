@@ -52,7 +52,7 @@ require_once("../../SQLServer.php");
             <table id="rule" class="table table-hover">
               <thead>
                 <tr class="table-active">
-                  <th>編號</th>
+                  <th>乳牛編號</th>
                   <th>目前區域</th>
                   <th>出生日期</th>
                   <th>分娩日期</th>

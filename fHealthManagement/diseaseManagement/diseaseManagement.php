@@ -44,7 +44,7 @@ require_once("../../SQLServer.php");
             <table id="rule" class="table table-hover">
               <thead>
                 <tr class="table-active">
-                  <th>編號</th>
+                  <th>乳牛編號</th>
                   <th>日期</th>
                   <th>疾病種類</th>
                   <th>藥品紀錄</th>
@@ -200,7 +200,7 @@ require_once("../../SQLServer.php");
                   </select>
                 </div>
                 <div class="col-3">
-                  <p>編號</p>
+                  <p>乳牛編號</p>
                   <select class="form-select" name="id" id="id" required>
                     <option value="">請選擇</option>
                   </select>
