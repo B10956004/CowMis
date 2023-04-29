@@ -17,6 +17,7 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.js"></script>
     <link rel="stylesheet" href="../../css/indexcss.css">
     <script src="../../Gauge.js"></script>
     <script>
@@ -88,7 +89,40 @@
 
 <body>
     <div id="content" style="width:100%; height:100% ;   padding:1.5rem  ;   ">
-        <span class="  col-6" style="font-weight:bold;font-size:25px;"><i class="fas fa-home"></i>&nbsp;牧場觀測服務</span>
+        <span class="col-6" id='topic' style="font-weight:bold;font-size:25px;"><i class="fas fa-home"></i>&nbsp;牧場觀測服務</span>
+        <script>
+            var topic = document.getElementById("topic");
+
+            function updateTime() {
+                var xhr = new XMLHttpRequest();
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState == XMLHttpRequest.DONE) {
+                        if (xhr.status == 200) {
+                            // 更新數據
+                            var time = xhr.responseText;
+                            if (time = ' ') {
+                                time=moment().add(-3,'second');
+                            } else {
+                                var time = moment(time).format('YYYY-MM-DD HH:mm:ss');
+                            }
+                            var timeNow = moment();
+                            if (timeNow.diff(time, 'second') >= 3) { //接受3秒誤差
+                                topic.innerHTML = "<i class=\"fas fa-home\"></i>&nbsp;牧場觀測服務 目前時間:錯誤，請檢查環境感測器!";
+                            } else {
+                                topic.innerHTML = "<i class=\"fas fa-home\"></i>&nbsp;牧場觀測服務 目前時間:" + timeNow.format("YYYY-MM-DD HH:mm:ss");
+                            }
+                        } else {
+                            console.log("Error: " + xhr.status);
+                        }
+                    }
+                };
+                xhr.open("GET", "../dht/getTimeData.php", true);
+                xhr.send();
+            }
+
+            // 每0.1秒更新一次數據
+            setInterval(updateTime, 100);
+        </script>
         <div class="container">
             <div class="row bg-light shadow p-3 mt-2">
                 <div class="col-4">
