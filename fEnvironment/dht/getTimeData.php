@@ -10,7 +10,7 @@ if ($result->num_rows > 0) {
     $row = $result->fetch_assoc();
     $time = $row["time"];
 } else {
-    $time = '發生異常，請檢查裝置!';
+    $time = null;
 }
 // 返回數據
 echo $time;
