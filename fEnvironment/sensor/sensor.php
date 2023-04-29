@@ -93,19 +93,19 @@
             <div class="row bg-light shadow p-3 mt-2">
                 <div class="col-4">
                     <h5 style="text-align: center;">溫度°C
-                        <canvas id="temperatureChart" width="auto" height="125"></canvas>
+                        <canvas id="temperatureChart" width="auto" height="180"></canvas>
                     </h5>
                     <script>
-                        var ctx = document.getElementById("temperatureChart");
-                        new Chart(ctx, {
+                        var ctxTemp = document.getElementById("temperatureChart");
+                        var temperatureChart = new Chart(ctxTemp, {
                             type: "tsgauge",
                             data: {
                                 datasets: [{
                                     backgroundColor: ["#2894FF", "#0fdc63", "#FFD306", "#EA0000"],
                                     borderWidth: 0,
                                     gaugeData: {
-                                        value: 30,
-                                        valueColor: "#0fdc63"
+                                        value: 'loading',
+                                        valueColor: "#2894FF"
                                     },
                                     gaugeLimits: [0, 15, 30, 40, 50]
                                 }]
@@ -115,22 +115,54 @@
                                 showMarkers: true
                             }
                         });
+
+                        function updateTemperature() {
+                            var xhr = new XMLHttpRequest();
+                            xhr.onreadystatechange = function() {
+                                if (xhr.readyState == XMLHttpRequest.DONE) {
+                                    if (xhr.status == 200) {
+                                        // 更新數據
+                                        var temperature = parseFloat(xhr.responseText);
+                                        if (temperature <= 15) {
+                                            var valueColor = "#2894FF";
+                                        } else if (temperature <= 30) {
+                                            var valueColor = "#0fdc63";
+                                        } else if (temperature <= 40) {
+                                            var valueColor = "#FFD306";
+                                        } else {
+                                            var valueColor = "#EA0000";
+                                        }
+                                        temperatureChart.data.datasets[0].gaugeData.value = temperature;
+                                        temperatureChart.data.datasets[0].gaugeData.valueColor = valueColor;
+                                        temperatureChart.update();
+
+                                    } else {
+                                        console.log("Error: " + xhr.status);
+                                    }
+                                }
+                            };
+                            xhr.open("GET", "../dht/getTemperatureData.php", true);
+                            xhr.send();
+                        }
+
+                        // 每1秒更新一次數據
+                        setInterval(updateTemperature, 1000);
                     </script>
                 </div>
                 <div class="col-4">
                     <h5 style="text-align: center;">相對濕度%
-                        <canvas id="humidityChart" width="auto" height="125"></canvas>
+                        <canvas id="humidityChart" width="auto" height="180"></canvas>
                     </h5>
                     <script>
-                        var ctx = document.getElementById("humidityChart");
-                        new Chart(ctx, {
+                        var ctxHumi = document.getElementById("humidityChart");
+                        var humidityChart = new Chart(ctxHumi, {
                             type: "tsgauge",
                             data: {
                                 datasets: [{
                                     backgroundColor: ["#00E3E3", "#0080FF", "#0066CC", "#000093"],
                                     borderWidth: 0,
                                     gaugeData: {
-                                        value: 35,
+                                        value: 'loading',
                                         valueColor: "#00E3E3"
                                     },
                                     gaugeLimits: [20, 40, 60, 80, 100]
@@ -141,22 +173,54 @@
                                 showMarkers: true,
                             }
                         });
+
+                        function updateHumidity() {
+                            var xhr = new XMLHttpRequest();
+                            xhr.onreadystatechange = function() {
+                                if (xhr.readyState == XMLHttpRequest.DONE) {
+                                    if (xhr.status == 200) {
+                                        // 更新數據
+                                        var humidity = parseFloat(xhr.responseText);
+                                        if (humidity <= 20) {
+                                            var valueColor = "#00E3E3";
+                                        } else if (temperature <= 40) {
+                                            var valueColor = "#0080FF";
+                                        } else if (temperature <= 60) {
+                                            var valueColor = "#0066CC";
+                                        } else {
+                                            var valueColor = "#000093";
+                                        }
+                                        humidityChart.data.datasets[0].gaugeData.value = humidity;
+                                        humidityChart.data.datasets[0].gaugeData.valueColor = valueColor;
+                                        humidityChart.update();
+
+                                    } else {
+                                        console.log("Error: " + xhr.status);
+                                    }
+                                }
+                            };
+                            xhr.open("GET", "../dht/getHumidityData.php", true);
+                            xhr.send();
+                        }
+
+                        // 每1秒更新一次數據
+                        setInterval(updateHumidity, 1000);
                     </script>
                 </div>
                 <div class="col-4">
                     <h5 style="text-align: center;">熱緊迫指數THI
-                        <canvas id="THIChart" width="auto" height="125"></canvas>
+                        <canvas id="THIChart" width="auto" height="180"></canvas>
                     </h5>
                     <script>
-                        var ctx = document.getElementById("THIChart");
-                        new Chart(ctx, {
+                        var ctxTHI = document.getElementById("THIChart");
+                        var THIChart = new Chart(ctxTHI, {
                             type: "tsgauge",
                             data: {
                                 datasets: [{
                                     backgroundColor: ["#9D9D9D", "#FFD306", "#FF8000", "#EA0000", "#750075"],
                                     borderWidth: 0,
                                     gaugeData: {
-                                        value: 41,
+                                        value: 'loading',
                                         valueColor: "#9D9D9D"
                                     },
                                     gaugeLimits: [50, 68, 72, 78, 89, 99]
@@ -167,11 +231,45 @@
                                 showMarkers: true,
                             }
                         });
+
+                        function updateTHI() {
+                            var xhr = new XMLHttpRequest();
+                            xhr.onreadystatechange = function() {
+                                if (xhr.readyState == XMLHttpRequest.DONE) {
+                                    if (xhr.status == 200) {
+                                        // 更新數據
+                                        var THI = parseFloat(xhr.responseText);
+                                        if (THI <= 50) {
+                                            var valueColor = "#9D9D9D";
+                                        } else if (THI <= 68) {
+                                            var valueColor = "#FFD306";
+                                        } else if (THI <= 72) {
+                                            var valueColor = "#FF8000";
+                                        } else if (THI <= 78) {
+                                            var valueColor = "#EA0000";
+                                        } else {
+                                            var valueColor = "#750075";
+                                        }
+                                        THIChart.data.datasets[0].gaugeData.value = THI;
+                                        THIChart.data.datasets[0].gaugeData.valueColor = valueColor;
+                                        THIChart.update();
+
+                                    } else {
+                                        console.log("Error: " + xhr.status);
+                                    }
+                                }
+                            };
+                            xhr.open("GET", "../dht/getTHIData.php", true);
+                            xhr.send();
+                        }
+
+                        // 每1秒更新一次數據
+                        setInterval(updateTHI, 1000);
                     </script>
                 </div>
                 <div class="col-12">
-                <br>
-                <br>
+                    <br>
+                    <br>
                     <h5 style="text-align: center;">一週天氣預報</h5>
                     <canvas id="weatherWeek" width="500" height="150"></canvas>
                 </div>
