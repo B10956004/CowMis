@@ -17,7 +17,7 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
-    <link rel="stylesheet" href="../css/indexcss.css">
+    <link rel="stylesheet" href="../../css/indexcss.css">
     <script src="../../Gauge.js"></script>
     <script>
         //天氣預報
@@ -183,9 +183,9 @@
                                         var humidity = parseFloat(xhr.responseText);
                                         if (humidity <= 20) {
                                             var valueColor = "#00E3E3";
-                                        } else if (temperature <= 40) {
+                                        } else if (humidity <= 40) {
                                             var valueColor = "#0080FF";
-                                        } else if (temperature <= 60) {
+                                        } else if (humidity <= 60) {
                                             var valueColor = "#0066CC";
                                         } else {
                                             var valueColor = "#000093";
