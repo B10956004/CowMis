@@ -36,15 +36,15 @@ require_once("../SQLServer.php"); //注入SQL檔
                     </h5>
                     <script>
                         var ctx = document.getElementById("temperatureChart");
-                        new Chart(ctx, {
+                        var temperatureChart = new Chart(ctx, {
                             type: "tsgauge",
                             data: {
                                 datasets: [{
                                     backgroundColor: ["#2894FF", "#0fdc63", "#FFD306", "#EA0000"],
                                     borderWidth: 0,
                                     gaugeData: {
-                                        value: 30,
-                                        valueColor: "#0fdc63"
+                                        value: 'loading',
+                                        valueColor: "#2894FF"
                                     },
                                     gaugeLimits: [0, 15, 30, 40, 50]
                                 }]
@@ -54,6 +54,39 @@ require_once("../SQLServer.php"); //注入SQL檔
                                 showMarkers: true
                             }
                         });
+
+                        function updateTemperature() {
+                            var xhr = new XMLHttpRequest();
+                            xhr.onreadystatechange = function() {
+                                if (xhr.readyState == XMLHttpRequest.DONE) {
+                                    if (xhr.status == 200) {
+                                        // 更新數據
+                                        var temperature = parseFloat(xhr.responseText);
+                                        if (temperatureChart.data.datasets[0].gaugeData.value != temperature) {
+                                            if (temperature >= 40) {
+                                                var valueColor = "#EA0000";
+                                            } else if (temperature >= 30) {
+                                                var valueColor = "#FFD306";
+                                            } else if (temperature >= 15) {
+                                                var valueColor = "#0fdc63";
+                                            } else {
+                                                var valueColor = "#2894FF";
+                                            }
+                                            temperatureChart.data.datasets[0].gaugeData.value = temperature;
+                                            temperatureChart.data.datasets[0].gaugeData.valueColor = valueColor;
+                                            temperatureChart.update();
+                                        }
+                                    } else {
+                                        console.log("Error: " + xhr.status);
+                                    }
+                                }
+                            };
+                            xhr.open("GET", "../fEnvironment/dht/getTemperatureData.php", true);
+                            xhr.send();
+                        }
+
+                        // 每1秒更新一次數據
+                        setInterval(updateTemperature, 1000);
                     </script>
                 </div>
                 <div class="col-4">
@@ -62,14 +95,14 @@ require_once("../SQLServer.php"); //注入SQL檔
                     </h5>
                     <script>
                         var ctx = document.getElementById("humidityChart");
-                        new Chart(ctx, {
+                        var humidityChart = new Chart(ctx, {
                             type: "tsgauge",
                             data: {
                                 datasets: [{
                                     backgroundColor: ["#00E3E3", "#0080FF", "#0066CC", "#000093"],
                                     borderWidth: 0,
                                     gaugeData: {
-                                        value: 35,
+                                        value: 'loading',
                                         valueColor: "#00E3E3"
                                     },
                                     gaugeLimits: [20, 40, 60, 80, 100]
@@ -80,6 +113,39 @@ require_once("../SQLServer.php"); //注入SQL檔
                                 showMarkers: true,
                             }
                         });
+
+                        function updateHumidity() {
+                            var xhr = new XMLHttpRequest();
+                            xhr.onreadystatechange = function() {
+                                if (xhr.readyState == XMLHttpRequest.DONE) {
+                                    if (xhr.status == 200) {
+                                        // 更新數據
+                                        var humidity = parseFloat(xhr.responseText);
+                                        if (humidityChart.data.datasets[0].gaugeData.value != humidity) {
+                                            if (humidity >= 80) {
+                                                var valueColor = "#000093";
+                                            } else if (humidity >= 60) {
+                                                var valueColor = "#0066CC";
+                                            } else if (humidity >= 40) {
+                                                var valueColor = "#0080FF";
+                                            } else {
+                                                var valueColor = "#00E3E3";
+                                            }
+                                            humidityChart.data.datasets[0].gaugeData.value = humidity;
+                                            humidityChart.data.datasets[0].gaugeData.valueColor = valueColor;
+                                            humidityChart.update();
+                                        }
+                                    } else {
+                                        console.log("Error: " + xhr.status);
+                                    }
+                                }
+                            };
+                            xhr.open("GET", "../fEnvironment/dht/getHumidityData.php", true);
+                            xhr.send();
+                        }
+
+                        // 每1秒更新一次數據
+                        setInterval(updateHumidity, 1000);
                     </script>
                 </div>
                 <div class="col-4">
@@ -88,14 +154,14 @@ require_once("../SQLServer.php"); //注入SQL檔
                     </h5>
                     <script>
                         var ctx = document.getElementById("THIChart");
-                        new Chart(ctx, {
+                        var THIChart = new Chart(ctx, {
                             type: "tsgauge",
                             data: {
                                 datasets: [{
                                     backgroundColor: ["#9D9D9D", "#FFD306", "#FF8000", "#EA0000", "#750075"],
                                     borderWidth: 0,
                                     gaugeData: {
-                                        value: 41,
+                                        value: 'loading',
                                         valueColor: "#9D9D9D"
                                     },
                                     gaugeLimits: [50, 68, 72, 78, 89, 99]
@@ -106,6 +172,41 @@ require_once("../SQLServer.php"); //注入SQL檔
                                 showMarkers: true,
                             }
                         });
+
+                        function updateTHI() {
+                            var xhr = new XMLHttpRequest();
+                            xhr.onreadystatechange = function() {
+                                if (xhr.readyState == XMLHttpRequest.DONE) {
+                                    if (xhr.status == 200) {
+                                        // 更新數據
+                                        var THI = parseFloat(xhr.responseText);
+                                        if (THIChart.data.datasets[0].gaugeData.value != THI) {
+                                            if (THI >= 89) {
+                                                var valueColor = "#750075";
+                                            } else if (THI >= 78) {
+                                                var valueColor = "#EA0000";
+                                            } else if (THI >= 72) {
+                                                var valueColor = "#FF8000";
+                                            } else if (THI >= 68) {
+                                                var valueColor = "#FFD306";
+                                            } else {
+                                                var valueColor = "#9D9D9D";
+                                            }
+                                            THIChart.data.datasets[0].gaugeData.value = THI;
+                                            THIChart.data.datasets[0].gaugeData.valueColor = valueColor;
+                                            THIChart.update();
+                                        }
+                                    } else {
+                                        console.log("Error: " + xhr.status);
+                                    }
+                                }
+                            };
+                            xhr.open("GET", "../fEnvironment/dht/getTHIData.php", true);
+                            xhr.send();
+                        }
+
+                        // 每1秒更新一次數據
+                        setInterval(updateTHI, 1000);
                     </script>
                 </div>
                 <div class="col-12">
@@ -463,7 +564,7 @@ require_once("../SQLServer.php"); //注入SQL檔
                                     <tbody>
                                         <!-- 控制每頁的欄數 -->
                                         <?php
-                                        $query = "SELECT * FROM pregnancy_check WHERE (`events` IS NULL OR `events`= '') AND `pregnancyresult`='有' AND DATEDIFF(DATE_ADD(matingdate, INTERVAL 9 MONTH),CURDATE()) < 7 ";//配種後+9個月與現在時間接近7天內
+                                        $query = "SELECT * FROM pregnancy_check WHERE (`events` IS NULL OR `events`= '') AND `pregnancyresult`='有' AND DATEDIFF(DATE_ADD(matingdate, INTERVAL 9 MONTH),CURDATE()) < 7 "; //配種後+9個月與現在時間接近7天內
                                         $result = mysqli_query($db_link, $query);
                                         // $num = mysqli_num_rows($result);
                                         // $per = 5; //每頁顯示項目數量
@@ -487,14 +588,14 @@ require_once("../SQLServer.php"); //注入SQL檔
                                             $id = $row['id']; //編號
                                             $matingdate = $row['matingdate']; //配種日期
                                             $matingcount = $row['matingcount']; //配種次數
-                                            $parturitiondate = date("Y-m-d",strtotime("+9 month",strtotime($matingdate)));//估計9個月
+                                            $parturitiondate = date("Y-m-d", strtotime("+9 month", strtotime($matingdate))); //估計9個月
                                             $birthparity = $row['birthparity']; //胎次
                                             $events = $row['events']; //事件
                                             $details = $row['details']; //詳情
                                         ?>
                                             <tr>
                                                 <td><?php echo $id ?></td>
-                                                <td><?php echo $birthparity."({$matingcount})" ?></td>
+                                                <td><?php echo $birthparity . "({$matingcount})" ?></td>
                                                 <td><?php echo $matingdate ?></td>
                                                 <td><?php echo $parturitiondate ?></td>
                                                 <td><button class="view_data btn btn-primary" GetSn="<?php echo $sn; ?>">編輯</button></td>
