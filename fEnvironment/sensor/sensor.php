@@ -123,19 +123,20 @@
                                     if (xhr.status == 200) {
                                         // 更新數據
                                         var temperature = parseFloat(xhr.responseText);
-                                        if (temperature <= 15) {
-                                            var valueColor = "#2894FF";
-                                        } else if (temperature <= 30) {
-                                            var valueColor = "#0fdc63";
-                                        } else if (temperature <= 40) {
-                                            var valueColor = "#FFD306";
-                                        } else {
-                                            var valueColor = "#EA0000";
+                                        if (temperatureChart.data.datasets[0].gaugeData.value != temperature) {
+                                            if (temperature >= 40) {
+                                                var valueColor = "#EA0000";
+                                            } else if (temperature >= 30) {
+                                                var valueColor = "#FFD306";
+                                            } else if (temperature >= 15) {
+                                                var valueColor = "#0fdc63";
+                                            } else {
+                                                var valueColor = "#2894FF";
+                                            }
+                                            temperatureChart.data.datasets[0].gaugeData.value = temperature;
+                                            temperatureChart.data.datasets[0].gaugeData.valueColor = valueColor;
+                                            temperatureChart.update();
                                         }
-                                        temperatureChart.data.datasets[0].gaugeData.value = temperature;
-                                        temperatureChart.data.datasets[0].gaugeData.valueColor = valueColor;
-                                        temperatureChart.update();
-
                                     } else {
                                         console.log("Error: " + xhr.status);
                                     }
@@ -181,19 +182,20 @@
                                     if (xhr.status == 200) {
                                         // 更新數據
                                         var humidity = parseFloat(xhr.responseText);
-                                        if (humidity <= 20) {
-                                            var valueColor = "#00E3E3";
-                                        } else if (humidity <= 40) {
-                                            var valueColor = "#0080FF";
-                                        } else if (humidity <= 60) {
-                                            var valueColor = "#0066CC";
-                                        } else {
-                                            var valueColor = "#000093";
+                                        if (humidityChart.data.datasets[0].gaugeData.value != humidity) {
+                                            if (humidity >= 80) {
+                                                var valueColor = "#000093";
+                                            } else if (humidity >= 60) {
+                                                var valueColor = "#0066CC";
+                                            } else if (humidity >= 40) {
+                                                var valueColor = "#0080FF";
+                                            } else {
+                                                var valueColor = "#00E3E3";
+                                            }
+                                            humidityChart.data.datasets[0].gaugeData.value = humidity;
+                                            humidityChart.data.datasets[0].gaugeData.valueColor = valueColor;
+                                            humidityChart.update();
                                         }
-                                        humidityChart.data.datasets[0].gaugeData.value = humidity;
-                                        humidityChart.data.datasets[0].gaugeData.valueColor = valueColor;
-                                        humidityChart.update();
-
                                     } else {
                                         console.log("Error: " + xhr.status);
                                     }
@@ -239,21 +241,22 @@
                                     if (xhr.status == 200) {
                                         // 更新數據
                                         var THI = parseFloat(xhr.responseText);
-                                        if (THI <= 50) {
-                                            var valueColor = "#9D9D9D";
-                                        } else if (THI <= 68) {
-                                            var valueColor = "#FFD306";
-                                        } else if (THI <= 72) {
-                                            var valueColor = "#FF8000";
-                                        } else if (THI <= 78) {
-                                            var valueColor = "#EA0000";
-                                        } else {
-                                            var valueColor = "#750075";
+                                        if (THIChart.data.datasets[0].gaugeData.value != THI) {
+                                            if (THI >= 89) {
+                                                var valueColor = "#750075";
+                                            } else if (THI >= 78) {
+                                                var valueColor = "#EA0000";
+                                            } else if (THI >= 72) {
+                                                var valueColor = "#FF8000";
+                                            } else if (THI >= 68) {
+                                                var valueColor = "#FFD306";
+                                            } else {
+                                                var valueColor = "#9D9D9D";
+                                            }
+                                            THIChart.data.datasets[0].gaugeData.value = THI;
+                                            THIChart.data.datasets[0].gaugeData.valueColor = valueColor;
+                                            THIChart.update();
                                         }
-                                        THIChart.data.datasets[0].gaugeData.value = THI;
-                                        THIChart.data.datasets[0].gaugeData.valueColor = valueColor;
-                                        THIChart.update();
-
                                     } else {
                                         console.log("Error: " + xhr.status);
                                     }
