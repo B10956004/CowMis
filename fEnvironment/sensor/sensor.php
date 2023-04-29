@@ -100,7 +100,7 @@
                         if (xhr.status == 200) {
                             // 更新數據
                             var time = xhr.responseText;
-                            if (time = ' ') {
+                            if (time == ' ') {
                                 time=moment().add(-3,'second');
                             } else {
                                 var time = moment(time).format('YYYY-MM-DD HH:mm:ss');
