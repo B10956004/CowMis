@@ -76,6 +76,7 @@ if (isset($_SESSION['username'])) {
       <br>
       <div style="border-radius:10px;background:rgba(255,255,255,0.7);padding:20px;margin-bottom:5px;width:380px;height:auto;margin:0 auto;text-align:center;">
         <form action="" method="post" name="formAdd" id="formAdd">
+          <input type="email" name="email" id="email" placeholder="電子郵件" required class="form-control">
           <input type="text" name="username" id="username" placeholder="帳號" required class="form-control">
           <input type="text" name="password" id="password" placeholder="密碼" required class="form-control"><br>
           <input type="text" name="hint" id="hint" placeholder="密碼提示問題" required class="form-control">
@@ -86,13 +87,14 @@ if (isset($_SESSION['username'])) {
         <?php
         if (isset($_POST["action"]) && ($_POST["action"] == "add")) {
           require_once("../SQLServer.php");
+          $cEmail = $_POST['email'];
           $cusnm = $_POST['username'];
           $cpswd = $_POST['password'];
           $password = $cpswd;
           $cpswd = md5($cpswd);
           $hi = $_POST['hint'];
           $hian = $_POST['hintAns'];
-          $sql_query = "INSERT INTO user (username,password,hint,hintAns,showPassword) VALUES ('$cusnm','$cpswd','$hi','$hian','$password')";
+          $sql_query = "INSERT INTO user (username,password,email,hint,hintAns,showPassword) VALUES ('$cusnm','$cpswd','$cEmail','$hi','$hian','$password')";
           mysqli_query($db_link, $sql_query);
           header("Location: ../index.php");
         }

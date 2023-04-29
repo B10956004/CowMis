@@ -87,6 +87,7 @@ if (isset($_SESSION['username'])) {
       <form action="forgetPasswordHint.php" method="post">
         <div style="border-radius:10px;background:rgba(255,255,255,0.7);padding:20px;margin-bottom:5px;width:380px;height:auto;margin:0 auto;text-align:center;">
           <input type="text" name="username" id="username" class="form-control" placeholder="輸入帳號" required>
+          <input type="email" name="email" id="email" class="form-control" placeholder="輸入電子郵件" required>
           <br>
           <button type="submit" value="Submit" class="btton"> <span>送出</span></button></br>
           <a href="../index.php" class="reg">回登入首頁</a> <a href="register.php" class="reg">註冊管理員</a> <a href="forgotPassword.php" class="reg">忘記密碼</a>

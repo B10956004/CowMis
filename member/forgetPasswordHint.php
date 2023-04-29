@@ -9,8 +9,16 @@ if (isset($_SESSION['username'])) {
 <?php
 require_once("../SQLServer.php");
 $lid = $_POST['username'];
-$query = "SELECT * FROM user WHERE username='" . $lid . "'";
+$email = $_POST['email'];
+$query = "SELECT * FROM user WHERE username='$lid' AND email='$email'";
 $result = mysqli_query($db_link, $query);
+$rows = mysqli_num_rows($result);
+if ($rows == 0) {
+  echo "<script>
+        alert('帳號或電子郵件填寫不正確');
+        setTimeout(function(){window.location.href='forgotPassword.php'},100);
+        </script>";
+}
 while ($row = mysqli_fetch_assoc($result)) {
   $hii = $row['hint'];
 }
@@ -88,10 +96,10 @@ while ($row = mysqli_fetch_assoc($result)) {
 
 
 
-<div class="fix_bg bg_final">
+  <div class="fix_bg bg_final">
 
-<h2 class="vcenter" style="background-color: rgba(245,245,245,0.8);border-radius: 25px;">
-  <a href="../home.php"><img src="../image/LOGO 小.png"></a>
+    <h2 class="vcenter" style="background-color: rgba(245,245,245,0.8);border-radius: 25px;">
+      <a href="../home.php"><img src="../image/LOGO 小.png"></a>
       <b><a href="../home.php" target="_self" style="color:#07A862;text-decoration: none;font-size: 35px;display: flex;align-items: center;padding-left:50px;padding-right:50px">酪農智慧網—基於開放式感測網技術之乳牛飼養與健康管理資訊系統</a></b>
       <br>
       <form action="showPassword.php" method="post">
@@ -99,7 +107,7 @@ while ($row = mysqli_fetch_assoc($result)) {
           <input type="text" name="username" id="username" value="<?php echo $lid ?>" class="form-control" readonly>
           <input type="text" name="hint" id="username" value="<?php echo $hii ?>是?" class="form-control" readonly>
           <input type="text" name="answer" id="answer" placeholder="回答:" class="form-control" required>
-
+          <input type="hidden" name="email" value=<?php echo $email;?>>
           <button type="submit" value="Submit" class="btton"> <span>查詢密碼</span></button></br>
           <a href="../index.php" class="reg">回首頁</a> <a href="register.php" class="reg">註冊管理員</a> <a href="forgotPassword.php" class="reg">忘記密碼</a>
         </div>
