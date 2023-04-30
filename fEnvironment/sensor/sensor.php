@@ -125,7 +125,7 @@
         </script>
         <div class="container">
             <div class="row bg-light shadow p-3 mt-2">
-                <div class="col-4">
+                <div class="col-12 col-sm-4">
                     <h5 style="text-align: center;">溫度°C
                         <canvas id="temperatureChart" width="auto" height="180"></canvas>
                     </h5>
@@ -184,7 +184,7 @@
                         setInterval(updateTemperature, 1000);
                     </script>
                 </div>
-                <div class="col-4">
+                <div class="col-12 col-sm-4">
                     <h5 style="text-align: center;">相對濕度%
                         <canvas id="humidityChart" width="auto" height="180"></canvas>
                     </h5>
@@ -243,7 +243,7 @@
                         setInterval(updateHumidity, 1000);
                     </script>
                 </div>
-                <div class="col-4">
+                <div class="col-12 col-sm-4">
                     <h5 style="text-align: center;">熱緊迫指數THI
                         <canvas id="THIChart" width="auto" height="180"></canvas>
                     </h5>
