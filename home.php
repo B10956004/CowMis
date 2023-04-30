@@ -132,7 +132,7 @@ require_once("SQLServer.php"); //注入SQL檔
                                 </li>
                                 <li class="nav-item dropdown text-center">
                                     <button class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                                        健康管理
+                                        健康與懷孕管理
                                     </button>
                                     <ul class="dropdown-menu dropdown-menu-dark text-center">
                                         <li><a class="dropdown-item" onclick="change_DiseaseManagement() ;">疾病管理</a></li>
@@ -143,20 +143,20 @@ require_once("SQLServer.php"); //注入SQL檔
                                 </li>
                                 <li class="nav-item dropdown text-center">
                                     <button class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                        活動感知管理
+                                    </button>
+                                    <ul class="dropdown-menu dropdown-menu-dark text-center">
+                                        <li><a class="dropdown-item" onclick="change_SensorManagement() ;">感測器管理</a></li>
+                                        <li><a class="dropdown-item" onclick="change_CowActivity() ;">乳牛姿態感知</a></li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item dropdown text-center">
+                                    <button class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                                         感測網服務管理
                                     </button>
                                     <ul class="dropdown-menu dropdown-menu-dark text-center">
                                         <li><a class="dropdown-item" onclick="change_Sensor() ;">牧場觀測服務</a></li>
                                         <!-- <li><a class="dropdown-item" onclick="change_SensorCow() ;">牛乳測量</a></li> -->
-                                    </ul>
-                                </li>
-                                <li class="nav-item dropdown text-center">
-                                    <button class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                                        裝置互操作性模組
-                                    </button>
-                                    <ul class="dropdown-menu dropdown-menu-dark text-center">
-                                        <li><a class="dropdown-item" onclick="change_SensorManagement() ;">感測器管理</a></li>
-                                        <li><a class="dropdown-item" onclick="change_CowActivity() ;">乳牛姿態感知</a></li>
                                     </ul>
                                 </li>
                             </ul>
