@@ -80,17 +80,23 @@ require_once("SQLServer.php"); //注入SQL檔
 <body>
     <div>
         <header>
-            <div class="container-all" style="background-image:url(./image/LOGO底圖.png);background-color:#F5F5F5; background-size: Cover;">
+            <div class="container-all" style="background-color:#F5F5F5;">
                 <!-----設定LOGO與名稱----->
-                <div class="col-12 col-sm-10     " style="padding: 10px 25px;">
+                <div class="col-sm-10 d-none d-sm-block" style="padding: 10px 25px;">
                     <b><a href="./home.php" target="_self" style="color:#07A862;text-decoration: none;font-size: 35px;height: 60px;display: flex;align-items: center;">
-                            <img src="./image/LOGO 小.png" style="width: 60px;margin-right: 15px;"> 酪農智慧網—基於開放式感測網技術之乳牛飼養與健康管理資訊系統
+                            <img src="./image/LOGO 小.png" style="width: 60px;margin-right: 15px;">酪農智慧網—基於開放式感測網技術之乳牛飼養與健康管理資訊系統
+                        </a></b>
+                </div>
+                <!-- for phone screen -->
+                <div class="col-sm-10 d-sm-none d-xs-block" style="padding: 10px 25px;">
+                    <b><a href="./home.php" target="_self" style="color:#07A862;text-decoration: none;font-size: 34px;height: 60px;display: flex;align-items: center;">
+                            <img src="./image/LOGO 小.png" style="width: 80px;margin-right: 80px;">
                         </a></b>
                 </div>
                 <!----------登出鍵------------>
-                <div class="col-12 col-sm-2 ">
+                <div class="col-sm-2" style="background-image:url(./image/Login底圖.png);background-color:#F5F5F5; background-size: Cover;">
                     <ul class="navbar-nav" style="padding-top:20px">
-                        <li class="nav-item dropdown" style="padding-left:35px">
+                        <li class="nav-item dropdown" style="padding-left:35px;">
                             <button class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="color:white;font-size: 20px;">
                                 <i class="fa fa-user" style="width:25px;color:#212529;"></i><?php echo $_SESSION['username']; ?>&nbsp;已登入
                             </button>
@@ -161,14 +167,14 @@ require_once("SQLServer.php"); //注入SQL檔
         </header>
         <!-------網頁內文---------->
         <div class="container-all " style="background-color:#F5F5F5">
-            <div class="col-12 col-sm-2 ">
+            <div class="col-sm-3 d-none d-sm-block">
                 <div class="container-list" style="background-color:white;border:2px gray solid;height:100vh;margin: 30px;box-shadow: 0px 0px 5px  gray;">
                     <center>
                         <iframe name="CowFrame" id="CowFrame" src="fOverView/cowStates.php" style="overflow-y: scroll; overflow-x: hidden;display: block;border:none; width:100%; height:100vh;"></iframe>
                     </center>
                 </div>
             </div>
-            <div class="col-12 col-sm-10 " style="background-color:#F5F5F5; ">
+            <div class="col-12 col-sm-9 " style="background-color:#F5F5F5; ">
                 <div class="container-list" style="background-color:white;border:2px gray solid;height:100vh;margin: 30px;box-shadow: 0px 0px 5px  gray;">
                     <center>
                         <iframe name="frame" id="frame" src="fOverView/Overview.php" style="overflow-y: scroll; overflow-x: hidden;display: block;border:none; width:100%; height:100vh;"></iframe>
