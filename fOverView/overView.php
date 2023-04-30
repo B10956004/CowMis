@@ -64,7 +64,7 @@ require_once("../SQLServer.php"); //注入SQL檔
         </script>
         <div class="container">
             <div class="row bg-light shadow p-3 mt-2">
-                <div class="col-4">
+                <div class="col-12 col-sm-4">
                     <h5 style="text-align: center;">溫度°C
                         <canvas id="temperatureChart" width="auto" height="125"></canvas>
                     </h5>
@@ -123,7 +123,7 @@ require_once("../SQLServer.php"); //注入SQL檔
                         setInterval(updateTemperature, 1000);
                     </script>
                 </div>
-                <div class="col-4">
+                <div class="col-12 col-sm-4">
                     <h5 style="text-align: center;">相對濕度%
                         <canvas id="humidityChart" width="auto" height="125"></canvas>
                     </h5>
@@ -182,7 +182,7 @@ require_once("../SQLServer.php"); //注入SQL檔
                         setInterval(updateHumidity, 1000);
                     </script>
                 </div>
-                <div class="col-4">
+                <div class="col-12 col-sm-4">
                     <h5 style="text-align: center;">熱緊迫指數THI
                         <canvas id="THIChart" width="auto" height="125"></canvas>
                     </h5>
@@ -435,7 +435,7 @@ require_once("../SQLServer.php"); //注入SQL檔
                         });
                     </script>
                 </div>
-                <div class="col-5">
+                <div class="col-12 col-sm-5">
                     <h5 style="text-align: center;">準備轉至乾乳牛隻</h5>
                     <div class="table-responsive" style="overflow: hidden;">
                         <div id="cow_table" style="text-align:center;">
@@ -578,7 +578,7 @@ require_once("../SQLServer.php"); //注入SQL檔
                         </center>
                     </div>
                 </div>
-                <div class="col-7">
+                <div class="col-12 col-sm-7">
                     <h5 style="text-align: center;">即將分娩牛隻</h5>
                     <div class="collapse show" data-parent="#birth_data" id="cow_basic">
                         <div class="card-body" id="birth_data">
