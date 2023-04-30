@@ -88,7 +88,7 @@ require_once("SQLServer.php"); //注入SQL檔
                         </a></b>
                 </div>
                 <!-- for phone screen -->
-                <div class="col-sm-10 d-sm-none d-xs-block" style="padding: 10px 25px;">
+                <div class="col-sm-10 d-sm-none d-sm-block d-print-block" style="padding: 10px 25px;">
                     <b><a href="./home.php" target="_self" style="color:#07A862;text-decoration: none;font-size: 34px;height: 60px;display: flex;align-items: center;">
                             <img src="./image/LOGO 小.png" style="width: 80px;margin-right: 80px;">
                         </a></b>
@@ -174,13 +174,12 @@ require_once("SQLServer.php"); //注入SQL檔
                     </center>
                 </div>
             </div>
-            <div class="col-12 col-sm-9 " style="background-color:#F5F5F5; ">
+            <div class="col-12 col-sm-9 d-sm-block" style="background-color:#F5F5F5; ">
                 <div class="container-list" style="background-color:white;border:2px gray solid;height:100vh;margin: 30px;box-shadow: 0px 0px 5px  gray;">
                     <center>
                         <iframe name="frame" id="frame" src="fOverView/Overview.php" style="overflow-y: scroll; overflow-x: hidden;display: block;border:none; width:100%; height:100vh;"></iframe>
                     </center>
                 </div>
-
             </div>
         </div>
         <!-- 底標 -->
