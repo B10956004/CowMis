@@ -80,9 +80,9 @@ require_once("SQLServer.php"); //注入SQL檔
 <body>
     <div>
         <header>
-            <div class="container-all" style="background-image:url(./image/LOGO底圖.png);background-color:#F5F5F5;">
+            <div class="container-all" style="background-image:url(./image/LOGO底圖.png);background-color:#F5F5F5; background-size: Cover;">
                 <!-----設定LOGO與名稱----->
-                <div class="col-12 col-sm-10 " style="padding: 10px 25px;">
+                <div class="col-12 col-sm-10     " style="padding: 10px 25px;">
                     <b><a href="./home.php" target="_self" style="color:#07A862;text-decoration: none;font-size: 35px;height: 60px;display: flex;align-items: center;">
                             <img src="./image/LOGO 小.png" style="width: 60px;margin-right: 15px;"> 酪農智慧網—基於開放式感測網技術之乳牛飼養與健康管理資訊系統
                         </a></b>
@@ -103,64 +103,58 @@ require_once("SQLServer.php"); //注入SQL檔
             </div>
             <!----------Navbar--------->
             <div class="container-bar">
-                <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="padding-left:30%">
+                <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDarkDropdown" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
                     <div class="container-fluid">
                         <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
-                            <ul class="navbar-nav">
-                                <li class="nav-item dropdown">
+                            <ul class="navbar-nav mx-auto">
+                                <li class="nav-item dropdown text-center">
                                     <button class="btn btn-dark" data-bs-toggle="dropdown" aria-expanded="false">
                                         <a class="dropdown-item" onclick="change_OverView() ;">牛舍總覽</a>
                                     </button>
                                 </li>
-                            </ul>
-                            <ul class="navbar-nav">
-                                <li class="nav-item dropdown">
+                                <li class="nav-item dropdown text-center">
                                     <button class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                                         牛隻履歷
                                     </button>
-                                    <ul class="dropdown-menu dropdown-menu-dark">
+                                    <ul class="dropdown-menu dropdown-menu-dark text-center">
                                         <li><a class="dropdown-item" onclick="change_CowInformation() ;">牛隻資料</a></li>
                                         <li><a class="dropdown-item" onclick="change_MilkRecord() ;">泌乳性能</a></li>
                                     </ul>
                                 </li>
-                            </ul>
-                            <ul class="navbar-nav">
-                                <li class="nav-item dropdown">
+                                <li class="nav-item dropdown text-center">
                                     <button class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                                         健康管理
                                     </button>
-                                    <ul class="dropdown-menu dropdown-menu-dark">
+                                    <ul class="dropdown-menu dropdown-menu-dark text-center">
                                         <li><a class="dropdown-item" onclick="change_DiseaseManagement() ;">疾病管理</a></li>
                                         <li><a class="dropdown-item" onclick="change_canBreeding() ;">待配種乳牛</a></li>
                                         <li><a class="dropdown-item" onclick="change_pregnancyCheck() ;">妊娠檢查</a></li>
                                         <li><a class="dropdown-item" onclick="change_parturitionHistory() ;">牛隻歷史分娩紀錄</a></li>
                                     </ul>
                                 </li>
-                            </ul>
-                            <ul class="navbar-nav">
-                                <li class="nav-item dropdown">
+                                <li class="nav-item dropdown text-center">
                                     <button class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                                         感測網服務管理
                                     </button>
-                                    <ul class="dropdown-menu dropdown-menu-dark">
+                                    <ul class="dropdown-menu dropdown-menu-dark text-center">
                                         <li><a class="dropdown-item" onclick="change_Sensor() ;">牧場觀測服務</a></li>
                                         <!-- <li><a class="dropdown-item" onclick="change_SensorCow() ;">牛乳測量</a></li> -->
                                     </ul>
                                 </li>
-                            </ul>
-                            <ul class="navbar-nav">
-                                <li class="nav-item dropdown">
+                                <li class="nav-item dropdown text-center">
                                     <button class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                                         裝置互操作性模組
                                     </button>
-                                    <ul class="dropdown-menu dropdown-menu-dark">
+                                    <ul class="dropdown-menu dropdown-menu-dark text-center">
                                         <li><a class="dropdown-item" onclick="change_SensorManagement() ;">感測器管理</a></li>
                                         <li><a class="dropdown-item" onclick="change_CowActivity() ;">乳牛姿態感知</a></li>
                                     </ul>
                                 </li>
                             </ul>
                         </div>
-
                     </div>
                 </nav>
             </div>
@@ -180,7 +174,7 @@ require_once("SQLServer.php"); //注入SQL檔
                         <iframe name="frame" id="frame" src="fOverView/Overview.php" style="overflow-y: scroll; overflow-x: hidden;display: block;border:none; width:100%; height:100vh;"></iframe>
                     </center>
                 </div>
-                
+
             </div>
         </div>
         <!-- 底標 -->
