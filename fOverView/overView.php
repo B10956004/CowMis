@@ -40,12 +40,12 @@ require_once("../SQLServer.php"); //注入SQL檔
                             // 更新數據
                             var time = xhr.responseText;
                             if (time == ' ') {
-                                time=moment().add(-3,'second');
+                                time=moment().add(-10,'second');
                             } else {
                                 var time = moment(time).format('YYYY-MM-DD HH:mm:ss');
                             }
                             var timeNow = moment();
-                            if (timeNow.diff(time, 'second') >= 3) { //接受3秒誤差
+                            if (timeNow.diff(time, 'second') >= 10) { //接受3秒誤差
                                 topic.innerHTML = "<i class=\"fas fa-home\"></i>&nbsp;牛舍資訊總覽 目前時間:錯誤，請檢查環境感測器!";
                             } else {
                                 topic.innerHTML = "<i class=\"fas fa-home\"></i>&nbsp;牛舍資訊總覽 目前時間:" + timeNow.format("YYYY-MM-DD HH:mm:ss");
