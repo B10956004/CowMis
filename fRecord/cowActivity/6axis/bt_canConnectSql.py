@@ -42,17 +42,13 @@ def notification_callback(sender, data):
     if isclose(float(f), x, abs_tol=0.0001) == True:
         data_list = []  # 清空數據
     else:
-        # now = datetime.now()
-        # current_time = now.strftime("YYYY-MM-DD %H:%M:%S.%f")[:-3]
-        # if len(data_list) == 0:
-        # data_list.append(current_time)
-        # else:
         data_list.append(f)
     if len(data_list) == 6:
+        data_list.insert(0,datetime.now())
         print("資料插入成功", data_list)
         # 插入數據庫
-        query = ("INSERT INTO sensor_data (ax, ay, az, gx, gy, gz) "
-                 "VALUES (%s, %s, %s, %s, %s, %s)")
+        query = ("INSERT INTO sensor_data (time,ax, ay, az, gx, gy, gz) "
+                 "VALUES (%s,%s, %s, %s, %s, %s, %s)")
         cursor.execute(query, data_list)
         cnx.commit()
 
