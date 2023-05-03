@@ -3,7 +3,6 @@
 #include <DHT.h>
 #include <Arduino.h>
 #include <U8g2lib.h>
-#include <Time.h>
 //引入套件
 #ifdef U8X8_HAVE_HW_SPI
 #include <SPI.h>
