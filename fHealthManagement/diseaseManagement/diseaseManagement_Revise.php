@@ -31,15 +31,24 @@ while ($row = mysqli_fetch_assoc($result)) {
           <p>疾病種類</p>
           <select class="form-select" name="selectDisease" id="selectDisease" onchange="eventsChange(this)" required>
             <?php echo "<option value=\"$disease\" selected>$disease</option>"; ?>
-            <option value="無" <?php if ($disease == '無') {
-                                echo "hidden";
-                              } ?>>無</option>
             <option value="乳房炎" <?php if ($disease == '乳房炎') {
                                   echo "hidden";
                                 } ?>>乳房炎</option>
             <option value="蹄病" <?php if ($disease == '蹄病') {
                                   echo "hidden";
                                 } ?>>蹄病</option>
+            <option value="子宮內膜炎" <?php if ($disease == '子宮內膜炎') {
+                                    echo "hidden";
+                                  } ?>>子宮內膜炎</option>
+            <option value="放射菌感染病" <?php if ($disease == '放射菌感染病') {
+                                      echo "hidden";
+                                    } ?>>放射菌感染病</option>
+            <option value="下痢" <?php if ($disease == '下痢') {
+                                  echo "hidden";
+                                } ?>>下痢</option>
+            <option value="肺炎" <?php if ($disease == '肺炎') {
+                                  echo "hidden";
+                                } ?>>肺炎</option>
             <option value="感冒" <?php if ($disease == '感冒') {
                                   echo "hidden";
                                 } ?>>感冒</option>
@@ -56,12 +65,15 @@ while ($row = mysqli_fetch_assoc($result)) {
             <option value="無" <?php if ($drugs == '無') {
                                 echo "hidden";
                               } ?>>無</option>
-            <option value="乳房炎藥" <?php if ($drugs == '乳房炎藥') {
-                                    echo "hidden";
-                                  } ?>>乳房炎藥</option>
-            <option value="蹄病藥" <?php if ($drugs == '蹄病藥') {
-                                  echo "hidden";
-                                } ?>>蹄病藥</option>
+            <option value="新萬靈素軟膏" <?php if ($drugs == '新萬靈素軟膏') {
+                                      echo "hidden";
+                                    } ?>>新萬靈素軟膏</option>
+            <option value="喜福安乾乳軟膏" <?php if ($drugs == '喜福安乾乳軟膏') {
+                                      echo "hidden";
+                                    } ?>>喜福安乾乳軟膏</option>
+            <option value="泌乳樂(CEROXIM OINTMENT)" <?php if ($drugs == '泌乳樂(CEROXIM OINTMENT)') {
+                                                    echo "hidden";
+                                                  } ?>>泌乳樂(CEROXIM OINTMENT)</option>
             <option value="其他藥品">其他</option>
           </select>
         </div>
@@ -72,12 +84,24 @@ while ($row = mysqli_fetch_assoc($result)) {
             <option value="無" <?php if ($vaccines == '無') {
                                 echo "hidden";
                               } ?>>無</option>
-            <option value="乳房炎疫苗" <?php if ($vaccines == '乳房炎疫苗') {
+            <option value="Povidone Iodine 2%" <?php if ($vaccines == 'Povidone Iodine 2%') {
                                     echo "hidden";
-                                  } ?>>乳房炎疫苗</option>
-            <option value="蹄病藥疫苗" <?php if ($vaccines == '蹄病藥疫苗') {
+                                  } ?>>Povidone Iodine 2%</option>
+            <option value="長效72" <?php if ($vaccines == '長效72') {
                                     echo "hidden";
-                                  } ?>>蹄病藥疫苗</option>
+                                  } ?>>長效72</option>
+            <option value="Oxytetracycline 20%" <?php if ($vaccines == 'Oxytetracycline 20%') {
+                                    echo "hidden";
+                                  } ?>>Oxytetracycline 20%</option>
+            <option value="克倍寧LC(Cobactan LC)" <?php if ($vaccines == '克倍寧LC(Cobactan LC)') {
+                                    echo "hidden";
+                                  } ?>>克倍寧LC(Cobactan LC)</option>
+            <option value="拜有利 10% 注射液" <?php if ($vaccines == '拜有利 10% 注射液') {
+                                    echo "hidden";
+                                  } ?>>拜有利 10% 注射液</option>
+            <option value="碩騰保久靈(TERRAMICINA/LA SOLUCAO INJETAVEL)" <?php if ($vaccines == '碩騰保久靈(TERRAMICINA/LA SOLUCAO INJETAVEL)') {
+                                    echo "hidden";
+                                  } ?>>碩騰保久靈(TERRAMICINA/LA SOLUCAO INJETAVEL)</option>
             <option value="其他疫苗">其他</option>
           </select>
         </div>

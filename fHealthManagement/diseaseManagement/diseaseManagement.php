@@ -212,9 +212,13 @@ require_once("../../SQLServer.php");
                 <div class="col-4">
                   <p>疾病種類</p>
                   <select class="form-select" name="selectDisease" id="selectDisease" onchange="eventsChange(this)" required>
-                    <option value="無">無</option>
+                    <option value="">請選擇</option>
                     <option value="乳房炎">乳房炎</option>
                     <option value="蹄病">蹄病</option>
+                    <option value="子宮內膜炎">子宮內膜炎</option>
+                    <option value="放射菌感染病">放射菌感染病</option>
+                    <option value="下痢">下痢</option>
+                    <option value="肺炎">肺炎</option>
                     <option value="感冒">感冒</option>
                     <option value="食滯">食滯</option>
                     <option value="其他疾病">其他</option>
@@ -224,8 +228,9 @@ require_once("../../SQLServer.php");
                   <p>藥品紀錄</p>
                   <select class="form-select" name="selectDrug" id="selectDrug" onchange="eventsChange(this)" required>
                     <option value="無">無</option>
-                    <option value="乳房炎藥">乳房炎藥</option>
-                    <option value="蹄病藥">蹄病藥</option>
+                    <option value="新萬靈素軟膏">新萬靈素軟膏</option>
+                    <option value="喜福安乾乳軟膏">喜福安乾乳軟膏</option>
+                    <option value="泌乳樂(CEROXIM OINTMENT)">泌乳樂(CEROXIM OINTMENT)</option>
                     <option value="其他藥品">其他</option>
                   </select>
                 </div>
@@ -233,8 +238,12 @@ require_once("../../SQLServer.php");
                   <p>疫苗紀錄</p>
                   <select class="form-select" name="selectVaccine" id="selectVaccine" onchange="eventsChange(this)" required>
                     <option value="無">無</option>
-                    <option value="乳房炎疫苗">乳房炎疫苗</option>
-                    <option value="蹄病藥疫苗">蹄病藥疫苗</option>
+                    <option value="Povidone Iodine 2%">Povidone Iodine 2%</option>
+                    <option value="長效72">長效72</option>
+                    <option value="Oxytetracycline 20%">Oxytetrocycline 20%</option>
+                    <option value="克倍寧LC(Cobactan LC)">克倍寧LC(Cobactan LC)</option>
+                    <option value="拜有利 10% 注射液">拜有利 10% 注射液</option>
+                    <option value="碩騰保久靈(TERRAMICINA/LA SOLUCAO INJETAVEL)">碩騰保久靈(TERRAMICINA/LA SOLUCAO INJETAVEL)</option>
                     <option value="其他疫苗">其他</option>
                   </select>
                 </div>
