@@ -38,7 +38,7 @@ require_once("../../SQLServer.php");
           </div>
         </div>
         <br>
-        <div class="table-responsive" style="overflow: hidden;">
+        <div class="table-responsive" style="overflow-y: hidden;">
           <div id="cow_table" style="text-align:center;">
 
             <table id="rule" class="table table-hover">
@@ -187,7 +187,7 @@ require_once("../../SQLServer.php");
           <div class="card-body">
             <form action="diseaseManagement_Insert.php" method="post">
               <div class="row">
-                <div class="col-3">
+                <div class="col-12 col-sm-3">
                   <p>區域</p>
                   <select class="form-select" name="area" id="area" onchange="selectArea(this)" required>
                     <option value="">請選擇</option>
@@ -199,17 +199,17 @@ require_once("../../SQLServer.php");
                     <option value="小牛">小牛</option>
                   </select>
                 </div>
-                <div class="col-3">
+                <div class="col-12 col-sm-3">
                   <p>乳牛編號</p>
                   <select class="form-select" name="id" id="id" required>
                     <option value="">請選擇</option>
                   </select>
                 </div>
-                <div class="col-6">
+                <div class="col-12 col-sm-6">
                   <p>檢查日期</p>
                   <input type="date" class="form-control card-text" placeholder="請輸入日期" name="date" required>
                 </div>
-                <div class="col-4">
+                <div class="col-12 col-sm-4">
                   <p>疾病種類</p>
                   <select class="form-select" name="selectDisease" id="selectDisease" onchange="eventsChange(this)" required>
                     <option value="">請選擇</option>
@@ -224,7 +224,7 @@ require_once("../../SQLServer.php");
                     <option value="其他疾病">其他</option>
                   </select>
                 </div>
-                <div class="col-4">
+                <div class="col-12 col-sm-4">
                   <p>藥品紀錄</p>
                   <select class="form-select" name="selectDrug" id="selectDrug" onchange="eventsChange(this)" required>
                     <option value="">請選擇</option>
@@ -240,15 +240,15 @@ require_once("../../SQLServer.php");
                     <option value="其他藥品">其他</option>
                   </select>
                 </div>
-                <div class="col-4">
+                <div class="col-12 col-sm-4">
                   <p>備註</p>
                   <input type="text" class="form-control card-text" placeholder="請輸入備註" name="remark" id="remark">
                 </div>
-                <div class="col-4" hidden id="otherDisease">
+                <div class="col-12 col-sm-4" hidden id="otherDisease">
                   <p>其他疾病</p>
                   <input type="text" class="form-control card-text" placeholder="請輸入其他疾病" name="otherDisease" id="textDisease">
                 </div>
-                <div class="col-4" hidden id="otherDrug">
+                <div class="col-12 col-sm-4" hidden id="otherDrug">
                   <p>其他藥品</p>
                   <input type="text" class="form-control card-text" placeholder="請輸入其他藥品" name="otherDrug" id="textDrug">
                 </div>

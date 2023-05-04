@@ -50,7 +50,7 @@ require_once("../../SQLServer.php");
         <br>
 
 
-        <div class="table-responsive" style="overflow: hidden;">
+        <div class="table-responsive" style="overflow-y: hidden;">
           <div id="cow_table" style="text-align:center;">
             <table id="rule" class="table table-hover">
               <thead>
@@ -262,7 +262,7 @@ require_once("../../SQLServer.php");
           <div class="card-body">
             <form action="sensorManagement_Insert.php" method="post">
               <div class="row">
-                <div class="col-12">
+                <div class="col-12 col-sm-12">
                   <p>區域</p>
                   <select class="form-select" name="area" id="area" onchange="selectArea(this)" required>
                     <option value="">請選擇</option>
@@ -274,17 +274,17 @@ require_once("../../SQLServer.php");
                     <option value="小牛">小牛</option>
                   </select>
                 </div>
-                <div class="col-4">
+                <div class="col-12 col-sm-4">
                   <p>乳牛編號</p>
                   <select class="form-select" name="cid" id="cid" required>
                     <option value="">請選擇</option>
                   </select>
                 </div>
-                <div class="col-4">
+                <div class="col-12 col-sm-4">
                   <p>感測器編號</p>
                   <input type="text" name="uuid" id="uuid" class="form-control card-text" placeholder="請輸入感測器編號(uuid)" required>
                 </div>
-                <div class="col-4">
+                <div class="col-12 col-sm-4">
                   <p>感測器型號</p>
                   <select class="form-select" required name="model">
                     <option selected value="nRF52840">nRF52840</option>
