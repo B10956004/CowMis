@@ -10,7 +10,7 @@ while ($row = mysqli_fetch_assoc($result)) {
   $date = $row['date']; //日期
   $disease = $row['disease']; //疾病種類
   $drugs = $row['drugs']; //藥品紀錄
-  $vaccines = $row['vaccines']; //疫苗紀錄
+  $remark = $row['remark']; //備註
 }
 ?>
 <!DOCTYPE html>
@@ -62,9 +62,6 @@ while ($row = mysqli_fetch_assoc($result)) {
           <p>藥品紀錄</p>
           <select class="form-select" name="selectDrug" id="selectDrug" onchange="eventsChange(this)" required>
             <?php echo "<option value=\"$drugs\" selected>$drugs</option>"; ?>
-            <option value="無" <?php if ($drugs == '無') {
-                                echo "hidden";
-                              } ?>>無</option>
             <option value="新萬靈素軟膏" <?php if ($drugs == '新萬靈素軟膏') {
                                       echo "hidden";
                                     } ?>>新萬靈素軟膏</option>
@@ -74,36 +71,30 @@ while ($row = mysqli_fetch_assoc($result)) {
             <option value="泌乳樂(CEROXIM OINTMENT)" <?php if ($drugs == '泌乳樂(CEROXIM OINTMENT)') {
                                                     echo "hidden";
                                                   } ?>>泌乳樂(CEROXIM OINTMENT)</option>
+            <option value="Povidone Iodine 2%" <?php if ($drugs == 'Povidone Iodine 2%') {
+                                                  echo "hidden";
+                                                } ?>>Povidone Iodine 2%</option>
+            <option value="長效72" <?php if ($drugs == '長效72') {
+                                    echo "hidden";
+                                  } ?>>長效72</option>
+            <option value="Oxytetracycline 20%" <?php if ($drugs == 'Oxytetracycline 20%') {
+                                                  echo "hidden";
+                                                } ?>>Oxytetracycline 20%</option>
+            <option value="克倍寧LC(Cobactan LC)" <?php if ($drugs == '克倍寧LC(Cobactan LC)') {
+                                                  echo "hidden";
+                                                } ?>>克倍寧LC(Cobactan LC)</option>
+            <option value="拜有利 10% 注射液" <?php if ($drugs == '拜有利 10% 注射液') {
+                                          echo "hidden";
+                                        } ?>>拜有利 10% 注射液</option>
+            <option value="碩騰保久靈(TERRAMICINA/LA SOLUCAO INJETAVEL)" <?php if ($drugs == '碩騰保久靈(TERRAMICINA/LA SOLUCAO INJETAVEL)') {
+                                          echo "hidden";
+                                          } ?>>碩騰保久靈(TERRAMICINA/LA SOLUCAO INJETAVEL)</option>
             <option value="其他藥品">其他</option>
           </select>
         </div>
         <div class="col-4">
-          <p>疫苗紀錄</p>
-          <select class="form-select" name="selectVaccine" id="selectVaccine" onchange="eventsChange(this)" required>
-            <?php echo "<option value=\"$vaccines\" selected>$vaccines</option>"; ?>
-            <option value="無" <?php if ($vaccines == '無') {
-                                echo "hidden";
-                              } ?>>無</option>
-            <option value="Povidone Iodine 2%" <?php if ($vaccines == 'Povidone Iodine 2%') {
-                                    echo "hidden";
-                                  } ?>>Povidone Iodine 2%</option>
-            <option value="長效72" <?php if ($vaccines == '長效72') {
-                                    echo "hidden";
-                                  } ?>>長效72</option>
-            <option value="Oxytetracycline 20%" <?php if ($vaccines == 'Oxytetracycline 20%') {
-                                    echo "hidden";
-                                  } ?>>Oxytetracycline 20%</option>
-            <option value="克倍寧LC(Cobactan LC)" <?php if ($vaccines == '克倍寧LC(Cobactan LC)') {
-                                    echo "hidden";
-                                  } ?>>克倍寧LC(Cobactan LC)</option>
-            <option value="拜有利 10% 注射液" <?php if ($vaccines == '拜有利 10% 注射液') {
-                                    echo "hidden";
-                                  } ?>>拜有利 10% 注射液</option>
-            <option value="碩騰保久靈(TERRAMICINA/LA SOLUCAO INJETAVEL)" <?php if ($vaccines == '碩騰保久靈(TERRAMICINA/LA SOLUCAO INJETAVEL)') {
-                                    echo "hidden";
-                                  } ?>>碩騰保久靈(TERRAMICINA/LA SOLUCAO INJETAVEL)</option>
-            <option value="其他疫苗">其他</option>
-          </select>
+          <p>備註</p>
+          <input type="text" class="form-control card-text" placeholder="請輸入備註" value='<?php echo $remark; ?>' name="remark" id="remark">
         </div>
         <div class="col-4" hidden id="otherDisease">
           <p>其他疾病</p>
@@ -112,10 +103,6 @@ while ($row = mysqli_fetch_assoc($result)) {
         <div class="col-4" hidden id="otherDrug">
           <p>其他藥品</p>
           <input type="text" class="form-control card-text" placeholder="請輸入其他藥品" name="otherDrug" id="textDrug">
-        </div>
-        <div class="col-4" hidden id="otherVaccine">
-          <p>其他疫苗</p>
-          <input type="text" class="form-control card-text" placeholder="請輸入其他疫苗" name="otherVaccine" id="textVaccine">
         </div>
       </div>
       <br>
@@ -136,11 +123,6 @@ while ($row = mysqli_fetch_assoc($result)) {
       var textOther = document.getElementById('textDrug');
       other.hidden = false;
       textOther.setAttribute("required", "");
-    } else if (ele.value == '其他疫苗') {
-      var other = document.getElementById('otherVaccine');
-      var textOther = document.getElementById('textVaccine');
-      other.hidden = false;
-      textOther.setAttribute("required", "");
     } else {
       if (ele.id == 'selectDisease') {
         var other = document.getElementById('otherDisease');
@@ -150,11 +132,6 @@ while ($row = mysqli_fetch_assoc($result)) {
       } else if (ele.id == 'selectDrug') {
         var other = document.getElementById('otherDrug');
         var textOther = document.getElementById('textDrug');
-        other.hidden = true;
-        textOther.removeAttribute("required");
-      } else if (ele.id == 'selectVaccine') {
-        var other = document.getElementById('otherVaccine');
-        var textOther = document.getElementById('textVaccine');
         other.hidden = true;
         textOther.removeAttribute("required");
       }

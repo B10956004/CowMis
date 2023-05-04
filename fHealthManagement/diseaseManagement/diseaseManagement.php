@@ -48,7 +48,7 @@ require_once("../../SQLServer.php");
                   <th>日期</th>
                   <th>疾病種類</th>
                   <th>藥品紀錄</th>
-                  <th>疫苗紀錄</th>
+                  <th>備註</th>
                   <th>編輯</th>
                   <th>刪除</th>
 
@@ -82,14 +82,14 @@ require_once("../../SQLServer.php");
                   $date = $row['date']; //日期
                   $disease = $row['disease']; //疾病種類
                   $drugs = $row['drugs']; //藥品紀錄
-                  $vaccines = $row['vaccines']; //疫苗紀錄
+                  $remark = $row['remark']; //備註
                 ?>
                   <tr>
                     <td><?php echo $id ?></td>
                     <td><?php echo $date ?></td>
                     <td><?php echo $disease ?></td>
                     <td><?php echo $drugs ?></td>
-                    <td><?php echo $vaccines ?></td>
+                    <td><?php echo $remark ?></td>
                     <td><button class="view_data btn btn-primary" GetSn="<?php echo $sn; ?>">編輯</button></td>
                     <?php
                     echo "<td><button id=\"linkDel_$i\" onclick=\"#del\" class='btn btn-danger'>刪除</button></td>";
@@ -227,25 +227,22 @@ require_once("../../SQLServer.php");
                 <div class="col-4">
                   <p>藥品紀錄</p>
                   <select class="form-select" name="selectDrug" id="selectDrug" onchange="eventsChange(this)" required>
-                    <option value="無">無</option>
+                    <option value="">請選擇</option>
                     <option value="新萬靈素軟膏">新萬靈素軟膏</option>
                     <option value="喜福安乾乳軟膏">喜福安乾乳軟膏</option>
                     <option value="泌乳樂(CEROXIM OINTMENT)">泌乳樂(CEROXIM OINTMENT)</option>
-                    <option value="其他藥品">其他</option>
-                  </select>
-                </div>
-                <div class="col-4">
-                  <p>疫苗紀錄</p>
-                  <select class="form-select" name="selectVaccine" id="selectVaccine" onchange="eventsChange(this)" required>
-                    <option value="無">無</option>
                     <option value="Povidone Iodine 2%">Povidone Iodine 2%</option>
                     <option value="長效72">長效72</option>
                     <option value="Oxytetracycline 20%">Oxytetrocycline 20%</option>
                     <option value="克倍寧LC(Cobactan LC)">克倍寧LC(Cobactan LC)</option>
                     <option value="拜有利 10% 注射液">拜有利 10% 注射液</option>
                     <option value="碩騰保久靈(TERRAMICINA/LA SOLUCAO INJETAVEL)">碩騰保久靈(TERRAMICINA/LA SOLUCAO INJETAVEL)</option>
-                    <option value="其他疫苗">其他</option>
+                    <option value="其他藥品">其他</option>
                   </select>
+                </div>
+                <div class="col-4">
+                  <p>備註</p>
+                  <input type="text" class="form-control card-text" placeholder="請輸入備註" name="remark" id="remark">
                 </div>
                 <div class="col-4" hidden id="otherDisease">
                   <p>其他疾病</p>
@@ -254,10 +251,6 @@ require_once("../../SQLServer.php");
                 <div class="col-4" hidden id="otherDrug">
                   <p>其他藥品</p>
                   <input type="text" class="form-control card-text" placeholder="請輸入其他藥品" name="otherDrug" id="textDrug">
-                </div>
-                <div class="col-4" hidden id="otherVaccine">
-                  <p>其他疫苗</p>
-                  <input type="text" class="form-control card-text" placeholder="請輸入其他疫苗" name="otherVaccine" id="textVaccine">
                 </div>
               </div>
               <br>
@@ -282,11 +275,6 @@ require_once("../../SQLServer.php");
       var textOther = document.getElementById('textDrug');
       other.hidden = false;
       textOther.setAttribute("required", "");
-    } else if (ele.value == '其他疫苗') {
-      var other = document.getElementById('otherVaccine');
-      var textOther = document.getElementById('textVaccine');
-      other.hidden = false;
-      textOther.setAttribute("required", "");
     } else {
       if (ele.id == 'selectDisease') {
         var other = document.getElementById('otherDisease');
@@ -296,11 +284,6 @@ require_once("../../SQLServer.php");
       } else if (ele.id == 'selectDrug') {
         var other = document.getElementById('otherDrug');
         var textOther = document.getElementById('textDrug');
-        other.hidden = true;
-        textOther.removeAttribute("required");
-      } else if (ele.id == 'selectVaccine') {
-        var other = document.getElementById('otherVaccine');
-        var textOther = document.getElementById('textVaccine');
         other.hidden = true;
         textOther.removeAttribute("required");
       }
