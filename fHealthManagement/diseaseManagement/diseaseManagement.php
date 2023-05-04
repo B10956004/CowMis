@@ -60,7 +60,7 @@ require_once("../../SQLServer.php");
                 $query = "SELECT * FROM disease_management ";
                 $result = mysqli_query($db_link, $query);
                 $num = mysqli_num_rows($result);
-                $per = 5; //每頁顯示項目數量
+                $per = 7; //每頁顯示項目數量
                 $pages = ceil($num / $per);
                 if ($pages == 0) {
                   $pages = 1;
