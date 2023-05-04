@@ -72,7 +72,7 @@ require_once("../../SQLServer.php");
                 }
                 $start = ($page - 1) * $per;
 
-                $query .= "ORDER BY id DESC LIMIT $start,$per";
+                $query .= "ORDER BY date DESC LIMIT $start,$per";
 
                 $result = mysqli_query($db_link, $query);
                 $i = 1;
