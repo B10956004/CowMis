@@ -391,32 +391,6 @@ require_once("../../SQLServer.php"); //注入SQL檔
                                     </div>
                                 </div>
                                 <div class="col-12">
-                                    <!-- 歷史懷孕紀錄 -->
-                                    <div class="card" id="parturitionHistory">
-                                        <div class="card-body">
-                                            <h5 class="card-title"><i class="fas fa-heart"></i>&nbsp;歷史懷孕紀錄&nbsp;&nbsp;&nbsp;&nbsp;編號:</h5>
-                                            <div class="table-responsive">
-                                                <div id="cow_table" style="text-align:center;">
-                                                    <table id="rule" class="table table-hover">
-                                                        <thead>
-                                                            <tr class="table-active">
-                                                                <th>分娩日期</th>
-                                                                <th>胎次</th>
-                                                                <th>事件</th>
-                                                                <th>詳情</th>
-                                                                <th>編輯</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <!--ajax注入-->
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12">
                                     <!-- 活動量 -->
                                     <div class="card" id="cowActivity">
                                         <div class="card-body">
@@ -440,6 +414,32 @@ require_once("../../SQLServer.php"); //注入SQL檔
                                                 </div>
                                             </div> -->
                                             <!-- <img src="./發情.PNG" width="100%"> -->
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <!-- 歷史懷孕紀錄 -->
+                                    <div class="card" id="parturitionHistory">
+                                        <div class="card-body">
+                                            <h5 class="card-title"><i class="fas fa-heart"></i>&nbsp;歷史懷孕紀錄&nbsp;&nbsp;&nbsp;&nbsp;編號:</h5>
+                                            <div class="table-responsive">
+                                                <div id="cow_table" style="text-align:center;">
+                                                    <table id="rule" class="table table-hover">
+                                                        <thead>
+                                                            <tr class="table-active">
+                                                                <th>分娩日期</th>
+                                                                <th>胎次</th>
+                                                                <th>事件</th>
+                                                                <th>詳情</th>
+                                                                <th>編輯</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <!--ajax注入-->
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
