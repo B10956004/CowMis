@@ -29,5 +29,5 @@ $GetID = $_GET['GetID']; //選擇的牛隻
         </table>
     </div>
 </div> -->
-    <img src="./發情.PNG" width="100%">
+    <img src="./card/cowActivity/發情.PNG" width="100%">
 </div>

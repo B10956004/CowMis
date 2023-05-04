@@ -38,7 +38,7 @@ require_once("../../SQLServer.php");
           </div>
         </div>
         <br>
-        <div class="table-responsive" style="overflow: hidden;">
+        <div class="table-responsive" style="overflow-y: hidden;">
           <div id="cow_table" style="text-align:center;">
 
             <table id="rule" class="table table-hover">

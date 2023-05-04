@@ -437,7 +437,7 @@ require_once("../SQLServer.php"); //注入SQL檔
                 </div>
                 <div class="col-12 col-sm-5">
                     <h5 style="text-align: center;">準備轉至乾乳牛隻</h5>
-                    <div class="table-responsive" style="overflow: hidden;">
+                    <div class="table-responsive" style="overflow-y: hidden;">
                         <div id="cow_table" style="text-align:center;">
                             <table id="rule" class="table table-hover">
                                 <thead>
