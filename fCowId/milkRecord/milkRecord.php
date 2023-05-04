@@ -54,7 +54,7 @@ require_once("../../SQLServer.php");
                 <tr class="table-active">
                   <th>擠乳日期</th>
                   <th>乳質品質</th>
-                  <th>乳量管理</th>
+                  <th>乳量(公斤)</th>
                   <th>無脂固形物</th>
                   <th>乳脂率</th>
                   <th>乳蛋白</th>
@@ -71,7 +71,7 @@ require_once("../../SQLServer.php");
 
                 $num = mysqli_num_rows($result);
                 if ($num != 0) {
-                  $per = 5; //每頁顯示項目數量
+                  $per = 7; //每頁顯示項目數量
                   $pages = ceil($num / $per);
                   if ($pages == 0) {
                     $pages = 1;
@@ -101,10 +101,10 @@ require_once("../../SQLServer.php");
                       <td><?php echo $date ?></td>
                       <td><?php echo $quality ?>級</td>
                       <td><?php echo $volume ?>L</td>
-                      <td><?php echo $milkSolidsNotFat ?></td>
-                      <td><?php echo $milkFatPrecentage ?></td>
-                      <td><?php echo $milkProtein ?></td>
-                      <td><?php echo $somaticCellCount ?></td>
+                      <td><?php echo $milkSolidsNotFat ?>%</td>
+                      <td><?php echo $milkFatPrecentage ?>%</td>
+                      <td><?php echo $milkProtein ?>%</td>
+                      <td><?php echo $somaticCellCount ?>萬</td>
                       <td><button class="view_data btn btn-primary" GetSn="<?php echo $sn; ?>">編輯</button></td>
                       <?php
                       echo "<td><button id=\"linkDel_$i\" onclick=\"#del\" class='btn btn-danger'>刪除</button></td>";
@@ -268,34 +268,41 @@ require_once("../../SQLServer.php");
 
                 <div class="col-6">
                   <p>乳質品質</p>
-                  <select class="form-select" required name="quality">
-                    <option selected value="A">A級</option>
+                  <select class="form-select" required id="quality" name="quality" disabled>
+                    <option value="">計算中...</option>
+                    <option value="A">A級</option>
                     <option value="B">B級</option>
                     <option value="C">C級</option>
                     <option value="D">D級</option>
+                    <option value="ERROR">警告!</option>
                   </select>
+                  <input type="hidden" id="quality_hidden" name="quality_hidden">
                 </div>
                 <div class="col-6">
-                  <p>乳量</p>
-                  <input type="range" name="volume" id="volume_range" value="0" min="0" max="100" class="form-range" oninput="updateMilkVolumn(this.value);">
-                  <input type="text" name="volume" id="volume_text" class="form-control card-text" value="0" placeholder="請輸入乳量" onchange="updateMilkVolumn(this.value);">
+                  <p>乳量(公斤)</p>
+                  <input type="range" name="volume" id="volume_range" value="0" min="0" max="10000" class="form-range" oninput="updateMilkVolumn(this.value);">
+                  <input type="number" step="0.01" name="volume" id="volume_text" class="form-control card-text" placeholder="請輸入乳量" onchange="updateMilkVolumn(this.value);">
                   <br>
                 </div>
                 <div class="col-3">
-                  <p>無脂固形物</p>
-                  <input type="text" class="form-control card-text" placeholder="請輸入無脂固形物" name="milkSolidsNotFat" required>
+                  <p>無脂固形物(%)</p>
+                  <input type="number" step="0.01" class="form-control card-text" placeholder="請輸入無脂固形物" name="milkSolidsNotFat" required>
+                </div>
+                <div class="col-2">
+                  <p>乳脂率(%)</p>
+                  <input type="number" step="0.01" class="form-control card-text" placeholder="請輸入乳脂率" name="milkFatPrecentage" required>
+                </div>
+                <div class="col-2">
+                  <p>乳蛋白質(%)</p>
+                  <input type="number" step="0.01" class="form-control card-text" placeholder="請輸入乳蛋白質" name="milkProtein" required>
                 </div>
                 <div class="col-3">
-                  <p>乳脂率</p>
-                  <input type="text" class="form-control card-text" placeholder="請輸入乳脂率" name="milkFatPrecentage" required>
+                  <p>體細胞數(萬/mL)</p>
+                  <input type="number" step="0.01" class="form-control card-text" placeholder="請輸入體細胞數" id="somaticCellCount" name="somaticCellCount" onchange="qualityLevel(this.value,document.getElementById('totalBacteria').value);" required>
                 </div>
-                <div class="col-3">
-                  <p>乳蛋白</p>
-                  <input type="text" class="form-control card-text" placeholder="請輸入乳蛋白" name="milkProtein" required>
-                </div>
-                <div class="col-3">
-                  <p>體細胞數</p>
-                  <input type="text" class="form-control card-text" placeholder="請輸入體細胞數" name="somaticCellCount" required>
+                <div class="col-2">
+                  <p>生菌數(萬/mL)</p>
+                  <input type="number" step="0.01" class="form-control card-text" placeholder="請輸入生菌數" id="totalBacteria" name="totalBacteria" onchange="qualityLevel(document.getElementById('somaticCellCount').value,this.value);" required>
                 </div>
               </div>
               <br>
@@ -313,6 +320,38 @@ require_once("../../SQLServer.php");
       }
       document.getElementById('volume_text').value = val;
       document.getElementById('volume_range').value = val;
+    }
+    function qualityLevel(somaticCellCount,totalBacteria){
+      if(somaticCellCount==''){
+        document.getElementById('somaticCellCount').value=0;
+      }
+      if(totalBacteria==''){
+        document.getElementById('totalBacteria').value=0;
+      }
+      // 前三個細項讓業主判斷是否調整配方
+      // 體細胞數判斷品質高低(低於30萬：A。 30萬~50萬:B。 50萬~80萬:C。 80萬~100萬:D。 生菌數均每毫升低於10萬以下)
+      // 品質會有價差
+      if(somaticCellCount<30&&totalBacteria<10){
+        document.getElementById('quality').value="A";
+        document.getElementById('quality_hidden').value="A";
+      }
+      else if(somaticCellCount<50&&totalBacteria<10){
+        document.getElementById('quality').value="B";
+        document.getElementById('quality_hidden').value="B";
+      }
+      else if(somaticCellCount<80&&totalBacteria<10){
+        document.getElementById('quality').value="C";
+        document.getElementById('quality_hidden').value="C";
+      }
+      else if(somaticCellCount<100&&totalBacteria<10){
+        document.getElementById('quality').value="D";
+        document.getElementById('quality_hidden').value="D";
+      }
+      else{
+        document.getElementById('quality').value="ERROR";
+        document.getElementById('quality_hidden').value="ERROR";
+      }
+      console.log(document.getElementById('quality_hidden').value);
     }
   </script>
 
