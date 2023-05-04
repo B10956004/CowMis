@@ -85,11 +85,11 @@ require_once("../../SQLServer.php");
                   $remark = $row['remark']; //備註
                 ?>
                   <tr>
-                    <td><?php echo $id ?></td>
-                    <td><?php echo $date ?></td>
-                    <td><?php echo $disease ?></td>
-                    <td><?php echo $drugs ?></td>
-                    <td><?php echo $remark ?></td>
+                    <td width="90px"><?php echo $id ?></td>
+                    <td width="104px"><?php echo $date ?></td>
+                    <td width="130px"><?php echo $disease ?></td>
+                    <td width="150px"><?php echo $drugs ?></td>
+                    <td width="300px"><?php echo $remark ?></td>
                     <td><button class="view_data btn btn-primary" GetSn="<?php echo $sn; ?>">編輯</button></td>
                     <?php
                     echo "<td><button id=\"linkDel_$i\" onclick=\"#del\" class='btn btn-danger'>刪除</button></td>";
