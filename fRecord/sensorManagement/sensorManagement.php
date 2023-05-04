@@ -94,18 +94,20 @@ require_once("../../SQLServer.php");
                 ?>
                   <tr>
                     <td><?php echo $cid ?></td>
-                    <td><?php echo $uuid . '(' . $model.")" ?></td>
+                    <td><?php echo $uuid . '(' . $model . ")" ?></td>
                     <td><?php
                         if ($states == '未連接') {
-                          echo "<i class=\"fas fa-circle\" style=\"color: red;\"></i>";
+                          echo "<i class=\"fas fa-circle\" style=\"color: gray;\"></i>";
                         } elseif ($states == '正常') {
                           echo "<i class=\"fas fa-circle\" style=\"color: green;\"></i>";
+                        } elseif ($states == '疑似發情' || $states == '發情') {
+                          echo "<i class=\"fas fa-circle\" style=\"color: red;\"></i>";
                         } else {
-                          echo "<i class=\"fas fa-circle\" style=\"color: yellow;\"></i>";
+                          echo "<i class=\"fas fa-circle\" style=\"color: gold;\"></i>";
                         }
                         echo $states ?></td>
-                    <td><button class="view_data btn btn-primary" GetUuid="<?php echo $uuid; 
-                                                                          ?>">編輯</button></td>
+                    <td><button class="view_data btn btn-primary" GetUuid="<?php echo $uuid;
+                                                                            ?>">編輯</button></td>
                     <?php
                     echo "<td><button id=\"linkDel_$i\" onclick=\"#del\" class=\"btn btn-danger\">刪除</button></td>";
                     echo "

@@ -65,13 +65,16 @@
             }
 
             echo "<td>";
-            if ($states == '未連接' || $states == '未配戴') {
-                echo "<i class=\"fas fa-circle\" style=\"color: red;\"></i>";
-            } elseif ($states == '正常') {
+            if ($states == '未連接'||$states=='未配戴') {
+                echo "<i class=\"fas fa-circle\" style=\"color: gray;\"></i>";
+              } elseif ($states == '正常') {
                 echo "<i class=\"fas fa-circle\" style=\"color: green;\"></i>";
-            } else {
-                echo "<i class=\"fas fa-circle\" style=\"color: yellow;\"></i>";
-            }
+              }elseif($states=='疑似發情'||$states=='發情'){
+                echo "<i class=\"fas fa-circle\" style=\"color: red;\"></i>";
+              }
+               else {
+                echo "<i class=\"fas fa-circle\" style=\"color: gold;\"></i>";
+              }
             echo $states;
             echo "</td>";
 
