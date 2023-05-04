@@ -100,7 +100,7 @@ require_once("../../SQLServer.php");
                     <tr>
                       <td><?php echo $date ?></td>
                       <td><?php echo $quality ?>級</td>
-                      <td><?php echo $volume ?>L</td>
+                      <td><?php echo $volume ?>公斤</td>
                       <td><?php echo $milkSolidsNotFat ?>%</td>
                       <td><?php echo $milkFatPrecentage ?>%</td>
                       <td><?php echo $milkProtein ?>%</td>
