@@ -274,7 +274,7 @@ require_once("../../SQLServer.php");
                     <option value="B">B級</option>
                     <option value="C">C級</option>
                     <option value="D">D級</option>
-                    <option value="ERROR">警告!</option>
+                    <option value="ERROR">ERROR</option>
                   </select>
                   <input type="hidden" id="quality_hidden" name="quality_hidden">
                 </div>

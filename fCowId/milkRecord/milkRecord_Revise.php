@@ -13,6 +13,7 @@ while ($row = mysqli_fetch_assoc($result)) {
   $milkFatPrecentage = $row['milkFatPrecentage']; //乳脂率
   $milkProtein = $row['milkProtein']; //乳蛋白
   $somaticCellCount = $row['somaticCellCount']; //體細胞數
+  $totalBacteria=$row['totalBacteria'];//生菌數
 }
 
 ?>
@@ -20,7 +21,7 @@ while ($row = mysqli_fetch_assoc($result)) {
 <!-- 搜尋特定欄位的資訊並以彈出視窗顯示 -->
 <div class="card">
   <div class="card-body">
-    <form action="milkRecord_Revise_action.php?GetSn=<?php echo $GetSn;?>" method="post">
+    <form action="milkRecord_Revise_action.php?GetSn=<?php echo $GetSn; ?>" method="post">
       <div class="row">
         <div class="col-12">
           <p>擠乳日期</p>
@@ -29,38 +30,54 @@ while ($row = mysqli_fetch_assoc($result)) {
         </div>
         <div class="col-6">
           <p>乳質品質</p>
-          <select class="form-select" required name="quality">
-            <option value="A"<?php if($quality=='A'){echo"selected";}?>>A級</option>
-            <option value="B"<?php if($quality=='B'){echo"selected";}?>>B級</option>
-            <option value="C"<?php if($quality=='C'){echo"selected";}?>>C級</option>
-            <option value="D"<?php if($quality=='D'){echo"selected";}?>>D級</option>
+          <select class="form-select" required name="quality" id="quality" disabled>
+            <option value="A" <?php if ($quality == 'A') {
+                                echo "selected";
+                              } ?>>A級</option>
+            <option value="B" <?php if ($quality == 'B') {
+                                echo "selected";
+                              } ?>>B級</option>
+            <option value="C" <?php if ($quality == 'C') {
+                                echo "selected";
+                              } ?>>C級</option>
+            <option value="D" <?php if ($quality == 'D') {
+                                echo "selected";
+                              } ?>>D級</option>
+            <option value="ERROR" <?php if ($quality == 'ERROR') {
+                                echo "selected";
+                              } ?>>ERROR</option>
           </select>
+          <input type="hidden" id="quality_hidden" name="quality_hidden">
         </div>
         <div class="col-6">
           <p>乳量</p>
           <input type="range" name="volume" id="volume_range" value="<?php echo $volume; ?>" min="0" max="100" class="form-range" oninput="updateMilkVolumn(this.value);">
-          <input type="text" name="volume" id="volume_text" class="form-control card-text" value="<?php echo $volume; ?>" placeholder="請輸入乳量" onchange="updateMilkVolumn(this.value);">
+          <input type="number" step="0.01" name="volume" id="volume_text" class="form-control card-text" value="<?php echo $volume; ?>" placeholder="請輸入乳量" onchange="updateMilkVolumn(this.value);">
           <br>
         </div>
         <div class="col-3">
-          <p>無脂固形物</p>
-          <input type="text" class="form-control card-text" placeholder="請輸入無脂固形物" name="milkSolidsNotFat" value="<?php echo $milkSolidsNotFat; ?>" required>
+          <p>無脂固形物(%)</p>
+          <input type="number" step="0.01" class="form-control card-text" placeholder="請輸入無脂固形物" name="milkSolidsNotFat" value="<?php echo $milkSolidsNotFat; ?>" required>
+        </div>
+        <div class="col-2">
+          <p>乳脂率(%)</p>
+          <input type="number" step="0.01" class="form-control card-text" placeholder="請輸入乳脂率" name="milkFatPrecentage" value="<?php echo $milkFatPrecentage; ?>" required>
+        </div>
+        <div class="col-2">
+          <p>乳蛋白質(%)</p>
+          <input type="number" step="0.01" class="form-control card-text" placeholder="請輸入乳蛋白" name="milkProtein" value="<?php echo $milkProtein; ?>" required>
         </div>
         <div class="col-3">
-          <p>乳脂率</p>
-          <input type="text" class="form-control card-text" placeholder="請輸入乳脂率" name="milkFatPrecentage" value="<?php echo $milkFatPrecentage; ?>" required>
+          <p>體細胞數(萬/mL)</p>
+          <input type="number" step="0.01" class="form-control card-text" placeholder="請輸入體細胞數" name="somaticCellCount" value="<?php echo $somaticCellCount; ?>" onchange="qualityLevel(this.value,document.getElementById('totalBacteria').value);" required>
         </div>
-        <div class="col-3">
-          <p>乳蛋白</p>
-          <input type="text" class="form-control card-text" placeholder="請輸入乳蛋白" name="milkProtein" value="<?php echo $milkProtein; ?>" required>
-        </div>
-        <div class="col-3">
-          <p>體細胞數</p>
-          <input type="text" class="form-control card-text" placeholder="請輸入體細胞數" name="somaticCellCount" value="<?php echo $somaticCellCount; ?>" required>
+        <div class="col-2">
+          <p>生菌數(萬/mL)</p>
+          <input type="number" step="0.01" class="form-control card-text" placeholder="請輸入生菌數" id="totalBacteria" name="totalBacteria" value="<?php echo $totalBacteria?>" onchange="qualityLevel(document.getElementById('somaticCellCount').value,this.value);" required>
         </div>
       </div>
       <br>
-      <input type="hidden" value="update" name="update"/>
+      <input type="hidden" value="update" name="update" />
       <input type="submit" class="btn btn-success" value="確定" name="submit"></input>
   </div>
   </form>
