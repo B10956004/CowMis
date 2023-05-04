@@ -318,19 +318,19 @@ require_once("../../SQLServer.php"); //注入SQL檔
                                             <?php
                                             echo "
                                     <div class=\"row\">
-                                        <div class=\"col-8\">
+                                        <div class=\"col-12 col-sm-8\">
                                             <p class=\"card-text \">出生日期<br>
                                             <input type=\"text\" class=\"col-12\" disabled> </p>
                                         </div>
-                                        <div class=\"col-4\">
+                                        <div class=\"col-12 col-sm-4\">
                                             <p class=\"card-text \">感測器狀態<br>
                                             <input type=\"text\" class=\"col-12\" disabled> </p>
                                         </div>
-                                        <div class=\"col-6\">
+                                        <div class=\"col-12 col-sm-6\">
                                             <p class=\"card-text\">目前區域<br>
                                             <input type=\"text\" class=\"col-12\" disabled> </p>
                                         </div>
-                                        <div class=\"col-6\">
+                                        <div class=\"col-12 col-sm-6\">
                                             <p class=\"card-text\">駐留天數<br>
                                             <input type=\"text\" class=\"col-12\" disabled> </p>
                                         </div>
@@ -340,43 +340,43 @@ require_once("../../SQLServer.php"); //注入SQL檔
                                             <p class=\"card-text\">年齡 <br>
                                             <input type=\"text\" class=\"col-12\" disabled> </p>
                                         </div>-->
-                                        <div class=\"col-3\">
+                                        <div class=\"col-12 col-sm-3\">
                                             <p class=\"card-text\">泌乳天數 <br>
                                             <input type=\"text\" class=\"col-12\" disabled> </p>
                                         </div>
-                                        <div class=\"col-3\">
+                                        <div class=\"col-12 col-sm-3\">
                                             <p class=\"card-text\">胎次 <br>
                                             <input type=\"text\" class=\"col-12\" disabled> </p>
                                         </div>
-                                        <div class=\"col-6\">
+                                        <div class=\"col-12 col-sm-6\">
                                             <p class=\"card-text\">胎距 <br>
                                             <input type=\"text\" class=\"col-12\" disabled> </p>
                                         </div>
                                     </div>
                                     <div class=\"row\">
-                                        <div class=\"col-6\">
+                                        <div class=\"col-12 col-sm-6\">
                                             <p class=\"card-text\">母親牛編號<br>
                                             <input type=\"text\" class=\"col-12\" disabled> </p>
                                         </div>
-                                        <div class=\"col-6\">
+                                        <div class=\"col-12 col-sm-6\">
                                             <p class=\"card-text\">精液編號 <br>
                                             <input type=\"text\" class=\"col-12\" disabled> </p>
                                         </div>
                                     </div>
                                     <div class=\"row\">
-                                        <div class=\"col-3\">
+                                        <div class=\"col-12 col-sm-3\">
                                             <p class=\"card-text\">預期胎次 <br>
                                             <input type=\"text\" class=\"col-12\" disabled> </p>
                                         </div>
-                                        <div class=\"col-3\">
+                                        <div class=\"col-12 col-sm-3\">
                                             <p class=\"card-text\">繁殖狀況<br>
                                             <input type=\"text\" class=\"col-12\" disabled> </p>
                                         </div>
-                                        <div class=\"col-3\">
+                                        <div class=\"col-12 col-sm-3\">
                                             <p class=\"card-text\">測孕結果<br>
                                             <input type=\"text\" class=\"col-12\" disabled> </p>
                                         </div>
-                                        <div class=\"col-3\">
+                                        <div class=\"col-12 col-sm-3\">
                                             <p class=\"card-text\">預產日 <br>
                                             <input type=\"text\" class=\"col-12\" disabled> </p>
                                         </div>

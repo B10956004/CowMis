@@ -72,11 +72,11 @@ mysqli_query($db_link, $updateQuery);
     echo "<h5 class=\"card-title\"><i class=\"fas fa-tint\"></i>&nbsp;牛隻資訊&nbsp;&nbsp;&nbsp;&nbsp;編號:$id &nbsp;&nbsp;<a href=\"#revise\" GetID='$GetID' class=\"btn btn-primary view_data\">編輯</a></h5>";
     echo "
     <div class=\"row\">
-    <div class=\"col-8\">
+    <div class=\"col-12 col-sm-8\">
     <p class=\"card-text \">出生日期<br>
     <input type=\"text\" class=\"col-12\" value='$dob' disabled> </p>
 </div>
-<div class=\"col-4\">";
+<div class=\"col-12 col-sm-4\">";
 
     if ($states == '未連接'||$states=='未配戴') {
         echo"<a href=\"../../fRecord/sensorManagement/sensorManagement.php\"><p class=\"card-text \">感測器狀態</a><br>";
@@ -88,13 +88,13 @@ mysqli_query($db_link, $updateQuery);
         echo"<a href=\"../../fRecord/cowActivity/cowActivity.php?GetID={$id}\"><p class=\"card-text \">感測器狀態<br></a>";
         echo "<i class=\"fas fa-circle\" style=\"color: yellow;\"></i>";
     }
-    echo "<input type=\"text\" class=\"col-10\" value='{$states}' disabled> </p>
+    echo "<input type=\"text\" class=\"col-12 col-sm-10\" value='{$states}' disabled> </p>
 </div>
-<div class=\"col-6\">
+<div class=\"col-12 col-sm-6\">
     <p class=\"card-text\">目前區域<br>
     <input type=\"text\" class=\"col-12\" value='$area' disabled> </p>
 </div>
-<div class=\"col-6\">
+<div class=\"col-12 col-sm-6\">
     <p class=\"card-text\">駐留天數<br>
     <input type=\"text\" class=\"col-12\" value='$stayDate' disabled> </p>
 </div>
@@ -104,31 +104,31 @@ mysqli_query($db_link, $updateQuery);
                                             <p class=\"card-text\">年齡 <br>
                                             <input type=\"text\" class=\"col-12\" disabled> </p>
                                         </div>-->
-                                        <div class=\"col-3\">
+                                        <div class=\"col-12 col-sm-3\">
                                             <p class=\"card-text\">泌乳天數 <br>
                                             <input type=\"text\" class=\"col-12\" value=$DIM disabled> </p>
                                         </div>
-                                        <div class=\"col-3\">
+                                        <div class=\"col-12 col-sm-3\">
                                             <p class=\"card-text\">胎次 <br>
                                             <input type=\"text\" class=\"col-12\" value=$birthParity disabled> </p>
                                         </div>
-                                        <div class=\"col-6\">
+                                        <div class=\"col-12 col-sm-6\">
                                             <p class=\"card-text\">胎距 <br>
                                             <input type=\"text\" class=\"col-12\" value=$calvingInterval disabled> </p>
                                         </div>
                                     </div>
                                     <div class=\"row\">
-                                        <div class=\"col-6\">
+                                        <div class=\"col-12 col-sm-6\">
                                             <p class=\"card-text\">母親牛編號<br>
                                             <input type=\"text\" class=\"col-12\" value=$mid disabled> </p>
                                         </div>
-                                        <div class=\"col-6\">
+                                        <div class=\"col-12 col-sm-6\">
                                             <p class=\"card-text\">精液編號 <br>
                                             <input type=\"text\" class=\"col-12\" value=$fid disabled> </p>
                                         </div>
                                     </div>
                                     <div class=\"row\">
-                                        <div class=\"col-3\">";
+                                        <div class=\"col-12 col-sm-3\">";
     if ($breedingStatus == '已配種') {
         echo "<a href=\"#revisePregnancy\" GetID='$GetID' GetBirthParity='$estimateBirthParity' class=\"view_pregnancy_data\"><p class=\"card-text\">預期胎次(配種數) <br></a>";
     } else {
@@ -136,15 +136,15 @@ mysqli_query($db_link, $updateQuery);
     }
     echo "<input type=\"text\" class=\"col-12\" value=$estimateBirthParity($matingcount) disabled> </p>
                                         </div>
-                                        <div class=\"col-3\">
+                                        <div class=\"col-12 col-sm-3\">
                                             <p class=\"card-text\">繁殖狀況<br>
                                             <input type=\"text\" class=\"col-12\" value=$breedingStatus disabled> </p>
                                         </div>
-                                        <div class=\"col-3\">
+                                        <div class=\"col-12 col-sm-3\">
                                             <p class=\"card-text\">測孕結果 <br>
                                             <input type=\"text\" class=\"col-12\" value=$pregnancyresult disabled> </p>
                                         </div>
-                                        <div class=\"col-3\">
+                                        <div class=\"col-12 col-sm-3\">
                                             <p class=\"card-text\">預產日 <br>
                                             <input type=\"text\" class=\"col-12\" value=$EDD disabled> </p>
                                         </div>
