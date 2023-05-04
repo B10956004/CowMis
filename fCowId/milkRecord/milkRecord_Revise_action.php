@@ -4,7 +4,7 @@ require_once("../../SQLServer.php");
 if (isset($_POST['update'])) {
     $GetSn = $_GET['GetSn'];
     $date = $_POST['date']; //日期
-    $quality = $_POST['quality']; //乳質
+    $quality = $_POST['quality_hidden']; //乳質
     $volume = $_POST['volume']; //乳量
     $milkSolidsNotFat = $_POST['milkSolidsNotFat']; //無脂固形物
     $milkFatPrecentage = $_POST['milkFatPrecentage']; //乳脂率
