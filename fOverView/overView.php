@@ -245,11 +245,11 @@ require_once("../SQLServer.php"); //注入SQL檔
                 </div>
                 <div class="col-12">
                     <h5 style="text-align: center;">發情判斷</h5>
-                    <div class="row">
+                    <!-- <div class="row">
                         <div class="col-md-3 p-2">
                             <input type="search" class="search form-control" data-table="table table-hover" placeholder="搜尋關鍵字" style="width:100%;">
                         </div>
-                    </div>
+                    </div> -->
                     <div class="collapse show" data-parent="#estrusRecord" id="cow_basic">
                         <div class="card-body" id="estrusRecord">
                             <table id="rule" class="table table-hover" width="50%" align="center" style="display: table-cell;vertical-align: middle;">
@@ -732,7 +732,7 @@ require_once("../SQLServer.php"); //注入SQL檔
     </div>
 </body>
 <!-- 查詢功能 -->
-<script type="text/javascript">
+<!-- <script type="text/javascript">
     (function(document) {
         'use strict';
 
@@ -778,6 +778,6 @@ require_once("../SQLServer.php"); //注入SQL檔
         });
 
     })(document);
-</script>
+</script> -->
 
 </html>
