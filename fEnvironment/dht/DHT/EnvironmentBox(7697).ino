@@ -54,9 +54,12 @@ void setup() {
   // 如果無法讀取到數據，則退出函數
   if (isnan(h) || isnan(t)) {
     Serial.println("Failed to read from DHT sensor!");
+    OLEDScreen.clearBuffer();//清緩存面板訊息
+    OLEDScreen.drawStr(0,10,"DHT sensor failed");
+    OLEDScreen.sendBuffer();
     return;
   }
-  
+  float thi=9.0/5.0*t+32-0.55*(1-(h/100))*(9.0/5.0*t-26);
   //初始化OLED螢幕
   OLEDScreen.begin();
   //OLEDScreen Display
@@ -70,6 +73,9 @@ void setup() {
   OLEDScreen.setCursor(50,30);
   OLEDScreen.print(h);
   OLEDScreen.drawStr(100,30,"%");
+  OLEDScreen.drawStr(0,50,"THI: "); 
+  OLEDScreen.setCursor(50,50);
+  OLEDScreen.print(thi);
   OLEDScreen.sendBuffer();
    
   //按鈕
@@ -86,9 +92,12 @@ void loop() {
   // 如果無法讀取到數據，則退出函數
   if (isnan(h) || isnan(t)) {
     Serial.println("Failed to read from DHT sensor!");
+    OLEDScreen.clearBuffer();//清緩存面板訊息
+    OLEDScreen.drawStr(0,10,"DHT sensor failed");
+    OLEDScreen.sendBuffer();
     return;
   }
-
+  float thi=9.0/5.0*t+32-0.55*(1-(h/100))*(9.0/5.0*t-26);
   //control oled screen display
   if(button==0){
     delay(10);
@@ -108,13 +117,16 @@ void loop() {
       OLEDScreen.setCursor(50,30);
       OLEDScreen.print(h);
       OLEDScreen.drawStr(100,30,"%");
+      OLEDScreen.drawStr(0,50,"THI: "); 
+      OLEDScreen.setCursor(50,50);
+      OLEDScreen.print(thi);
       OLEDScreen.sendBuffer();
       }
   else{
       OLEDScreen.clearBuffer();//清緩存面板訊息
       OLEDScreen.sendBuffer();
       }
-
+      
   //reconnect WiFi
   if(failCounter>=10){
     failCounter=0;
@@ -136,8 +148,9 @@ void loop() {
   
   // connect WebServer
   if (!client.connect(server, 80)) {
-    Serial.println("Connection failed");
-    OLEDScreen.drawStr(0,50,"Connection failed");
+    Serial.println("Connect failed");
+    OLEDScreen.clearBuffer();//清緩存面板訊息
+    OLEDScreen.drawStr(0,10,"Connect failed");
     OLEDScreen.sendBuffer();
     failCounter+=1;
     delay(500);
@@ -145,11 +158,13 @@ void loop() {
   }
   
   // send http request
-  client.print("GET /CowMis/fEnvironment/dht/sendDHT.php?");
+  client.print("GET /CowMis/2.0/fEnvironment/dht/sendDHT.php?");
   client.print("temperature=");
   client.print(t);
   client.print("&humidity=");
   client.print(h);
+  client.print("&THI=");
+  client.print(thi);
   client.println(" HTTP/1.1");
   client.print("Host: ");
   client.println(server);
