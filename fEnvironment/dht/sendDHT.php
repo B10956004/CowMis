@@ -6,8 +6,7 @@ THI=9/5T+32-0.55*(1-RH)*(9/5T-26)
 */
 $temperature=$_GET['temperature'];
 $humidity=$_GET['humidity'];
-$humidityPrecent=$humidity/100;
-$thi=9/5*$temperature+32-0.55*(1-$humidityPrecent)*(9/5*$temperature-26);
+$thi=$_GET['THI'];
 $temperature=number_format($temperature,1);
 $humidity=number_format($humidity,1);
 $thi=number_format($thi,1);
