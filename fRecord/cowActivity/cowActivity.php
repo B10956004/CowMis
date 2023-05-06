@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="../../css/indexcss.css">
     <script src="../../Gauge.js"></script>
     <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.9.1/d3-tip.min.js"></script>
     <link rel="stylesheet" href="../../css/d3.css">
 </head>
 <?php
@@ -78,8 +79,7 @@ require("../../SQLServer.php");
                                         .attr('width', width + margin.left + margin.right)
                                         .attr('height', height + margin.top + margin.bottom)
                                         .append('g')
-                                        .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');";
-                                    echo"
+                                        .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
                                     if (Array.isArray(data) && data.length == 0) {
                                         // 取得現在的日期時間
                                         var now = new Date();

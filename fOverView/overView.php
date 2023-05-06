@@ -326,8 +326,7 @@ require_once("../SQLServer.php"); //注入SQL檔
                                         .attr('width', width + margin.left + margin.right)
                                         .attr('height', height + margin.top + margin.bottom)
                                         .append('g')
-                                        .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');";
-                                    echo"
+                                        .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
                                     if (Array.isArray(data) && data.length == 0) {
                                         // 取得現在的日期時間
                                         var now = new Date();
