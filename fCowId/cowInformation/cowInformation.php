@@ -19,7 +19,8 @@ require_once("../../SQLServer.php"); //注入SQL檔
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
     <meta charset="UTF-8">
     <link rel="stylesheet" href="../../css/indexcss.css">
-
+    <link rel="stylesheet" href="../../css/d3.css">
+    <script src="https://d3js.org/d3.v7.min.js"></script>
     <script>
         //資料讀取
         function informationLoad(cow) {
