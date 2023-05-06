@@ -9,7 +9,7 @@ $result = mysqli_query($db_link, $query);
         // if (mysqli_num_rows($result) != 0) {
         //     echo "&nbsp;&nbsp;&nbsp;&nbsp;編號:$GetID &nbsp;&nbsp;";
         // }
-        echo "&nbsp;&nbsp;&nbsp;&nbsp;編號:$GetID &nbsp;&nbsp;<a href=\"../../fRecord/cowActivity/cowActivity.php?GetID=$GetID\" class=\"btn btn-primary view_data\">編輯</a>";
+        echo "&nbsp;&nbsp;&nbsp;&nbsp;編號:$GetID &nbsp;&nbsp;<a href=\"../../fRecord/cowActivity/cowActivity.php?GetID=$GetID\" class=\"btn btn-primary view_data\">查看</a>";
         ?></h5>
         <div id="svg"></div>
         <?php
