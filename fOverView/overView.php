@@ -434,7 +434,7 @@ require_once("../SQLServer.php"); //注入SQL檔
                                     // 繪製高於 平均 的點標記
                                     svg{$i}.selectAll('.dot-high{$i}')
                                         .data(data.filter(function(d) {
-                                            return d.value > 400;
+                                            return d.value > avg;
                                         }))
                                         .enter().append('circle')
                                         .attr('class', 'dot-high{$i}')
@@ -450,7 +450,7 @@ require_once("../SQLServer.php"); //注入SQL檔
                                     // 繪製低於 平均 的點標記
                                     svg{$i}.selectAll('.dot-low{$i}')
                                         .data(data.filter(function(d) {
-                                            return d.value < 400;
+                                            return d.value < avg;
                                         }))
                                         .enter().append('circle')
                                         .attr('class', 'dot-low{$i}')

@@ -153,7 +153,7 @@ $result = mysqli_query($db_link, $query);
     // 繪製高於 平均 的點標記
     svg.selectAll('.dot-high')
         .data(data.filter(function(d) {
-            return d.value > 400;
+            return d.value > avg;
         }))
         .enter().append('circle')
         .attr('class', 'dot-high')
@@ -169,7 +169,7 @@ $result = mysqli_query($db_link, $query);
     // 繪製低於 平均 的點標記
     svg.selectAll('.dot-low')
         .data(data.filter(function(d) {
-            return d.value < 400;
+            return d.value < avg;
         }))
         .enter().append('circle')
         .attr('class', 'dot-low')
