@@ -277,7 +277,7 @@ require_once("../SQLServer.php"); //注入SQL檔
                                 </script>
                                 <tbody>
                                     <?php
-                                    $query = "SELECT * FROM cows_information ";
+                                    $query = "SELECT * FROM cows_information LIMIT 3";
                                     $result = mysqli_query($db_link, $query);
                                     $i = 1;
                                     while ($row = mysqli_fetch_array($result)) {
@@ -342,6 +342,16 @@ require_once("../SQLServer.php"); //注入SQL檔
 
                                         var yAxis = d3.axisLeft(y);
                                     }
+
+                                    //計算平均
+                                    var sum=0;
+                                    var count=0;
+                                    data.forEach(function(d){
+                                        sum=sum+d.value;
+                                        count+=1;
+                                    });
+                                    var avg=Math.round(sum/count);
+
                                     // 將日期範圍傳遞到d3.scaleTime()的domain()方法中
                                     var x = d3.scaleTime()
                                         .range([0, width])
@@ -400,18 +410,25 @@ require_once("../SQLServer.php"); //注入SQL檔
                                     // 繪製平均活動量黑色虛橫線
                                     svg{$i}.append('line')
                                         .attr('x1', 0) // 起始 x 座標
-                                        .attr('y1', y(400)) // 起始 y 座標
+                                        .attr('y1', y(avg)) // 起始 y 座標
                                         .attr('x2', width) // 結束 x 座標
-                                        .attr('y2', y(400)) // 結束 y 座標
+                                        .attr('y2', y(avg)) // 結束 y 座標
                                         .attr('stroke', 'black') // 線條顏色
                                         .attr('stroke-width', 1) // 線條粗細
                                         .attr('stroke-dasharray', '5,5'); // 線條樣式
+
                                     // 平均活動量黑色虛橫線文字標示 \"平均活動量\"
                                     svg{$i}.append('text')
                                         .attr('class', 'text-current')
                                         .attr('x', width - 50) // x 座標
-                                        .attr('y', y(350)) // y 座標
+                                        .attr('y', y(avg-50)) // y 座標
                                         .text('平均活動量') // 標示文字
+                                        .attr('fill', 'black');
+                                    svg{$i}.append('text')
+                                        .attr('class', 'text-current')
+                                        .attr('x', width - 50) // x 座標
+                                        .attr('y', y(avg-150)) // y 座標
+                                        .text(avg) // 標示avg
                                         .attr('fill', 'black');
 
                                     // 繪製高於 平均 的點標記
