@@ -396,6 +396,19 @@ require_once("../../SQLServer.php"); //注入SQL檔
                                     <div class="card" id="cowActivity">
                                         <div class="card-body">
                                             <h5 class="card-title"><i class="fas fa-chart-area"></i>&nbsp;活動量圖&nbsp;&nbsp;&nbsp;&nbsp;編號:</h5>
+                                            <script>
+                                                // 創建tooltip
+                                                const tooltip = d3.select('body')
+                                                    .append('div')
+                                                    .style('opacity', 0)
+                                                    .style('position', 'absolute')
+                                                    .attr('class', 'tooltip')
+                                                    .style('background-color', 'white')
+                                                    .style('border', 'solid')
+                                                    .style('border-width', '2px')
+                                                    .style('border-radius', '5px')
+                                                    .style('padding', '5px');
+                                            </script>
                                             <!-- <div class="table-responsive">
                                                 <div id="cow_table" style="text-align:center;">
                                                     <table id="rule" class="table table-hover">
