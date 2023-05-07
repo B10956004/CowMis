@@ -6,15 +6,25 @@ $result = mysqli_query($db_link, $query);
 ?>
 <div class="card-body">
     <h5 class="card-title"><i class="fas fa-chart-area"></i>&nbsp;活動量圖<?php
-        // if (mysqli_num_rows($result) != 0) {
-        //     echo "&nbsp;&nbsp;&nbsp;&nbsp;編號:$GetID &nbsp;&nbsp;";
-        // }
-        echo "&nbsp;&nbsp;&nbsp;&nbsp;編號:$GetID &nbsp;&nbsp;<a href=\"../../fRecord/cowActivity/cowActivity.php?GetID=$GetID\" class=\"btn btn-primary view_data\">查看</a>";
-        ?></h5>
-        <div id="svg"></div>
-        <?php
-        $row = mysqli_fetch_array($result);
-        echo"<script>
+                                                                        echo "&nbsp;&nbsp;&nbsp;&nbsp;編號:$GetID &nbsp;&nbsp;<a href=\"../../fRecord/cowActivity/cowActivity.php?GetID=$GetID\" class=\"btn btn-primary view_data\">查看</a>";
+                                                                        ?></h5>
+    <div id="svg"></div>
+    <script>
+        // 創建tooltip
+        const tooltip = d3.select('body')
+            .append('div')
+            .style('opacity', 0)
+            .style('position', 'absolute')
+            .attr('class', 'tooltip')
+            .style('background-color', 'white')
+            .style('border', 'solid')
+            .style('border-width', '2px')
+            .style('border-radius', '5px')
+            .style('padding', '5px');
+    </script>
+    <?php
+    $row = mysqli_fetch_array($result);
+    echo "<script>
         d3.json('card/pedometerData.php?id={$GetID}').then(function(data) {
     // SVG 尺寸
     var margin = {
@@ -167,7 +177,25 @@ $result = mysqli_query($db_link, $query);
         })
         .attr('r', 5)
         .attr('fill', 'gold');
+    // 加上滑鼠事件
+    svg.selectAll('circle')
+    .style('cursor', 'pointer')
+    .on('mouseover', function(event, d) {
+        tooltip
+        .html('活動量:' + d.value)
+        .style('left', event.pageX + 10 + 'px')
+            .style('top', event.pageY + 'px')
+            .style('opacity', 1);
+            })
+            .on('mousemove', function(event) {
+            tooltip
+            .style('left', event.pageX + 10 + 'px')
+            .style('top', event.pageY + 'px');
+            })
+            .on('mouseleave', function() {
+                tooltip.style('opacity', 0);
+                });
     });
 </script>";
-        ?>
+    ?>
 </div>
