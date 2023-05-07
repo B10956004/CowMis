@@ -21,6 +21,7 @@ require_once("../../SQLServer.php"); //注入SQL檔
     <link rel="stylesheet" href="../../css/indexcss.css">
     <link rel="stylesheet" href="../../css/d3.css">
     <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.js"></script>
     <script>
         //資料讀取
         function informationLoad(cow) {

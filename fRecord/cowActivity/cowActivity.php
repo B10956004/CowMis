@@ -22,6 +22,7 @@
     <script src="../../Gauge.js"></script>
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <link rel="stylesheet" href="../../css/d3.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.js"></script>
 </head>
 <?php
 require("../../SQLServer.php");
@@ -252,7 +253,7 @@ require("../../SQLServer.php");
                                         .style('cursor', 'pointer')
                                         .on('mouseover', function(event, d) {
                                             tooltip
-                                            .html('活動量:' + d.value)
+                                            .html('日期:'+ moment(d.date).format('YYYY-MM-DD HH:mm:ss')+'<br>活動量:' + d.value )
                                             .style('left', event.pageX + 10 + 'px')
                                             .style('top', event.pageY + 'px')
                                             .style('opacity', 1);
@@ -269,7 +270,7 @@ require("../../SQLServer.php");
                                         .style('cursor', 'pointer')
                                         .on('mouseover', function(event, d) {
                                             tooltip
-                                            .html('活動量:' + d.value)
+                                            .html('日期:'+ moment(d.date).format('YYYY-MM-DD HH:mm:ss')+'<br>活動量:' + d.value )
                                             .style('left', event.pageX + 10 + 'px')
                                             .style('top', event.pageY + 'px')
                                             .style('opacity', 1);

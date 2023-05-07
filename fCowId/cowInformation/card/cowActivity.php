@@ -186,7 +186,7 @@ $result = mysqli_query($db_link, $query);
     .style('cursor', 'pointer')
     .on('mouseover', function(event, d) {
         tooltip
-        .html('活動量:' + d.value)
+        .html('日期:'+ moment(d.date).format('YYYY-MM-DD HH:mm:ss')+'<br>活動量:' + d.value )
         .style('left', event.pageX + 10 + 'px')
             .style('top', event.pageY + 'px')
             .style('opacity', 1);
