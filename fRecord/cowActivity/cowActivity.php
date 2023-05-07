@@ -21,7 +21,6 @@
     <link rel="stylesheet" href="../../css/indexcss.css">
     <script src="../../Gauge.js"></script>
     <script src="https://d3js.org/d3.v7.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.9.1/d3-tip.min.js"></script>
     <link rel="stylesheet" href="../../css/d3.css">
 </head>
 <?php
@@ -44,18 +43,34 @@ require("../../SQLServer.php");
                                         <th>狀態填寫</th>
                                     </tr>
                                 </thead>
+                                <script>
+                                    // 創建tooltip
+                                    const tooltip = d3.select('body')
+                                        .append('div')
+                                        .style('opacity', 0)
+                                        .style('position', 'absolute')
+                                        .attr('class', 'tooltip')
+                                        .style('background-color', 'white')
+                                        .style('border', 'solid')
+                                        .style('border-width', '2px')
+                                        .style('border-radius', '5px')
+                                        .style('padding', '5px');
+                                </script>
                                 <tbody>
                                     <?php
-                                    $i=1;
-                                    if(isset($_GET['GetID'])){
-                                        $id=$_GET['GetID'];
+                                    $i = 1;
+                                    if (isset($_GET['GetID'])) {
+                                        $id = $_GET['GetID'];
                                         $query = "SELECT * FROM cows_information WHERE id='$id' ";
-                                    }else{
+                                    } else {
                                         $query = "SELECT * FROM cows_information ";
                                     }
-                                    
+
                                     $result = mysqli_query($db_link, $query);
                                     while ($row = mysqli_fetch_array($result)) {
+                                        if($i!=1){
+                                            $i+=1; //unfix bug tr生成為1 3 5 7
+                                        }
                                         echo "<tr>";
                                         $sn = $row['sn'];
                                         $id = $row['id'];
@@ -63,7 +78,7 @@ require("../../SQLServer.php");
                                         echo "<td></td>";
                                         echo "<td><input type=\"button\" class=\"addEstrusDate btn-primary btn\" value=\"發情日期\" GetSn=\"$sn\" GetID=\"$id\"> <br><br> <input type=\"button\" class=\"addMatingDate btn-primary btn\" value=\"配種日期\" GetSn=\"$sn\" GetID=\"$id\"></td>";
                                         echo "</tr>";
-                                        echo"<script>
+                                        echo "<script>
                                         d3.json('pedometerData.php?id={$id}').then(function(data) {
                                     // SVG 尺寸
                                     var margin = {
@@ -75,9 +90,10 @@ require("../../SQLServer.php");
                                         width = 900 - margin.left - margin.right,
                                         height = 250 - margin.top - margin.bottom;
                                     // 繪圖區域
-                                    var svg = d3.select('tbody tr:nth-child({$i}) td:nth-child(2)').append('svg')
+                                    var svg{$i} = d3.select('tbody tr:nth-child($i) td:nth-child(2)').append('svg')
                                         .attr('width', width + margin.left + margin.right)
                                         .attr('height', height + margin.top + margin.bottom)
+                                        .attr('id','svg$i')
                                         .append('g')
                                         .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
                                     if (Array.isArray(data) && data.length == 0) {
@@ -104,13 +120,11 @@ require("../../SQLServer.php");
                                         });
                                         var startDate = extent[0];
                                         var endDate = extent[1];
-
                                         var y = d3.scaleLinear()
                                         .range([height, 0])
                                         .domain([0, d3.max(data, function(d) {
                                             return d.value;
                                         })]);
-
                                         var yAxis = d3.axisLeft(y);
                                     }
                                     // 將日期範圍傳遞到d3.scaleTime()的domain()方法中
@@ -123,12 +137,12 @@ require("../../SQLServer.php");
                                         .ticks(d3.timeDay.every(1));
 
                                     //繪製折線圖x軸
-                                    svg.append('g')
+                                    svg{$i}.append('g')
                                         .attr('class', 'x axis')
                                         .attr('transform', 'translate(0,' + height + ')')
                                         .call(xAxis);
                                     //繪製折線圖y軸
-                                    svg.append('g')
+                                    svg{$i}.append('g')
                                         .attr('class', 'y axis')
                                         .call(yAxis)
                                         .append('text')
@@ -148,20 +162,20 @@ require("../../SQLServer.php");
                                             return y(d.value);
                                         })
                                         .curve(d3.curveLinear);
-                                    svg.append('path')
+                                    svg{$i}.append('path')
                                         .datum(data)
                                         .attr('class', 'line')
                                         .attr('d', line);
 
                                     // 繪製目前時間紅色直線
-                                    svg.append('line')
+                                    svg{$i}.append('line')
                                         .attr('class', 'line-current')
                                         .attr('x1', x(new Date())) // 起始 x 座標
                                         .attr('y1', 0) // 起始 y 座標
                                         .attr('x2', x(new Date())) // 結束 x 座標
                                         .attr('y2', height); // 結束 y 座標
                                     // 目前時間紅色直線文字標示
-                                    svg.append('text')
+                                    svg{$i}.append('text')
                                         .attr('class', 'text-current')
                                         .attr('x', x(new Date())) // x 座標
                                         .attr('y', height-10) // y 座標
@@ -169,7 +183,7 @@ require("../../SQLServer.php");
                                         .attr('fill', 'red');
 
                                     // 繪製平均活動量黑色虛橫線
-                                    svg.append('line')
+                                    svg{$i}.append('line')
                                         .attr('x1', 0) // 起始 x 座標
                                         .attr('y1', y(400)) // 起始 y 座標
                                         .attr('x2', width) // 結束 x 座標
@@ -177,8 +191,9 @@ require("../../SQLServer.php");
                                         .attr('stroke', 'black') // 線條顏色
                                         .attr('stroke-width', 1) // 線條粗細
                                         .attr('stroke-dasharray', '5,5'); // 線條樣式
+
                                     // 平均活動量黑色虛橫線文字標示 \"平均活動量\"
-                                    svg.append('text')
+                                    svg{$i}.append('text')
                                         .attr('class', 'text-current')
                                         .attr('x', width - 50) // x 座標
                                         .attr('y', y(350)) // y 座標
@@ -186,12 +201,12 @@ require("../../SQLServer.php");
                                         .attr('fill', 'black');
 
                                     // 繪製高於 平均 的點標記
-                                    svg.selectAll('.dot-high')
+                                    svg{$i}.selectAll('.dot-high{$i}')
                                         .data(data.filter(function(d) {
                                             return d.value > 400;
                                         }))
                                         .enter().append('circle')
-                                        .attr('class', 'dot-high')
+                                        .attr('class', 'dot-high{$i}')
                                         .attr('cx', function(d) {
                                             return x(new Date(d.date));
                                         })
@@ -202,12 +217,12 @@ require("../../SQLServer.php");
                                         .attr('fill', 'red');
 
                                     // 繪製低於 平均 的點標記
-                                    svg.selectAll('.dot-low')
+                                    svg{$i}.selectAll('.dot-low{$i}')
                                         .data(data.filter(function(d) {
                                             return d.value < 400;
                                         }))
                                         .enter().append('circle')
-                                        .attr('class', 'dot-low')
+                                        .attr('class', 'dot-low{$i}')
                                         .attr('cx', function(d) {
                                             return x(new Date(d.date));
                                         })
@@ -216,12 +231,47 @@ require("../../SQLServer.php");
                                         })
                                         .attr('r', 5)
                                         .attr('fill', 'gold');
-                                    });
-                                </script>";
-                                $i+=1;
+                                    // 加上滑鼠事件
+                                    svg{$i}.selectAll('.dot-low{$i}')
+                                        .style('cursor', 'pointer')
+                                        .on('mouseover', function(event, d) {
+                                            tooltip
+                                            .html('活動量:' + d.value)
+                                            .style('left', event.pageX + 10 + 'px')
+                                            .style('top', event.pageY + 'px')
+                                            .style('opacity', 1);
+                                        })
+                                        .on('mousemove', function(event) {
+                                            tooltip
+                                            .style('left', event.pageX + 10 + 'px')
+                                            .style('top', event.pageY + 'px');
+                                        })
+                                        .on('mouseleave', function() {
+                                            tooltip.style('opacity', 0);
+                                        });
+                                    svg{$i}.selectAll('.dot-high{$i}')
+                                        .style('cursor', 'pointer')
+                                        .on('mouseover', function(event, d) {
+                                            tooltip
+                                            .html('活動量:' + d.value)
+                                            .style('left', event.pageX + 10 + 'px')
+                                            .style('top', event.pageY + 'px')
+                                            .style('opacity', 1);
+                                        })
+                                        .on('mousemove', function(event) {
+                                            tooltip
+                                            .style('left', event.pageX + 10 + 'px')
+                                            .style('top', event.pageY + 'px');
+                                        })
+                                        .on('mouseleave', function() {
+                                            tooltip.style('opacity', 0);
+                                        });
+                                    }); 
+                              </script>";
+                                        $i += 1;
                                     }
                                     ?>
-                                    
+
                                 </tbody>
                             </table>
                         </div>
