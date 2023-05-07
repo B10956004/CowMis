@@ -24,7 +24,7 @@ require_once("SQLServer.php"); //注入SQL檔
     <!--bootstrap插件-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
-    <link rel="icon" href="image/LOGO 小.png">
+    <link rel="icon" href="image/LogoFinal.png">
     <title>酪農智慧網—基於開放式感測網技術之乳牛飼養與健康管理資訊系統</title>
     <script>
         // sidebar跳轉功能頁面
@@ -84,13 +84,13 @@ require_once("SQLServer.php"); //注入SQL檔
                 <!-----設定LOGO與名稱----->
                 <div class="col-sm-10 d-none d-sm-block" style="padding: 10px 25px;">
                     <b><a href="./home.php" target="_self" style="color:#07A862;text-decoration: none;font-size: 35px;height: 60px;display: flex;align-items: center;">
-                            <img src="./image/LOGO 小.png" style="width: 60px;margin-right: 15px;">酪農智慧網—基於開放式感測網技術之乳牛飼養與健康管理資訊系統
+                            <img src="./image/LogoFinal.png" style="width: 60px;margin-right: 15px;">酪農智慧網—基於開放式感測網技術之乳牛飼養與健康管理資訊系統
                         </a></b>
                 </div>
                 <!-- for phone screen -->
                 <div class="col-sm-10 d-sm-none d-sm-block d-print-block" style="padding: 10px 25px;">
                     <b><a href="./home.php" target="_self" style="color:#07A862;text-decoration: none;font-size: 34px;height: 60px;display: flex;align-items: center;">
-                            <img src="./image/LOGO 小.png" style="width: 80px;margin-right: 80px;">
+                            <img src="./image/LogoFinal.png" style="width: 80px;margin-right: 80px;">
                         </a></b>
                 </div>
                 <!----------登出鍵------------>

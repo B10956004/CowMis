@@ -32,7 +32,7 @@ while ($row = mysqli_fetch_assoc($result)) {
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <title>酪農智慧網—基於開放式感測網技術之乳牛飼養與健康管理資訊系統</title>
-  <link rel="icon" href="../image/LOGO 小.png">
+  <link rel="icon" href="../image/LogoFinal.png">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
@@ -99,7 +99,7 @@ while ($row = mysqli_fetch_assoc($result)) {
   <div class="fix_bg bg_final">
 
     <h2 class="vcenter" style="background-color: rgba(245,245,245,0.8);border-radius: 25px;">
-      <a href="../home.php"><img src="../image/LOGO 小.png"></a>
+      <a href="../home.php"><img height="100px" src="../image/LogoFinal.png"></a>
       <b><a href="../home.php" target="_self" style="color:#07A862;text-decoration: none;font-size: 35px;display: flex;align-items: center;padding-left:50px;padding-right:50px">酪農智慧網—基於開放式感測網技術之乳牛飼養與健康管理資訊系統</a></b>
       <br>
       <form action="showPassword.php" method="post">

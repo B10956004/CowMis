@@ -96,7 +96,7 @@ try {
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
   <link rel='stylesheet' href="../css/bg333.css">
-  <link rel="icon" href="../image/LOGO 小.png">
+  <link rel="icon" href="../image/LogoFinal.png">
 
 
   <!-- 基本的外觀設定 -->
@@ -157,7 +157,7 @@ try {
   <div class="fix_bg bg_final">
 
     <h2 class="vcenter" style="background-color: rgba(245,245,245,0.8);border-radius: 25px;">
-      <a href="../home.php"><img src="../image/LOGO 小.png"></a>
+      <a href="../home.php"><img height="100px" src="../image/LogoFinal.png"></a>
       <b><a href="../home.php" target="_self" style="color:#07A862;text-decoration: none;font-size: 35px;display: flex;align-items: center;padding-left:50px;padding-right:50px">酪農智慧網—基於開放式感測網技術之乳牛飼養與健康管理資訊系統</a></b>
       <br>
       <div style="border-radius:10px;background:rgba(255,255,255,0.7);padding:20px;margin-bottom:5px;width:580px;height:auto;margin:0 auto;text-align:center;">
