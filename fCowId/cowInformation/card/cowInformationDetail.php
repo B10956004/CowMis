@@ -77,7 +77,7 @@ mysqli_query($db_link, $updateQuery);
     <input type=\"text\" class=\"col-12\" value='$dob' disabled> </p>
 </div>
 <div class=\"col-12 col-sm-4\">";
-    echo"<a href=\"../../fRecord/sensorManagement/sensorManagement.php\"><p class=\"card-text \">感測器狀態</a><br>";
+    echo"<a href=\"../../fEnvironment/sensorManagement/sensorManagement.php\"><p class=\"card-text \">感測器狀態</a><br>";
     if ($states == '未連接'||$states=='未配戴') {
         echo "<i class=\"fas fa-circle\" style=\"color: red;\"></i>";
     } elseif ($states == '正常') {
