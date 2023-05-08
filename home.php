@@ -65,14 +65,13 @@ require_once("SQLServer.php"); //注入SQL檔
             document.getElementById("frame").src = "fEnvironment/sensor/sensorCow.php"
         }
 
-        //管理紀錄
-
-        function change_CowActivity() {
-            document.getElementById("frame").src = "fRecord/cowActivity/cowActivity.php"
+        function change_SensorManagement() {
+            document.getElementById("frame").src = "fEnvironment/sensorManagement/sensorManagement.php"
         }
 
-        function change_SensorManagement() {
-            document.getElementById("frame").src = "fRecord/sensorManagement/sensorManagement.php"
+        //管理紀錄
+        function change_CowActivity() {
+            document.getElementById("frame").src = "fRecord/cowActivity/cowActivity.php"
         }
     </script>
 </head>
@@ -146,7 +145,6 @@ require_once("SQLServer.php"); //注入SQL檔
                                         活動感知管理
                                     </button>
                                     <ul class="dropdown-menu dropdown-menu-dark text-center">
-                                        <li><a class="dropdown-item" onclick="change_SensorManagement() ;">感測器管理</a></li>
                                         <li><a class="dropdown-item" onclick="change_CowActivity() ;">乳牛姿態感知</a></li>
                                     </ul>
                                 </li>
@@ -155,6 +153,7 @@ require_once("SQLServer.php"); //注入SQL檔
                                         感測網服務管理
                                     </button>
                                     <ul class="dropdown-menu dropdown-menu-dark text-center">
+                                        <li><a class="dropdown-item" onclick="change_SensorManagement() ;">感測器管理</a></li>
                                         <li><a class="dropdown-item" onclick="change_Sensor() ;">牧場觀測服務</a></li>
                                         <!-- <li><a class="dropdown-item" onclick="change_SensorCow() ;">牛乳測量</a></li> -->
                                     </ul>
