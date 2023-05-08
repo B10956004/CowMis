@@ -13,6 +13,21 @@ $result = mysqli_query($db_link, $query);
     $row = mysqli_fetch_array($result);
     echo "<script>
         d3.json('card/pedometerData.php?id={$GetID}').then(function(data) {
+
+            // 先算平均數
+            var avg = Math.round(data.reduce((sum, d) => sum + d.value, 0) / data.length);
+            if(Number.isNaN(avg)){avg=0;}
+            // 再算標準差
+            var sd = Math.round(Math.sqrt(data.reduce((sum, d) => sum + Math.pow(d.value - avg, 2), 0) / data.length));
+            if(Number.isNaN(sd)){sd=0;}
+            //轉換資料
+            data = data.map((d) => {
+                return {
+                  date: d.date,
+                  value: Math.round((d.value - avg) / sd * 100) / 100   // 原始活動-平均/標準差(四捨五入到小數點2位)
+                };
+              });
+
     // SVG 尺寸
     var margin = {
             top: 30,
@@ -33,18 +48,18 @@ $result = mysqli_query($db_link, $query);
         endDate.hour(23);        // 設置小時為 23
         endDate.minute(59);      // 設置分鐘為 59
         endDate.second(59);      // 設置秒數為 59
-        
+                
+        var y = d3.scaleLinear()
+        .range([height, 0])
+        .domain([-10, 30]);
+
+        var yAxis = d3.axisLeft(y);
+
     if (Array.isArray(data) && data.length == 0) {
         // 取得現在的日期時間
         var now = new Date();
         // 設定日期範圍為現在的日期時間往前推6天至現在的日期時間
         var startDate = new Date(now.getTime() - 6 * 24 * 60 * 60 * 1000);
-        
-        var y = d3.scaleLinear()
-        .range([height, 0])
-        .domain([0, 0]);
-
-        var yAxis = d3.axisLeft(y);
     }else{
         // 將日期字串轉成日期物件
         var parseTime = d3.timeParse('%Y-%m-%d %H:%M:%S.%L');
@@ -56,25 +71,7 @@ $result = mysqli_query($db_link, $query);
             return d.date;
         });
         var startDate = extent[0];
-
-        var y = d3.scaleLinear()
-        .range([height, 0])
-        .domain([0, d3.max(data, function(d) {
-            return d.value;
-        })]);
-
-        var yAxis = d3.axisLeft(y);
     }
-
-    //計算平均
-    var sum=0;
-    var count=0;
-    data.forEach(function(d){
-        sum=sum+d.value;
-        count+=1;
-    });
-    var avg=Math.round(sum/count);
-    if(Number.isNaN(avg)){avg=0;}
 
     // 將日期範圍傳遞到d3.scaleTime()的domain()方法中
     var x = d3.scaleTime()
@@ -134,9 +131,9 @@ $result = mysqli_query($db_link, $query);
         // 繪製平均活動量黑色虛橫線
         svg.append('line')
             .attr('x1', 0) // 起始 x 座標
-            .attr('y1', y(avg)) // 起始 y 座標
+            .attr('y1', y(0)) // 起始 y 座標
             .attr('x2', width) // 結束 x 座標
-            .attr('y2', y(avg)) // 結束 y 座標
+            .attr('y2', y(0)) // 結束 y 座標
             .attr('stroke', 'black') // 線條顏色
             .attr('stroke-width', 1) // 線條粗細
             .attr('stroke-dasharray', '5,5'); // 線條樣式
@@ -144,21 +141,21 @@ $result = mysqli_query($db_link, $query);
         // 平均活動量黑色虛橫線文字標示 \"平均活動量\"
         svg.append('text')
             .attr('class', 'text-current')
-            .attr('x', width-140) // x 座標
-            .attr('y', y(avg-50)) // y 座標
+            .attr('x', width-50) // x 座標
+            .attr('y', y(0)) // y 座標
             .text('平均活動量') // 標示文字
             .attr('fill', 'black');
         svg.append('text')
             .attr('class', 'text-current')
             .attr('x', width - 50) // x 座標
-            .attr('y', y(avg-50)) // y 座標
+            .attr('y', y(-3)) // y 座標
             .text(avg) // 標示avg
             .attr('fill', 'black');
 
-    // 繪製高於 平均 的點標記
+    // 繪製高係數的點標記
     svg.selectAll('.dot-high')
         .data(data.filter(function(d) {
-            return d.value > avg;
+            return d.value > 5;
         }))
         .enter().append('circle')
         .attr('class', 'dot-high')
@@ -171,10 +168,10 @@ $result = mysqli_query($db_link, $query);
         .attr('r', 5)
         .attr('fill', 'red');
 
-    // 繪製低於 平均 的點標記
+    // 繪製低係數的點標記
     svg.selectAll('.dot-low')
         .data(data.filter(function(d) {
-            return d.value < avg;
+            return d.value < -5;
         }))
         .enter().append('circle')
         .attr('class', 'dot-low')
@@ -186,25 +183,42 @@ $result = mysqli_query($db_link, $query);
         })
         .attr('r', 5)
         .attr('fill', 'gold');
-    // 加上滑鼠事件
-    svg.selectAll('circle')
-    .style('cursor', 'pointer')
-    .on('mouseover', function(event, d) {
-        tooltip
-        .html('日期:'+ moment(d.date).format('YYYY-MM-DD HH:mm:ss')+'<br>活動量:' + d.value )
-        .style('left', event.pageX + 10 + 'px')
-            .style('top', event.pageY + 'px')
-            .style('opacity', 1);
+        // 加上滑鼠事件
+        svg.selectAll('.dot-low')
+            .style('cursor', 'pointer')
+            .on('mouseover', function(event, d) {
+                tooltip
+                .html('日期:'+ moment(d.date).format('YYYY-MM-DD HH:mm:ss')+'<br>低係數:' + d.value )
+                .style('left', event.pageX + 10 + 'px')
+                .style('top', event.pageY + 'px')
+                .style('opacity', 1);
             })
             .on('mousemove', function(event) {
-            tooltip
-            .style('left', event.pageX + 10 + 'px')
-            .style('top', event.pageY + 'px');
+                tooltip
+                .style('left', event.pageX + 10 + 'px')
+                .style('top', event.pageY + 'px');
             })
             .on('mouseleave', function() {
                 tooltip.style('opacity', 0);
-                });
-    });
+            });
+        svg.selectAll('.dot-high')
+            .style('cursor', 'pointer')
+            .on('mouseover', function(event, d) {
+                tooltip
+                .html('日期:'+ moment(d.date).format('YYYY-MM-DD HH:mm:ss')+'<br>高係數:' + d.value )
+                .style('left', event.pageX + 10 + 'px')
+                .style('top', event.pageY + 'px')
+                .style('opacity', 1);
+            })
+            .on('mousemove', function(event) {
+                tooltip
+                .style('left', event.pageX + 10 + 'px')
+                .style('top', event.pageY + 'px');
+            })
+            .on('mouseleave', function() {
+                tooltip.style('opacity', 0);
+            });
+        });
 </script>";
     ?>
 </div>
