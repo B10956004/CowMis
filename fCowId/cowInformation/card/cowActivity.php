@@ -141,16 +141,44 @@ $result = mysqli_query($db_link, $query);
         // 平均活動量黑色虛橫線文字標示 \"平均活動量\"
         svg.append('text')
             .attr('class', 'text-current')
-            .attr('x', width-50) // x 座標
-            .attr('y', y(0)) // y 座標
-            .text('平均活動量') // 標示文字
+            .attr('x', width - (width*0.22)) // x 座標
+            .attr('y', y(-16)) // y 座標
+            .text('平均活動量:') // 標示文字
             .attr('fill', 'black');
         svg.append('text')
             .attr('class', 'text-current')
-            .attr('x', width - 50) // x 座標
-            .attr('y', y(-3)) // y 座標
+            .attr('x', width - (width*0.01)) // x 座標
+            .attr('y', y(-16)) // y 座標
             .text(avg) // 標示avg
             .attr('fill', 'black');
+
+
+            //標示圖案說明
+            svg.append('circle')
+                .attr('class', 'dot-high-text')
+                .attr('cx', width - (width*0.4)) // x 座標
+                .attr('cy', y(-15)) // y 座標
+                .attr('r', 5)
+                .attr('fill', 'red');
+            svg.append('text')
+                .attr('class', 'dot-high-text')
+                .attr('x', width - (width*0.4)+10) // x 座標
+                .attr('y', y(-16)) // y 座標
+                .text('疑似發情') // 標示avg
+                .attr('fill', 'black');
+            svg.append('circle')
+                .attr('class', 'dot-low-text')
+                .attr('cx', width - (width*0.6)) // x 座標
+                .attr('cy', y(-15)) // y 座標
+                .attr('r', 5)
+                .attr('fill', 'gold');
+            svg.append('text')
+                .attr('class', 'dot-low-text')
+                .attr('x', width - (width*0.6)+10) // x 座標
+                .attr('y', y(-16)) // y 座標
+                .text('活動量低') // 標示avg
+                .attr('fill', 'black');
+
 
     // 繪製高係數的點標記
     svg.selectAll('.dot-high')

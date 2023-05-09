@@ -209,16 +209,43 @@ require("../../SQLServer.php");
                                     // 平均活動量黑色虛橫線文字標示 \"平均活動量\"
                                     svg{$i}.append('text')
                                         .attr('class', 'text-current')
-                                        .attr('x', width - 140) // x 座標
-                                        .attr('y', y(0)) // y 座標
-                                        .text('平均活動量') // 標示文字
+                                        .attr('x', width - (width*0.15)) // x 座標
+                                        .attr('y', y(-20)) // y 座標
+                                        .text('平均活動量:') // 標示文字
                                         .attr('fill', 'black');
                                     svg{$i}.append('text')
                                         .attr('class', 'text-current')
-                                        .attr('x', width - 50) // x 座標
-                                        .attr('y', y(0)) // y 座標
+                                        .attr('x', width - (width*0.02)) // x 座標
+                                        .attr('y', y(-20)) // y 座標
                                         .text(avg) // 標示avg
                                         .attr('fill', 'black');
+
+                                    //標示圖案說明
+                                    svg{$i}.append('circle')
+                                        .attr('class', 'dot-high-text')
+                                        .attr('cx', width - (width*0.28)) // x 座標
+                                        .attr('cy', y(-19)) // y 座標
+                                        .attr('r', 5)
+                                        .attr('fill', 'red');
+                                    svg{$i}.append('text')
+                                        .attr('class', 'dot-high-text')
+                                        .attr('x', width - (width*0.28)+10) // x 座標
+                                        .attr('y', y(-20)) // y 座標
+                                        .text('疑似發情') // 標示avg
+                                        .attr('fill', 'black');
+                                    svg{$i}.append('circle')
+                                        .attr('class', 'dot-low-text')
+                                        .attr('cx', width - (width*0.4)) // x 座標
+                                        .attr('cy', y(-19)) // y 座標
+                                        .attr('r', 5)
+                                        .attr('fill', 'gold');
+                                    svg{$i}.append('text')
+                                        .attr('class', 'dot-low-text')
+                                        .attr('x', width - (width*0.4)+10) // x 座標
+                                        .attr('y', y(-20)) // y 座標
+                                        .text('活動量低') // 標示avg
+                                        .attr('fill', 'black');
+
 
                                     // 繪製高係數的點標記
                                     svg{$i}.selectAll('.dot-high{$i}')
