@@ -162,7 +162,7 @@ $result = mysqli_query($db_link, $query);
             .attr('fill', 'black');
         svg.append('text')
             .attr('class', 'text-current')
-            .attr('x', width - (width*0.01)) // x 座標
+            .attr('x', width - (width*0.02)) // x 座標
             .attr('y', y(-16)) // y 座標
             .text(avg) // 標示avg
             .attr('fill', 'black');
