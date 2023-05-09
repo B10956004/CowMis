@@ -103,21 +103,6 @@ require_once("../../SQLServer.php");
                   echo "<script>
                   d3.json('pedometerData.php?id={$id}').then(function(data) {
 
-                      // 先算平均數
-                      var avg = Math.round(data.reduce((sum, d) => sum + d.value, 0) / data.length);
-                      if(Number.isNaN(avg)){avg=0;}
-                      // 再算標準差
-                      var sd = Math.round(Math.sqrt(data.reduce((sum, d) => sum + Math.pow(d.value - avg, 2), 0) / data.length));
-                      if(Number.isNaN(sd)){sd=0;}
-                      //轉換資料
-                      data = data.map((d) => {
-                          return {
-                            date: d.date,
-                            value: Math.round((d.value - avg) / sd * 100) / 100   // 原始活動-平均/標準差(四捨五入到小數點2位)
-                          };
-                        });
-
-
               // SVG 尺寸
               var margin = {
                       top: 30,
@@ -146,19 +131,49 @@ require_once("../../SQLServer.php");
 
                   var yAxis = d3.axisLeft(y);
 
-              if (Array.isArray(data) && data.length == 0) {
+              if (Array.isArray(data) && data.length == 1) {
                   // 取得現在的日期時間
                   var now = new Date();
                   // 設定日期範圍為現在的日期時間往前推6天至現在的日期時間
                   var startDate = new Date(now.getTime() - 6 * 24 * 60 * 60 * 1000);
               }else{
+
+                var result=[]
+                for(let i=0;i<data[1].length;i++){
+                    var avgData = data[1][i];
+                    var avg = avgData.avg;
+                    var std_dev = avgData.std_dev;
+                    var day = avgData.day;
+                    for (let j = 0; j < data[0].length; j++) {
+                        const obj = data[0][j];
+                        const date = obj.date;
+                        const value = obj.value;
+                        if (date.substring(0, 10) === day) {
+                        const computedValue = Math.round((value - avg) / std_dev * 100) / 100;
+                        result.push(computedValue);
+                        }
+                    }
+                }
+                      
+                // 算總平均數
+                var avg = Math.round(data[0].reduce((sum, d) => sum + d.value, 0) / data[0].length);
+                if(Number.isNaN(avg)){avg=0;}
+
+                //轉換資料
+                data[0] = data[0].map((item, index) => {
+                    return {
+                        date:item.date,
+                        value: result[index]
+                    };
+                }); 
+
                   // 將日期字串轉成日期物件
                   var parseTime = d3.timeParse('%Y-%m-%d %H:%M:%S.%L');
-                  data.forEach(function(d) {
+                  data[0].forEach(function(d) {
                       d.date = parseTime(d.date)
                   });
                   // 取得日期範圍
-                  var extent = d3.extent(data, function(d) {
+                  var extent = d3.extent(data[0], function(d) {
                       return d.date;
                   });
                   var startDate = extent[0];
@@ -200,7 +215,7 @@ require_once("../../SQLServer.php");
                   })
                   .curve(d3.curveLinear);
               svg{$i}.append('path')
-                  .datum(data)
+                  .datum(data[0])
                   .attr('class', 'line')
                   .attr('d', line);
 
@@ -271,7 +286,7 @@ require_once("../../SQLServer.php");
 
               // 繪製高係數的點標記
               svg{$i}.selectAll('.dot-high{$i}')
-                  .data(data.filter(function(d) {
+                  .data(data[0].filter(function(d) {
                       return d.value > 5;
                   }))
                   .enter().append('circle')
@@ -287,7 +302,7 @@ require_once("../../SQLServer.php");
 
               // 繪製低係數的點標記
               svg{$i}.selectAll('.dot-low{$i}')
-                  .data(data.filter(function(d) {
+                  .data(data[0].filter(function(d) {
                       return d.value < -1.5;
                   }))
                   .enter().append('circle')
