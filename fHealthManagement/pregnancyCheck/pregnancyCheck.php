@@ -52,18 +52,18 @@ require_once("../../SQLServer.php");
                 </tr>
               </thead>
               <script>
-                                    // 創建tooltip
-                                    const tooltip = d3.select('body')
-                                        .append('div')
-                                        .style('opacity', 0)
-                                        .style('position', 'absolute')
-                                        .attr('class', 'tooltip')
-                                        .style('background-color', 'white')
-                                        .style('border', 'solid')
-                                        .style('border-width', '2px')
-                                        .style('border-radius', '5px')
-                                        .style('padding', '5px');
-                                </script>
+                // 創建tooltip
+                const tooltip = d3.select('body')
+                  .append('div')
+                  .style('opacity', 0)
+                  .style('position', 'absolute')
+                  .attr('class', 'tooltip')
+                  .style('background-color', 'white')
+                  .style('border', 'solid')
+                  .style('border-width', '2px')
+                  .style('border-radius', '5px')
+                  .style('padding', '5px');
+              </script>
               <tbody>
                 <?php
                 $query = "SELECT cows_information.sn, cows_information.id, sensor_management.states
