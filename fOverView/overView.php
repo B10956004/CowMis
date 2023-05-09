@@ -1,16 +1,5 @@
 <?php
 require_once("../SQLServer.php"); //注入SQL檔
-$value=0;
-$date='04';
-for($i=0;$i<=23;$i++){
-    $time='0'.$i;
-    if($i>=10){
-        $time=$i;
-    }
-    $sql="INSERT INTO `pedometer`(`id`, `date`, `value`) VALUES ('05Q119','2023-05-$date $time:00:00','$value')";
-    $db_link->query($sql);
-    $value+=rand(100,300);
-}
 ?>
 <!DOCTYPE html>
 <html lang="en">
