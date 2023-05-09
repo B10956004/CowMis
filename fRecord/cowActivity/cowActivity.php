@@ -39,7 +39,7 @@ require("../../SQLServer.php");
                             <table id="rule" class="table table-hover" width="100%" align="center" style="display: table-cell;vertical-align: middle;">
                                 <thead>
                                     <tr>
-                                        <th>編號</th>
+                                        <th>乳牛編號</th>
                                         <th>活動量觀測</th>
                                         <th>狀態填寫</th>
                                     </tr>

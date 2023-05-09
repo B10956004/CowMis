@@ -257,7 +257,7 @@ require_once("../SQLServer.php"); //注入SQL檔
                             <table id="rule" class="table table-hover" width="50%" align="center" style="display: table-cell;vertical-align: middle;">
                                 <thead>
                                     <tr>
-                                        <th>編號</th>
+                                        <th>乳牛編號</th>
                                         <th>發情判斷</th>
                                         <th>狀態填寫</th>
                                     </tr>
@@ -277,7 +277,11 @@ require_once("../SQLServer.php"); //注入SQL檔
                                 </script>
                                 <tbody>
                                     <?php
-                                    $query = "SELECT * FROM cows_information LIMIT 3";
+                                    $query = "SELECT cows_information.sn, cows_information.id, sensor_management.states
+                                    FROM cows_information
+                                    JOIN sensor_management ON cows_information.id = sensor_management.cid
+                                    WHERE sensor_management.states='疑似發情'
+                                    ";
                                     $result = mysqli_query($db_link, $query);
                                     $i = 1;
                                     while ($row = mysqli_fetch_array($result)) {

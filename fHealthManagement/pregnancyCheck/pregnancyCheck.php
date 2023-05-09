@@ -14,6 +14,9 @@ require_once("../../SQLServer.php");
   <script src="../../jquery-tablepage-1.0.js"></script>
   <link rel="stylesheet" href="../../css/text_box2.css">
   <link rel="stylesheet" href="../../css/indexcss.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.js"></script>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <link rel="stylesheet" href="../../css/d3.css">
   <title>智慧飼牛系統</title>
 
 
@@ -50,7 +53,11 @@ require_once("../../SQLServer.php");
               </thead>
               <tbody>
                 <?php
-                $query = "SELECT * FROM cows_information ";
+                $query = "SELECT cows_information.sn, cows_information.id, sensor_management.states
+                FROM cows_information
+                JOIN sensor_management ON cows_information.id = sensor_management.cid
+                WHERE sensor_management.states='疑似發情'
+                ";
                 $result = mysqli_query($db_link, $query);
                 // $num = mysqli_num_rows($result);
                 // $per = 3; //每頁顯示項目數量
@@ -68,15 +75,256 @@ require_once("../../SQLServer.php");
                 // $query .= "ORDER BY `id` DESC LIMIT $start,$per";
 
                 // $result = mysqli_query($db_link, $query);
-                // $i = 1;
+                $i = 1;
                 while ($row = mysqli_fetch_array($result)) {
+                  if ($i != 1) {
+                    $i += 1; //unfix bug tr生成為1 3 5 7
+                  }
                   echo "<tr>";
+                  $sn = $row['sn'];
                   $id = $row['id'];
                   echo "<td>$id</td>";
-                  echo "<td><img src=\"./發情.PNG\" width=\"75%\"></td>";
-                  echo "<td><input type=\"button\" class=\"addEstrusDate btn-primary btn\" value=\"發情日期\" GetID=\"$id\"> <br><br> <input type=\"button\" class=\"addMatingDate btn-primary btn\" value=\"配種日期\" GetID=\"$id\"></td>";
+                  echo "<td></td>";
+                  echo "<td><input type=\"button\" class=\"addEstrusDate btn-primary btn\" value=\"發情日期\" GetSn=\"$sn\" GetID=\"$id\"> <br><br> <input type=\"button\" class=\"addMatingDate btn-primary btn\" value=\"配種日期\" GetSn=\"$sn\" GetID=\"$id\"></td>";
                   echo "</tr>";
-                  // $i += 1;
+                  echo "<script>
+                  d3.json('pedometerData.php?id={$id}').then(function(data) {
+
+                      // 先算平均數
+                      var avg = Math.round(data.reduce((sum, d) => sum + d.value, 0) / data.length);
+                      if(Number.isNaN(avg)){avg=0;}
+                      // 再算標準差
+                      var sd = Math.round(Math.sqrt(data.reduce((sum, d) => sum + Math.pow(d.value - avg, 2), 0) / data.length));
+                      if(Number.isNaN(sd)){sd=0;}
+                      //轉換資料
+                      data = data.map((d) => {
+                          return {
+                            date: d.date,
+                            value: Math.round((d.value - avg) / sd * 100) / 100   // 原始活動-平均/標準差(四捨五入到小數點2位)
+                          };
+                        });
+
+
+              // SVG 尺寸
+              var margin = {
+                      top: 30,
+                      right: 30,
+                      bottom: 50,
+                      left: 50
+                  },
+                  width = 870 - margin.left - margin.right,
+                  height = 250 - margin.top - margin.bottom;
+              // 繪圖區域
+              var svg{$i} = d3.select('tbody tr:nth-child({$i}) td:nth-child(2)').append('svg')
+                  .attr('width', width + margin.left + margin.right)
+                  .attr('height', height + margin.top + margin.bottom)
+                  .attr('id','svg$i')
+                  .append('g')
+                  .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+
+                  var endDate = moment();  // 創建一個新的 Moment 對象
+                  endDate.hour(23);        // 設置小時為 23
+                  endDate.minute(59);      // 設置分鐘為 59
+                  endDate.second(59);      // 設置秒數為 59
+
+                  var y = d3.scaleLinear()
+                  .range([height, 0])
+                  .domain([-10, 30]);
+
+                  var yAxis = d3.axisLeft(y);
+
+              if (Array.isArray(data) && data.length == 0) {
+                  // 取得現在的日期時間
+                  var now = new Date();
+                  // 設定日期範圍為現在的日期時間往前推6天至現在的日期時間
+                  var startDate = new Date(now.getTime() - 6 * 24 * 60 * 60 * 1000);
+              }else{
+                  // 將日期字串轉成日期物件
+                  var parseTime = d3.timeParse('%Y-%m-%d %H:%M:%S.%L');
+                  data.forEach(function(d) {
+                      d.date = parseTime(d.date)
+                  });
+                  // 取得日期範圍
+                  var extent = d3.extent(data, function(d) {
+                      return d.date;
+                  });
+                  var startDate = extent[0];
+              }
+
+              // 將日期範圍傳遞到d3.scaleTime()的domain()方法中
+              var x = d3.scaleTime()
+                  .range([0, width])
+                  .domain([startDate, endDate]);
+
+              var xAxis = d3.axisBottom(x)
+                  .tickFormat(d3.timeFormat('%m-%d'))
+                  .ticks(d3.timeDay.every(1));
+
+              //繪製折線圖x軸
+              svg{$i}.append('g')
+                  .attr('class', 'x axis')
+                  .attr('transform', 'translate(0,' + height + ')')
+                  .call(xAxis);
+              //繪製折線圖y軸
+              svg{$i}.append('g')
+                  .attr('class', 'y axis')
+                  .call(yAxis)
+                  .append('text')
+                  .attr('class', 'label')
+                  .attr('transform', 'rotate(-90)')
+                  .attr('y', 6)
+                  .attr('dy', '.71em')
+                  .style('text-anchor', 'end')
+                  .text('步數');
+
+              // 繪製活動量折線
+              var line = d3.line()
+                  .x(function(d) {
+                      return x(new Date(d.date));
+                  })
+                  .y(function(d) {
+                      return y(d.value);
+                  })
+                  .curve(d3.curveLinear);
+              svg{$i}.append('path')
+                  .datum(data)
+                  .attr('class', 'line')
+                  .attr('d', line);
+
+              // 繪製目前時間紅色直線
+              svg{$i}.append('line')
+                  .attr('class', 'line-current')
+                  .attr('x1', x(new Date())) // 起始 x 座標
+                  .attr('y1', 0) // 起始 y 座標
+                  .attr('x2', x(new Date())) // 結束 x 座標
+                  .attr('y2', height); // 結束 y 座標
+              // 目前時間紅色直線文字標示
+              svg{$i}.append('text')
+                  .attr('class', 'text-current')
+                  .attr('x', x(new Date())) // x 座標
+                  .attr('y', 0) // y 座標
+                  .text(moment().format('HH:mm')) // 標示文字
+                  .attr('fill', 'red');
+
+              // 繪製平均活動量黑色虛橫線
+              svg{$i}.append('line')
+                  .attr('x1', 0) // 起始 x 座標
+                  .attr('y1', y(0)) // 起始 y 座標
+                  .attr('x2', width) // 結束 x 座標
+                  .attr('y2', y(0)) // 結束 y 座標
+                  .attr('stroke', 'black') // 線條顏色
+                  .attr('stroke-width', 1) // 線條粗細
+                  .attr('stroke-dasharray', '5,5'); // 線條樣式
+
+              // 平均活動量黑色虛橫線文字標示 \"平均活動量\"
+              svg{$i}.append('text')
+                  .attr('class', 'text-current')
+                  .attr('x', width - (width*0.15)) // x 座標
+                  .attr('y', y(-20)) // y 座標
+                  .text('平均活動量:') // 標示文字
+                  .attr('fill', 'black');
+              svg{$i}.append('text')
+                  .attr('class', 'text-current')
+                  .attr('x', width - (width*0.02)) // x 座標
+                  .attr('y', y(-20)) // y 座標
+                  .text(avg) // 標示avg
+                  .attr('fill', 'black');
+
+              //標示圖案說明
+              svg{$i}.append('circle')
+                  .attr('class', 'dot-high-text')
+                  .attr('cx', width - (width*0.28)) // x 座標
+                  .attr('cy', y(-19)) // y 座標
+                  .attr('r', 5)
+                  .attr('fill', 'red');
+              svg{$i}.append('text')
+                  .attr('class', 'dot-high-text')
+                  .attr('x', width - (width*0.28)+10) // x 座標
+                  .attr('y', y(-20)) // y 座標
+                  .text('疑似發情') // 標示avg
+                  .attr('fill', 'black');
+              svg{$i}.append('circle')
+                  .attr('class', 'dot-low-text')
+                  .attr('cx', width - (width*0.4)) // x 座標
+                  .attr('cy', y(-19)) // y 座標
+                  .attr('r', 5)
+                  .attr('fill', 'gold');
+              svg{$i}.append('text')
+                  .attr('class', 'dot-low-text')
+                  .attr('x', width - (width*0.4)+10) // x 座標
+                  .attr('y', y(-20)) // y 座標
+                  .text('活動量低') // 標示avg
+                  .attr('fill', 'black');
+
+              // 繪製高係數的點標記
+              svg{$i}.selectAll('.dot-high{$i}')
+                  .data(data.filter(function(d) {
+                      return d.value > 5;
+                  }))
+                  .enter().append('circle')
+                  .attr('class', 'dot-high{$i}')
+                  .attr('cx', function(d) {
+                      return x(new Date(d.date));
+                  })
+                  .attr('cy', function(d) {
+                      return y(d.value);
+                  })
+                  .attr('r', 5)
+                  .attr('fill', 'red');
+
+              // 繪製低係數的點標記
+              svg{$i}.selectAll('.dot-low{$i}')
+                  .data(data.filter(function(d) {
+                      return d.value < -1.5;
+                  }))
+                  .enter().append('circle')
+                  .attr('class', 'dot-low{$i}')
+                  .attr('cx', function(d) {
+                      return x(new Date(d.date));
+                  })
+                  .attr('cy', function(d) {
+                      return y(d.value);
+                  })
+                  .attr('r', 5)
+                  .attr('fill', 'gold');
+              // 加上滑鼠事件
+              svg{$i}.selectAll('.dot-low{$i}')
+                  .style('cursor', 'pointer')
+                  .on('mouseover', function(event, d) {
+                      tooltip
+                      .html('日期:'+ moment(d.date).format('YYYY-MM-DD HH:mm:ss')+'<br>低係數:' + d.value )
+                      .style('left', event.pageX + 10 + 'px')
+                      .style('top', event.pageY + 'px')
+                      .style('opacity', 1);
+                  })
+                  .on('mousemove', function(event) {
+                      tooltip
+                      .style('left', event.pageX + 10 + 'px')
+                      .style('top', event.pageY + 'px');
+                  })
+                  .on('mouseleave', function() {
+                      tooltip.style('opacity', 0);
+                  });
+              svg{$i}.selectAll('.dot-high{$i}')
+                  .style('cursor', 'pointer')
+                  .on('mouseover', function(event, d) {
+                      tooltip
+                      .html('日期:'+ moment(d.date).format('YYYY-MM-DD HH:mm:ss')+'<br>高係數:' + d.value )
+                      .style('left', event.pageX + 10 + 'px')
+                      .style('top', event.pageY + 'px')
+                      .style('opacity', 1);
+                  })
+                  .on('mousemove', function(event) {
+                      tooltip
+                      .style('left', event.pageX + 10 + 'px')
+                      .style('top', event.pageY + 'px');
+                  })
+                  .on('mouseleave', function() {
+                      tooltip.style('opacity', 0);
+                  });
+              });
+          </script>";
+                  $i += 1;
                 }
                 ?>
               </tbody>
@@ -276,7 +524,7 @@ require_once("../../SQLServer.php");
                     <td><?php echo $id ?></td>
                     <td><?php echo $estrusdate ?></td>
                     <td><?php echo $matingdate ?></td>
-                    <td><?php echo $birthparity."({$matingcount})"; ?></td>
+                    <td><?php echo $birthparity . "({$matingcount})"; ?></td>
                     <td><?php echo $intervaldays ?></td>
                     <td><?php echo $pregnancydate ?></td>
                     <td><?php echo $pregnancyresult ?></td>
