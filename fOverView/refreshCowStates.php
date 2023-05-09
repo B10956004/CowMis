@@ -5,7 +5,7 @@ if ($_GET['Refresh'] == true) {
     //計算資料庫裡標準化值大於5和小於-5的id各有多少
     $pedoQuery = "SELECT pedometer.id, 
     IFNULL(SUM(CASE WHEN (pedometer.value - sub.avg_value) / sub.std_dev > 5 THEN 1 ELSE 0 END), 0) AS count_above_5,
-    IFNULL(SUM(CASE WHEN (pedometer.value - sub.avg_value) / sub.std_dev < -5 THEN 1 ELSE 0 END), 0) AS count_below_neg_5
+    IFNULL(SUM(CASE WHEN (pedometer.value - sub.avg_value) / sub.std_dev < -1.5 THEN 1 ELSE 0 END), 0) AS count_below_neg_5
     FROM pedometer
     LEFT JOIN (
         SELECT id, AVG(value) AS avg_value, STDDEV(value) AS std_dev

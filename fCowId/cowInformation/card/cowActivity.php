@@ -199,7 +199,7 @@ $result = mysqli_query($db_link, $query);
     // 繪製低係數的點標記
     svg.selectAll('.dot-low')
         .data(data.filter(function(d) {
-            return d.value < -5;
+            return d.value < -1.5;
         }))
         .enter().append('circle')
         .attr('class', 'dot-low')

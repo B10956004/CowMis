@@ -266,7 +266,7 @@ require("../../SQLServer.php");
                                     // 繪製低係數的點標記
                                     svg{$i}.selectAll('.dot-low{$i}')
                                         .data(data.filter(function(d) {
-                                            return d.value < -5;
+                                            return d.value < -1.5;
                                         }))
                                         .enter().append('circle')
                                         .attr('class', 'dot-low{$i}')
