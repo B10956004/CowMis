@@ -198,7 +198,7 @@ $result = mysqli_query($db_link, $query);
     // 繪製高係數的點標記
     svg.selectAll('.dot-high')
         .data(data[0].filter(function(d) {
-            return d.value > 5;
+            return d.value >= 1.8;
         }))
         .enter().append('circle')
         .attr('class', 'dot-high')
@@ -214,7 +214,7 @@ $result = mysqli_query($db_link, $query);
     // 繪製低係數的點標記
     svg.selectAll('.dot-low')
         .data(data[0].filter(function(d) {
-            return d.value < -1.5;
+            return d.value <= -1.65;
         }))
         .enter().append('circle')
         .attr('class', 'dot-low')

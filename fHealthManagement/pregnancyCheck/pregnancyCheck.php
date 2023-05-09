@@ -287,7 +287,7 @@ require_once("../../SQLServer.php");
               // 繪製高係數的點標記
               svg{$i}.selectAll('.dot-high{$i}')
                   .data(data[0].filter(function(d) {
-                      return d.value > 5;
+                      return d.value > 1.8;
                   }))
                   .enter().append('circle')
                   .attr('class', 'dot-high{$i}')
@@ -303,7 +303,7 @@ require_once("../../SQLServer.php");
               // 繪製低係數的點標記
               svg{$i}.selectAll('.dot-low{$i}')
                   .data(data[0].filter(function(d) {
-                      return d.value < -1.5;
+                      return d.value < -1.65;
                   }))
                   .enter().append('circle')
                   .attr('class', 'dot-low{$i}')
