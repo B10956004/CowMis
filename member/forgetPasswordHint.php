@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (isset($_SESSION['username'])) {
-  header("Refresh: 0; url=../index.php");
+  header("Refresh: 0; url=../home.php");
   exit;
 }
 
@@ -109,7 +109,7 @@ while ($row = mysqli_fetch_assoc($result)) {
           <input type="text" name="answer" id="answer" placeholder="回答:" class="form-control" required>
           <input type="hidden" name="email" value=<?php echo $email;?>>
           <button type="submit" value="Submit" class="btton"> <span>查詢密碼</span></button></br>
-          <a href="../index.php" class="reg">回首頁</a> <a href="register.php" class="reg">註冊管理員</a> <a href="forgotPassword.php" class="reg">忘記密碼</a>
+          <a href="../home.php" class="reg">回首頁</a> <a href="register.php" class="reg">註冊管理員</a> <a href="forgotPassword.php" class="reg">忘記密碼</a>
         </div>
       </form>
       <br>

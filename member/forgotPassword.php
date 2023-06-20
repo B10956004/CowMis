@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (isset($_SESSION['username'])) {
-  header("Refresh: 0; url=../index.php");
+  header("Refresh: 0; url=../home.php");
   exit;
 }
 
@@ -90,7 +90,7 @@ if (isset($_SESSION['username'])) {
           <input type="email" name="email" id="email" class="form-control" placeholder="輸入電子郵件" required>
           <br>
           <button type="submit" value="Submit" class="btton"> <span>送出</span></button></br>
-          <a href="../index.php" class="reg">回登入首頁</a> <a href="register.php" class="reg">註冊管理員</a> <a href="forgotPassword.php" class="reg">忘記密碼</a>
+          <a href="../home.php" class="reg">回登入首頁</a> <a href="register.php" class="reg">註冊管理員</a> <a href="forgotPassword.php" class="reg">忘記密碼</a>
         </div>
       </form>
       <br>

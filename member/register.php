@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (isset($_SESSION['username'])) {
-  header("Refresh: 0; url=../index.php");
+  header("Refresh: 0; url=../home.php");
   exit;
 }
 
@@ -96,10 +96,10 @@ if (isset($_SESSION['username'])) {
           $hian = $_POST['hintAns'];
           $sql_query = "INSERT INTO user (username,password,email,hint,hintAns,showPassword) VALUES ('$cusnm','$cpswd','$cEmail','$hi','$hian','$password')";
           mysqli_query($db_link, $sql_query);
-          header("Location: ../index.php");
+          header("Location: ../home.php");
         }
         ?>
-        <a href="../index.php" class="reg">回登入首頁</a> <a href="forgotPassword.php" class="reg">忘記密碼</a>
+        <a href="../home.php" class="reg">回登入首頁</a> <a href="forgotPassword.php" class="reg">忘記密碼</a>
 
       </div>
 

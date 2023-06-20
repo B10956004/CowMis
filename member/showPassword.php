@@ -3,7 +3,7 @@
 <?php
 session_start();
 if (isset($_SESSION['username'])) {
-  header("Refresh: 0; url=../index.php");
+  header("Refresh: 0; url=../home.php");
   exit;
 }
 
@@ -162,7 +162,7 @@ try {
       <br>
       <div style="border-radius:10px;background:rgba(255,255,255,0.7);padding:20px;margin-bottom:5px;width:580px;height:auto;margin:0 auto;text-align:center;">
         <?php echo "<p style=\"color:#07A862;bold;\">您的密碼已經寄到{$email}</p>"; ?>
-        <button onclick="location.href='../index.php'" type="button" class="btton"> <span>回登入首頁</span></button></br>
+        <button onclick="location.href='../home.php'" type="button" class="btton"> <span>回登入首頁</span></button></br>
       </div>
       <br>
     </h2>
