@@ -1,7 +1,11 @@
 <?php
 require_once("../../SQLServer.php");
 $area = $_POST['area'];
-$sql = "SELECT * FROM cows_information WHERE area = '$area'";
+$sql = "SELECT * 
+FROM cows_information 
+WHERE area = '$area' 
+AND id NOT IN (SELECT cid FROM sensor_management);
+";
 $result = mysqli_query($db_link, $sql);
 
 $ids = array();
