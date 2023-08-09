@@ -64,7 +64,7 @@ require("../../SQLServer.php");
                                         $id = $_GET['GetID'];
                                         $query = "SELECT * FROM cows_information WHERE id='$id' ";
                                     } else {
-                                        $query = "SELECT * FROM cows_information LIMIT 3";
+                                        $query = "SELECT * FROM `cows_information` WHERE id in (SELECT cid FROM sensor_management)";
                                     }
 
                                     $result = mysqli_query($db_link, $query);
