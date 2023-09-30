@@ -25,10 +25,10 @@
         $.getJSON('https://opendata.cwb.gov.tw/fileapi/v1/opendataapi/F-D0047-035?Authorization=CWB-178FCBE0-1BDD-44D1-918D-30FADBBCD5BF&downloadType=WEB&format=JSON')
             .done(function(re) {
                 console.log(re);
-                let kl = re.cwbopendata.dataset.locations.location[0]; //萬丹鄉
-                let tp = re.cwbopendata.dataset.locations.location[1]; //霧台鄉
-                let nt = re.cwbopendata.dataset.locations.location[2]; //新園鄉
-                let tu = re.cwbopendata.dataset.locations.location[4]; //萬丹
+                let kl = re.cwaopendata.dataset.locations.location[0]; //萬丹鄉
+                let tp = re.cwaopendata.dataset.locations.location[1]; //霧台鄉
+                let nt = re.cwaopendata.dataset.locations.location[2]; //新園鄉
+                let tu = re.cwaopendata.dataset.locations.location[4]; //萬丹
                 let date_line = new Array();
                 let k = new Array(),
                     t = new Array(),
