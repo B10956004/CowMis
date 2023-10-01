@@ -2,9 +2,9 @@
 <html lang="en">
 
 <head>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script> -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <meta charset="utf-8">
     <!--<meta http-equiv="refresh" content="60;url='http://140.127.22.165//豬隻V2.1/index.php'"/>-->
@@ -13,7 +13,7 @@
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
@@ -85,6 +85,22 @@
                 alert("get this api fail so said!");
             });
     </script>
+    <style>
+        #cameraContainer {
+            width: 640px;
+            /* 寬度 */
+            height: 480px;
+            /* 高度 */
+            position: relative;
+            overflow: hidden;
+        }
+
+        #cameraFrame {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+    </style>
 </head>
 
 <body>
@@ -101,7 +117,7 @@
                             // 更新數據
                             var time = xhr.responseText;
                             if (time == ' ') {
-                                time=moment().add(-10,'second');
+                                time = moment().add(-10, 'second');
                             } else {
                                 var time = moment(time).format('YYYY-MM-DD HH:mm:ss');
                             }
@@ -304,14 +320,30 @@
                         setInterval(updateTHI, 1000);
                     </script>
                 </div>
+                
+                <center>
+                    <div class="col-2">
+                        <br>
+                        <h5 style="text-align: center;">牧場即時觀測</h5>
+                        <label for="cameraSelect">切換鏡頭:</label>
+                        <select class="form-select" id="cameraSelect">
+                            <option selected value="camera1">鏡頭1</option>
+                            <option value="camera2">鏡頭2</option>
+                        </select>
+                    </div>
+                    <div id="cameraContainer">
+                        <div id="cameraFrame"></div>
+                    </div>
+                </center>
+                <script src="CamScript.js"></script>
+
                 <div class="col-12">
-                    <br>
-                    <br>
                     <h5 style="text-align: center;">一週天氣預報</h5>
                     <canvas id="weatherWeek" width="500" height="150"></canvas>
                 </div>
             </div>
         </div>
+    </div>
     </div>
 </body>
 
