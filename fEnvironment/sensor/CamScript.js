@@ -2,14 +2,14 @@ const cameraSelect = document.getElementById('cameraSelect');
 const cameraContainer = document.getElementById('cameraContainer'); // 獲取新的容器
 
 // 初始，加載鏡頭1畫面
-loadCameraStream('http://192.168.1.118:8001/stream.mjpg'); //ip位置
+loadCameraStream('http://cowmis.ddns.net:8000/stream.mjpg'); //ip位置
 
 cameraSelect.addEventListener('change', function() {
     const selectedCamera = cameraSelect.value;
     if (selectedCamera === 'camera1') {
-        loadCameraStream('http://192.168.1.118:8001/stream.mjpg'); //ip位置
+        loadCameraStream('http://cowmis.ddns.net:8000/stream.mjpg'); //ip位置
     } else if (selectedCamera === 'camera2') {
-        loadCameraStream('http://192.168.1.118:8001/stream.mjpg'); //ip位置
+        loadCameraStream('http://cowmis.ddns.net:8000/stream.mjpg'); //ip位置
     }
 });
 
