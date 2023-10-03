@@ -17,7 +17,7 @@ if ($_GET['Refresh'] == true) {
                 STDDEV_POP(value) OVER (PARTITION BY id ORDER BY (Date(date) - CURDATE()) RANGE BETWEEN 1 PRECEDING AND CURRENT ROW)as rolling_std_dev
             FROM (SELECT DISTINCT id, date, value FROM pedometer WHERE date BETWEEN DATE_SUB(NOW(), INTERVAL 7 DAY) AND NOW()) AS pedometer
         ) AS sub_query
-        GROUP by id,Date(date)) AS sub ON pedometer.id = sub.id
+        GROUP by id,Date(date), rolling_avg, rolling_std_dev) AS sub ON pedometer.id = sub.id
     WHERE (pedometer.date BETWEEN DATE_SUB(NOW(), INTERVAL 7 DAY) AND NOW() OR DATE(pedometer.date) = CURDATE())
     GROUP BY pedometer.id;";
     

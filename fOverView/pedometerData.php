@@ -23,7 +23,7 @@ FROM (
         STDDEV_POP(value) OVER (PARTITION BY id ORDER BY (Date(date) - CURDATE()) RANGE BETWEEN 1 PRECEDING AND CURRENT ROW)as rolling_std_dev
     FROM (SELECT DISTINCT id, date, value FROM pedometer WHERE date BETWEEN DATE_SUB(NOW(), INTERVAL 7 DAY) AND NOW()) AS pedometer
 ) AS sub_query
-WHERE id='$id' GROUP by id,Date(date)");
+WHERE id='$id' GROUP by id,Date(date), rolling_avg, rolling_std_dev");
 while($row=$resultRolling->fetch_assoc()){
     $data[1][]=[
         'avg'=>$row['avg'],
