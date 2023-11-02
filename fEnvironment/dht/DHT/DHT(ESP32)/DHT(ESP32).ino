@@ -54,16 +54,8 @@ void loop() {
     client.println("Connection closed.");
     client.stop(); // 關閉連線
     }
-
-    WiFi.begin(ssid, password);
-    while (WiFi.status() != WL_CONNECTED) {
-      delay(500);
-      Serial.print(".");
-    }
-    Serial.println("");
-    Serial.println("WiFi connected");
-    Serial.println("IP address: ");
-    Serial.println(WiFi.localIP());
+    // WiFi.reconnect();
+    ESP.restart();
   }
   // connent server
   if (!client.connect(server, 80)) {
