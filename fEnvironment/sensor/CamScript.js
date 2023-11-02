@@ -9,7 +9,7 @@ cameraSelect.addEventListener('change', function() {
     if (selectedCamera === 'camera1') {
         loadCameraStream('http://cowmis.ddns.net:8000/stream.mjpg'); //ip位置
     } else if (selectedCamera === 'camera2') {
-        loadCameraStream('http://cowmis.ddns.net:8000/stream.mjpg'); //ip位置
+        loadCameraStream('http://cowmis.ddns.net:8001/stream.mjpg'); //ip位置
     }
 });
 
