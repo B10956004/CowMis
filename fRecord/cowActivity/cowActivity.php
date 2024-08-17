@@ -28,6 +28,29 @@
 require("../../SQLServer.php");
 ?>
 
+<?php
+// fake
+
+// $id="05Q119";
+// $date="2023-10-04";
+// $hour=0;
+// $value=0;
+// for($hour=0;$hour<24;$hour++){
+//     $min=rand(0,59);
+//     $min = ($min<10) ? $min=.0.$min : $min ;
+//     $sec=rand(0,59);
+//     $sec = ($sec<10) ? $sec=.0.$sec : $sec ;
+//     if($hour<10){
+//         $addDate=$date.' 0'.$hour.':'.$min.':'.$sec;
+//     }else{
+//         $addDate=$date.' '.$hour.':'.$min.':'.$sec;
+//     }
+//     $value+=rand(100,150);
+//     $sql="INSERT INTO `pedometer`(`id`, `date`, `value`) VALUES ('$id','$addDate','$value')";
+//     mysqli_query($db_link,$sql);
+// }
+?>
+
 <body>
     <div id="content" style="width:100%; height:100% ;   padding:1.5rem  ;   ">
         <span class="col-6" style="font-weight:bold;font-size:25px;"><i class="fas fa-chart-area"></i>&nbsp;乳牛活動感知</span>
