@@ -8,8 +8,8 @@ const char* password = "YOUR-PASSWORD";
 const char* server = "YOUR-SERVER-ADDRESS"; // Server地址
 
 // DHT11傳感器
-#define DHTPIN 4
-#define DHTTYPE DHT11
+#define DHTPIN 4  
+#define DHTTYPE DHT22
 DHT dht(DHTPIN, DHTTYPE);
 
 WiFiClient client;
@@ -35,7 +35,7 @@ void setup() {
   Serial.println("IP address: ");
   Serial.println(WiFi.localIP());
 
-  // 初始化DHT11傳感器
+  // 初始化DHT22傳感器
   dht.begin();
 }
 
@@ -48,33 +48,48 @@ void loop() {
     Serial.println("Failed to read from DHT sensor!");
     return;
   }
+  float thi=9.0/5.0*t+32-0.55*(1-(h/100))*(9.0/5.0*t-26);
+
+  
+  //reconnect WiFi
   if(failCounter>=10){
     failCounter=0;
     if (client.connected()) {
     client.println("Connection closed.");
     client.stop(); // 關閉連線
     }
-    // WiFi.reconnect();
-    ESP.restart();
+
+    WiFi.begin(ssid, password);
+    while (WiFi.status() != WL_CONNECTED) {
+      delay(500);
+      Serial.print(".");
+    }
+    Serial.println("");
+    Serial.println("WiFi connected");
+    Serial.println("IP address: ");
+    Serial.println(WiFi.localIP());
   }
   // connent server
   if (!client.connect(server, 80)) {
     Serial.println("Connection failed");
     failCounter+=1;
-    delay(1000);
+    delay(500);
     return;
   }
 
   // send http request
-  client.print("GET /CowMis/fEnvironment/dht/sendDHT.php?");
+  client.print("GET /cowmis/fEnvironment/dht/sendDHT.php?");
   client.print("temperature=");
   client.print(t);
   client.print("&humidity=");
   client.print(h);
+  client.print("&THI=");
+  client.print(thi);
   client.println(" HTTP/1.1");
   client.print("Host: ");
   client.println(server);
   client.println("Connection: close");
   client.println();
+
   delay(1000);
 }
