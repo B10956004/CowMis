@@ -39,7 +39,7 @@ if (isset($_POST['matingDate'])) {
         $query = "INSERT INTO `pregnancy_check`(`id`, `matingDate`,`birthParity`) VALUES('$id','$matingDate','$birthparity')";
         $result = mysqli_query($db_link, $query);
         if ($result) {
-            header("location:cowActivity.php");
+            echo '<script>window.location.href = "cowActivity.php";</script>';
         } else {
             echo 'Please Check Your Query';
         }
@@ -53,7 +53,7 @@ if (isset($_POST['matingDate'])) {
         $query = "UPDATE `pregnancy_check` SET `matingDate`='$matingDate',`matingcount`='$matingcount' WHERE `sn`='$sn' AND `id`='$id'";
         $result = mysqli_query($db_link, $query);
         if ($result) {
-            header("location:cowActivity.php");
+            echo '<script>window.location.href = "cowActivity.php";</script>';
         } else {
             echo 'Please Check Your Query';
         }

@@ -32,10 +32,16 @@ require("../../SQLServer.php");
 // fake
 
 // $id="05Q119";
-// $date="2023-10-04";
+// $date="2025-04-16";
+// $date="2025-04-17";
+// $date="2025-04-18";
+// $date="2025-04-19";
+// $date="2025-04-20";
+// $date="2025-04-21";
+// $date="2025-04-22";
 // $hour=0;
 // $value=0;
-// for($hour=0;$hour<24;$hour++){
+// for($hour=0;$hour<10;$hour++){
 //     $min=rand(0,59);
 //     $min = ($min<10) ? $min=.0.$min : $min ;
 //     $sec=rand(0,59);
@@ -45,7 +51,7 @@ require("../../SQLServer.php");
 //     }else{
 //         $addDate=$date.' '.$hour.':'.$min.':'.$sec;
 //     }
-//     $value+=rand(100,150);
+//     $value+=rand(0,130);
 //     $sql="INSERT INTO `pedometer`(`id`, `date`, `value`) VALUES ('$id','$addDate','$value')";
 //     mysqli_query($db_link,$sql);
 // }
@@ -53,7 +59,7 @@ require("../../SQLServer.php");
 
 <body>
     <div id="content" style="width:100%; height:100% ;   padding:1.5rem  ;   ">
-        <span class="col-6" style="font-weight:bold;font-size:25px;"><i class="fas fa-chart-area"></i>&nbsp;乳牛活動感知</span>
+        <span class="col-6" style="font-weight:bold;font-size:25px;"><i class="fas fa-chart-area"></i>&nbsp;乳牛活動量統計</span>
         <div class="container">
             <div class="row bg-light shadow p-3 mt-2">
                 <div class="col-12">
@@ -163,12 +169,12 @@ require("../../SQLServer.php");
                                         data[0] = data[0].map((item, index) => {
                                             return {
                                                 date:item.date,
-                                                value: result[index]
+                                                value: (typeof val === 'number' && isFinite(val)) ? val : 0  // 避免 NaN / Infinity
                                             };
                                         }); 
 
                                         // 將日期字串轉成日期物件
-                                        var parseTime = d3.timeParse('%Y-%m-%d %H:%M:%S.%L');
+                                        var parseTime = d3.timeParse('%Y-%m-%d %H:%M:%S');
                                         data[0].forEach(function(d) {
                                             d.date = parseTime(d.date)
                                         });
@@ -288,7 +294,7 @@ require("../../SQLServer.php");
                                     // 繪製高係數的點標記
                                     svg{$i}.selectAll('.dot-high{$i}')
                                         .data(data[0].filter(function(d) {
-                                            return d.value > 1.8;
+                                            return d.value > 1.5;
                                         }))
                                         .enter().append('circle')
                                         .attr('class', 'dot-high{$i}')
@@ -304,7 +310,7 @@ require("../../SQLServer.php");
                                     // 繪製低係數的點標記
                                     svg{$i}.selectAll('.dot-low{$i}')
                                         .data(data[0].filter(function(d) {
-                                            return d.value < -1.65;
+                                            return d.value < -1.4;
                                         }))
                                         .enter().append('circle')
                                         .attr('class', 'dot-low{$i}')
